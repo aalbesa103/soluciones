@@ -235,6 +235,81 @@
       100% { transform: translate(-20px, 20px) scale(0.9); }
     }
 
+    /* Video Section Styles */
+    .videos-section {
+      margin-top: 4rem;
+      width: 100%;
+      text-align: left;
+      animation: fadeInUp 1s ease-out both;
+      animation-delay: 0.6s;
+    }
+
+    .videos-section h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.2rem;
+      margin-bottom: 2rem;
+      font-weight: 700;
+      color: #f8fafc;
+      text-align: center;
+      position: relative;
+    }
+
+    .videos-section h2::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, #60a5fa, #c084fc);
+      margin: 0.5rem auto 0;
+      border-radius: 2px;
+    }
+
+    .videos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 1rem;
+    }
+
+    .video-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .video-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    .video-card video {
+      width: 100%;
+      aspect-ratio: 16/9;
+      display: block;
+      background: #000;
+    }
+
+    .video-card-content {
+      padding: 1.5rem;
+    }
+
+    .video-card-content h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.2rem;
+      color: #f8fafc;
+      margin-bottom: 0.5rem;
+    }
+
+    .video-card-content p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
     @media (max-width: 768px) {
       .container { padding: 1.5rem; }
       .cards-container { grid-template-columns: 1fr; }
@@ -278,6 +353,46 @@
         </div>
       </a>
     </div>
+
+    <!-- Videos section added -->
+    <div class="videos-section">
+      <h2>Videos Oficiales de la Cátedra</h2>
+      <div class="videos-grid">
+        <div class="video-card">
+          <video controls preload="metadata">
+            <source src="teoria%20titular/sol_1.mp4" type="video/mp4">
+            Tu navegador no soporta video.
+          </video>
+          <div class="video-card-content">
+            <h3>Soluciones - Parte 1</h3>
+            <p>Clase teórica oficial sobre los conceptos fundamentales de soluciones químicas.</p>
+          </div>
+        </div>
+        
+        <div class="video-card">
+          <video controls preload="metadata">
+            <source src="teoria%20titular/sol_2.mp4" type="video/mp4">
+            Tu navegador no soporta video.
+          </video>
+          <div class="video-card-content">
+            <h3>Soluciones - Parte 2</h3>
+            <p>Profundización en propiedades y comportamiento de las disoluciones.</p>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <video controls preload="metadata">
+            <source src="teoria%20titular/sol_3.mp4" type="video/mp4">
+            Tu navegador no soporta video.
+          </video>
+          <div class="video-card-content">
+            <h3>Soluciones - Parte 3</h3>
+            <p>Aplicaciones prácticas y propiedades coligativas completas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
 </body>
