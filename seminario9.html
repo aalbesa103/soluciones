@@ -50,10 +50,9 @@ canvas{display:block;width:100%;background:#fff;border-radius:8px;border:1px sol
 .formula-box .label{font-size:.78rem;color:#64748b;margin-top:.4rem}
 .info-box{background:#e0f2fe;border:1px solid #7dd3fc;border-radius:8px;padding:.8rem 1rem;margin:.7rem 0;font-size:.87rem}
 .warning-box{background:#fef9c3;border:1px solid #fde047;border-radius:8px;padding:.8rem 1rem;margin:.7rem 0;font-size:.87rem}
-.video-wrap{background:#1e293b;border-radius:var(--radius);aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#94a3b8;margin-bottom:1.2rem}
-.video-wrap .play-icon{font-size:3rem;opacity:.4;margin-bottom:.6rem}
-.video-wrap p{font-size:.9rem;opacity:.7}
-.video-wrap span{font-size:.78rem;opacity:.45;margin-top:.2rem}
+.video-wrap{background:#1e293b;border-radius:var(--radius);overflow:hidden;margin-bottom:1.2rem}
+.video-wrap video{width:100%;display:block;border-radius:var(--radius) var(--radius) 0 0}
+.video-label{background:#0f172a;color:#94a3b8;text-align:center;padding:.4rem .8rem;font-size:.82rem}
 .questions{background:#fffbf0;border:1px solid #fde68a;border-radius:var(--radius);padding:1.2rem}
 .questions h3{color:#92400e;font-size:.98rem;margin-bottom:.7rem}
 .questions ol{padding-left:1.35rem}
@@ -173,9 +172,10 @@ footer{background:#0f3460;color:#94a3b8;text-align:center;padding:1.5rem;font-si
     </div>
 
     <div class="video-wrap">
-      <div class="play-icon">▶</div>
-      <p>Video: Estados de agregación y fuerzas intermoleculares</p>
-      <span>Próximamente disponible</span>
+      <video controls preload="metadata">
+        <source src="sem9/Estados_de_la_materia.mp4" type="video/mp4">
+      </video>
+      <div class="video-label">▶ Estados de la Materia</div>
     </div>
 
     <div class="questions">
@@ -288,9 +288,10 @@ footer{background:#0f3460;color:#94a3b8;text-align:center;padding:1.5rem;font-si
     </div>
 
     <div class="video-wrap">
-      <div class="play-icon">▶</div>
-      <p>Video: Presión de vapor y ecuación de Clausius-Clapeyron</p>
-      <span>Próximamente disponible</span>
+      <video controls preload="metadata">
+        <source src="sem9/Presión_y_Ebullición.mp4" type="video/mp4">
+      </video>
+      <div class="video-label">▶ Presión y Ebullición</div>
     </div>
 
     <div class="questions">
@@ -401,9 +402,10 @@ footer{background:#0f3460;color:#94a3b8;text-align:center;padding:1.5rem;font-si
     </div>
 
     <div class="video-wrap">
-      <div class="play-icon">▶</div>
-      <p>Video: Diagramas de fases — H₂O vs CO₂</p>
-      <span>Próximamente disponible</span>
+      <video controls preload="metadata">
+        <source src="sem9/Diagramas_de_fase.mp4" type="video/mp4">
+      </video>
+      <div class="video-label">▶ Diagramas de Fase</div>
     </div>
 
     <div class="questions">
@@ -546,9 +548,10 @@ footer{background:#0f3460;color:#94a3b8;text-align:center;padding:1.5rem;font-si
     </div>
 
     <div class="video-wrap">
-      <div class="play-icon">▶</div>
-      <p>Video: Propiedades coligativas — derivación y aplicaciones</p>
-      <span>Próximamente disponible</span>
+      <video controls preload="metadata">
+        <source src="sem9/Propiedades_Coligativas.mp4" type="video/mp4">
+      </video>
+      <div class="video-label">▶ Propiedades Coligativas</div>
     </div>
 
     <div class="questions">
@@ -672,9 +675,10 @@ footer{background:#0f3460;color:#94a3b8;text-align:center;padding:1.5rem;font-si
     </div>
 
     <div class="video-wrap">
-      <div class="play-icon">▶</div>
-      <p>Video: Factor de van't Hoff y electrolitos</p>
-      <span>Próximamente disponible</span>
+      <video controls preload="metadata">
+        <source src="sem9/El_Factor_de_van_t_Hoff.mp4" type="video/mp4">
+      </video>
+      <div class="video-label">▶ El Factor de van't Hoff</div>
     </div>
 
     <div class="questions">
