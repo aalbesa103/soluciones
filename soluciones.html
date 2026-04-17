@@ -1,0 +1,1766 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Soluciones I — Guía de Estudio</title>
+  <script>
+    MathJax = {
+      tex: { inlineMath:[['\\(','\\)'],['$','$']], displayMath:[['\\[','\\]']] },
+      options: { skipHtmlTags:['script','noscript','style','textarea'] }
+    };
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <style>
+    :root{
+      --primary:#1a4f8a;--secondary:#2e7d9c;--accent:#e07b39;
+      --light-bg:#f4f8fc;--card-bg:#ffffff;--text:#1e293b;
+      --muted:#64748b;--border:#cbd5e1;--success:#059669;
+      --warning:#d97706;--radius:12px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--light-bg);color:var(--text);line-height:1.7;}
+
+    header{background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);color:white;padding:2rem 2rem 1.5rem;text-align:center;position:sticky;top:0;z-index:100;box-shadow:0 4px 16px rgba(0,0,0,0.2);}
+    header h1{font-size:1.8rem;font-weight:700;letter-spacing:-0.5px;}
+    header p{font-size:0.9rem;opacity:0.85;margin-top:0.3rem;}
+    nav{display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap;margin-top:1rem;}
+    nav a{color:white;text-decoration:none;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);padding:0.35rem 0.9rem;border-radius:20px;font-size:0.82rem;transition:background 0.2s;}
+    nav a:hover{background:rgba(255,255,255,0.3);}
+
+    .pdf-bar{background:#fff8ed;border-bottom:2px solid var(--accent);padding:0.7rem 2rem;text-align:center;font-size:0.9rem;}
+    .pdf-bar a{color:var(--accent);font-weight:600;text-decoration:none;}
+    .pdf-bar a:hover{text-decoration:underline;}
+
+    main{max-width:1100px;margin:2rem auto;padding:0 1.5rem;}
+
+    /* SECTION */
+    .tema{background:var(--card-bg);border-radius:var(--radius);box-shadow:0 2px 12px rgba(0,0,0,0.07);margin-bottom:3rem;overflow:hidden;border:1px solid var(--border);}
+    .tema-header{background:linear-gradient(90deg,var(--primary) 0%,var(--secondary) 100%);color:white;padding:1.2rem 1.8rem;display:flex;align-items:center;gap:1rem;}
+    .tema-number{background:rgba(255,255,255,0.2);border:2px solid rgba(255,255,255,0.5);border-radius:50%;width:2.4rem;height:2.4rem;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem;flex-shrink:0;}
+    .tema-header h2{font-size:1.2rem;font-weight:700;}
+    .tema-body{padding:1.8rem;}
+
+    /* SUBSECTIONS */
+    .subsection{margin-bottom:2rem;}
+    .subsection-title{display:flex;align-items:center;gap:0.6rem;font-size:1rem;font-weight:700;color:var(--primary);margin-bottom:1rem;padding-bottom:0.4rem;border-bottom:2px solid var(--border);}
+    .subsection-title .icon{background:var(--primary);color:white;border-radius:6px;width:1.8rem;height:1.8rem;display:flex;align-items:center;justify-content:center;font-size:0.95rem;flex-shrink:0;}
+
+    /* CONTENT */
+    .content-text{font-size:0.95rem;color:var(--text);}
+    .content-text p{margin-bottom:0.8rem;}
+    .definition-box{background:#eff6ff;border-left:4px solid var(--primary);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1rem 0;font-size:0.93rem;}
+    .definition-box strong{color:var(--primary);}
+    .formula-box{background:#1e293b;color:#e2e8f0;border-radius:10px;padding:1.2rem 1.5rem;margin:1rem 0;font-size:1rem;text-align:center;overflow-x:auto;}
+    .formula-box .label{font-size:0.75rem;color:#94a3b8;text-align:left;margin-bottom:0.5rem;font-family:sans-serif;}
+    .table-wrap{overflow-x:auto;margin:1rem 0;}
+    table{border-collapse:collapse;width:100%;font-size:0.88rem;}
+    th{background:var(--primary);color:white;padding:0.6rem 0.9rem;text-align:left;}
+    td{padding:0.55rem 0.9rem;border-bottom:1px solid var(--border);}
+    tr:nth-child(even) td{background:#f8fafc;}
+    .stages{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:1rem 0;}
+    .stage-card{border-radius:10px;padding:1rem;border:1px solid var(--border);text-align:center;font-size:0.88rem;}
+    .stage-card .stage-num{font-size:1.5rem;font-weight:800;margin-bottom:0.3rem;}
+    .stage-endo{background:#fef3c7;border-color:#f59e0b;} .stage-endo .stage-num{color:#d97706;}
+    .stage-exo{background:#dcfce7;border-color:#22c55e;} .stage-exo .stage-num{color:#059669;}
+    .highlight-box{background:#fff7ed;border:1px solid #fb923c;border-radius:8px;padding:0.9rem 1.1rem;margin:0.8rem 0;font-size:0.9rem;}
+    .highlight-box strong{color:#c2410c;}
+
+    /* VIDEO */
+    .video-wrap{border-radius:10px;overflow:hidden;background:#000;box-shadow:0 4px 16px rgba(0,0,0,0.15);aspect-ratio:16/9;}
+    .video-wrap video{width:100%;height:100%;display:block;}
+
+    /* QUESTIONS */
+    .questions-container{display:flex;flex-direction:column;gap:1.2rem;}
+    .subsection-subtitle{font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:var(--accent);margin:1rem 0 0.5rem;}
+    .question-item{background:var(--light-bg);border-radius:10px;padding:1rem 1.2rem;border:1px solid var(--border);display:flex;gap:0.8rem;align-items:flex-start;transition:box-shadow 0.2s;}
+    .question-item:hover{box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+    .question-num{background:var(--accent);color:white;border-radius:50%;width:1.7rem;height:1.7rem;display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700;flex-shrink:0;margin-top:0.1rem;}
+    .question-text{font-size:0.9rem;flex:1;}
+    .question-text ul{margin-top:0.4rem;padding-left:1.2rem;}
+    .question-text ul li{margin-bottom:0.3rem;}
+    .problem-item{background:#f0fdf4;border-left:4px solid var(--success);border-radius:0 10px 10px 0;padding:1rem 1.2rem;font-size:0.9rem;display:flex;gap:0.8rem;}
+    .problem-num{background:var(--success);color:white;border-radius:50%;width:1.7rem;height:1.7rem;display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700;flex-shrink:0;margin-top:0.1rem;}
+
+    /* ══ APPLETS ══ */
+    .applets-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:1.2rem;}
+    .applet-card{background:#fff;border-radius:10px;border:1px solid var(--border);overflow:hidden;display:flex;flex-direction:column;box-shadow:0 1px 6px rgba(0,0,0,0.06);}
+    .applet-header{background:linear-gradient(90deg,#1e3a5f,var(--secondary));color:white;padding:0.65rem 1rem;font-weight:700;font-size:0.88rem;display:flex;align-items:center;gap:0.5rem;}
+    .applet-body{padding:1rem;flex:1;display:flex;flex-direction:column;gap:0.7rem;}
+    .applet-desc{font-size:0.8rem;color:var(--muted);font-style:italic;}
+    canvas.apc{width:100%;display:block;border-radius:6px;background:#f8fafc;border:1px solid var(--border);}
+    .ctrl{display:flex;flex-direction:column;gap:0.35rem;}
+    .ctrl label{font-size:0.82rem;font-weight:600;color:var(--text);}
+    .ctrl input[type=range]{width:100%;accent-color:var(--primary);cursor:pointer;}
+    .ctrl select,.ctrl input[type=number]{width:100%;padding:0.35rem 0.5rem;border:1px solid var(--border);border-radius:6px;font-size:0.85rem;background:white;}
+    .out{background:#f0f9ff;border-radius:8px;padding:0.65rem 1rem;font-size:0.88rem;border:1px solid #bae6fd;text-align:center;min-height:2.5rem;}
+    .out .big{font-size:1.05rem;font-weight:800;}
+    .out.green{background:#f0fdf4;border-color:#86efac;color:#166534;}
+    .out.red{background:#fef2f2;border-color:#fca5a5;color:#991b1b;}
+    .out.yellow{background:#fefce8;border-color:#fde047;color:#854d0e;}
+    .out.gray{background:#f8fafc;border-color:#cbd5e1;color:#475569;}
+    .btn-row{display:flex;gap:0.4rem;flex-wrap:wrap;}
+    .abtn{padding:0.38rem 0.7rem;border-radius:6px;border:1px solid var(--border);background:white;cursor:pointer;font-size:0.8rem;font-weight:600;transition:all 0.15s;}
+    .abtn:hover{background:var(--primary);color:white;border-color:var(--primary);}
+    .abtn.ok{background:#dcfce7;border-color:#22c55e;color:#166534;}
+    .abtn.fail{background:#fee2e2;border-color:#ef4444;color:#991b1b;}
+    .abtn.active{background:var(--primary);color:white;border-color:var(--primary);}
+    .chart-full{padding:1.2rem 1.5rem;}
+    .chart-full canvas{max-height:340px;}
+    .inline-row{display:flex;align-items:center;gap:0.8rem;flex-wrap:wrap;}
+    .tag{display:inline-block;padding:0.15rem 0.5rem;border-radius:4px;font-size:0.78rem;font-weight:700;}
+    .tag-polar{background:#dbeafe;color:#1d4ed8;}
+    .tag-apolar{background:#fef3c7;color:#92400e;}
+    .tag-ionica{background:#f3e8ff;color:#7c3aed;}
+
+    footer{text-align:center;padding:2rem;color:var(--muted);font-size:0.85rem;border-top:1px solid var(--border);margin-top:1rem;}
+    @media(max-width:640px){header h1{font-size:1.3rem;}.tema-body{padding:1.2rem;}.stages{grid-template-columns:1fr;}.applets-grid{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>⚗️ Soluciones I</h1>
+  <p>Química · Guía de Estudio con Videos, Gráficos y Applets Interactivos</p>
+  <nav>
+    <a href="#tema1">1. Conceptos generales</a>
+    <a href="#tema2">2. Interacciones</a>
+    <a href="#tema3">3. Termodinámica</a>
+    <a href="#tema4">4. Solubilidad y T°</a>
+    <a href="#tema5">5. Presión y Henry</a>
+  </nav>
+</header>
+
+<div class="pdf-bar">
+  📄 <a href="Copia de 05-SolucionesI.pdf" target="_blank">Descargar apuntes de clase (PDF) →</a>
+</div>
+
+<main>
+
+<!-- ══════════ TEMA 1 ══════════ -->
+<section class="tema" id="tema1">
+  <div class="tema-header"><div class="tema-number">1</div><h2>Conceptos Generales de Soluciones</h2></div>
+  <div class="tema-body">
+
+    <div class="subsection">
+      <div class="subsection-title"><div class="icon">📘</div>Desarrollo Conceptual</div>
+      <div class="content-text">
+        <div class="definition-box"><strong>Solución:</strong> Sistema homogéneo constituido por dos o más sustancias cuya composición puede variar continuamente dentro de ciertos límites. El <strong>soluto</strong> es el componente en menor proporción; el <strong>solvente</strong>, el de mayor proporción.</div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Solvente</th><th>Soluto</th><th>Ejemplo</th></tr></thead>
+          <tbody>
+            <tr><td>Gas</td><td>Gas</td><td>Aire (N₂, O₂, Ar…)</td></tr>
+            <tr><td>Líquido</td><td>Gas</td><td>CO₂ en gaseosas</td></tr>
+            <tr><td>Líquido</td><td>Líquido</td><td>Etanol en agua</td></tr>
+            <tr><td>Líquido</td><td>Sólido</td><td>Azúcar o NaCl en agua</td></tr>
+            <tr><td>Sólido</td><td>Gas</td><td>H₂ en paladio</td></tr>
+            <tr><td>Sólido</td><td>Líquido</td><td>Amalgamas (Hg en metales)</td></tr>
+            <tr><td>Sólido</td><td>Sólido</td><td>Aleaciones (bronce, acero)</td></tr>
+          </tbody>
+        </table></div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Tipo</th><th>Descripción</th></tr></thead>
+          <tbody>
+            <tr><td><strong>No saturada (diluida/concentrada)</strong></td><td>Puede disolver más soluto</td></tr>
+            <tr><td><strong>Saturada</strong></td><td>En equilibrio con el sólido; no puede disolver más</td></tr>
+            <tr><td><strong>Sobresaturada</strong></td><td>Más soluto disuelto que la saturada — estado inestable</td></tr>
+          </tbody>
+        </table></div>
+        <div class="highlight-box"><strong>Ejemplo:</strong> Solubilidad del NaCl = 36,0 g / 100 mL H₂O. Con 30 g → no saturada; 36 g → saturada; 40 g disueltos → sobresaturada (metaestable).</div>
+      </div>
+    </div>
+
+    <!-- APPLETS 1 -->
+    <div class="subsection">
+      <div class="subsection-title"><div class="icon">🔬</div>Applets Interactivos</div>
+      <div class="applets-grid">
+
+        <!-- Applet 1A: Beaker -->
+        <div class="applet-card">
+          <div class="applet-header">🧪 Simulador de saturación — NaCl en agua</div>
+          <div class="applet-body">
+            <div class="applet-desc">Agregá NaCl con el slider y observá cómo cambia el estado de la solución. Solubilidad del NaCl = 36 g / 100 mL.</div>
+            <canvas id="cv1a" class="apc" height="200"></canvas>
+            <div class="ctrl">
+              <label>NaCl añadido: <span id="lbl1a">0</span> g / 100 mL H₂O</label>
+              <input type="range" id="sl1a" min="0" max="55" value="0" step="1">
+            </div>
+            <div class="out" id="out1a"><span class="big">—</span></div>
+          </div>
+        </div>
+
+        <!-- Applet 1B: Classifier quiz -->
+        <div class="applet-card">
+          <div class="applet-header">🎯 Clasificá la solución</div>
+          <div class="applet-body">
+            <div class="applet-desc">Se muestra un escenario. Elegí si la solución es no saturada, saturada o sobresaturada. (Solubilidad NaCl = 36 g/100 mL)</div>
+            <div class="out gray" id="q1b-scenario" style="font-size:0.95rem;min-height:3.5rem;display:flex;align-items:center;justify-content:center;"></div>
+            <div class="btn-row" id="q1b-btns">
+              <button class="abtn" onclick="ans1b('no saturada')">No saturada</button>
+              <button class="abtn" onclick="ans1b('saturada')">Saturada</button>
+              <button class="abtn" onclick="ans1b('sobresaturada')">Sobresaturada</button>
+            </div>
+            <div class="out" id="q1b-fb" style="display:none"></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.82rem;color:var(--muted)">
+              <span id="q1b-prog">Pregunta 1 / 5</span>
+              <button class="abtn" id="q1b-next" onclick="next1b()" style="display:none">Siguiente →</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Video 1 -->
+    <div class="subsection">
+      <div class="subsection-title"><div class="icon">▶</div>Video de la Clase</div>
+      <div class="video-wrap"><video controls preload="metadata"><source src="Disoluciones_Químicas.mp4" type="video/mp4"/>Tu navegador no soporta video.</video></div>
+    </div>
+
+    <!-- Questions 1 -->
+    <div class="subsection">
+      <div class="subsection-title"><div class="icon">❓</div>Guía de Estudio — Preguntas</div>
+      <div class="questions-container">
+        <div class="question-item"><div class="question-num">1</div><div class="question-text">Definí qué es una solución y explicá por qué se la considera un sistema homogéneo.</div></div>
+        <div class="question-item"><div class="question-num">2</div><div class="question-text">¿Qué criterio se usa para distinguir el soluto del solvente? ¿Existe algún caso donde esta distinción sea ambigua?</div></div>
+        <div class="question-item"><div class="question-num">3</div><div class="question-text">Completá la tabla con un ejemplo concreto para cada combinación de estados físicos (Gas–Gas, Líquido–Gas, Líquido–Líquido, Líquido–Sólido, Sólido–Gas, Sólido–Líquido, Sólido–Sólido).</div></div>
+        <div class="question-item"><div class="question-num">4</div><div class="question-text">Explicá la diferencia entre una solución diluida y una concentrada. ¿Son estos términos absolutos o relativos? Justificá.</div></div>
+        <div class="question-item"><div class="question-num">5</div><div class="question-text">Definí solución saturada, no saturada y sobresaturada. ¿Por qué la sobresaturada no es un estado estable?</div></div>
+        <div class="question-item"><div class="question-num">6</div><div class="question-text">Con solubilidad NaCl = 36,0 g/100 mL, clasificá: a) 30,0 g/100 mL, b) 36,0 g/100 mL, c) 40,0 g/100 mL sin cuerpo de fondo, d) 40,0 g/100 mL con cuerpo de fondo.</div></div>
+        <div class="question-item"><div class="question-num">7</div><div class="question-text">¿Qué diferencia hay entre las unidades de concentración físicas y las químicas? Mencioná al menos dos ejemplos de cada tipo.</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════ TEMA 2 ══════════ -->
+<section class="tema" id="tema2">
+  <div class="tema-header"><div class="tema-number">2</div><h2>Interacciones Intermoleculares y Formación de Soluciones</h2></div>
+  <div class="tema-body">
+
+    <div class="subsection">
+      <div class="subsection-title"><div class="icon">📘</div>Desarrollo Conceptual</div>
+      <div class="content-text">
+        <div class="definition-box"><strong>Principio fundamental:</strong> Una solución se forma cuando las interacciones <em>soluto–solvente</em> son comparables a las <em>soluto–soluto</em> y <em>solvente–solvente</em>. Regla: <strong>"Lo similar disuelve lo similar"</strong>.</div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Interacción</th><th>Energía típica</th><th>Ejemplo</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Ión–dipolo</strong></td><td>40–600 kJ/mol</td><td>NaCl en agua</td></tr>
+            <tr><td><strong>Puente de H</strong></td><td>10–40 kJ/mol</td><td>Etanol en agua</td></tr>
+            <tr><td><strong>Dipolo–dipolo</strong></td><td>3–25 kJ/mol</td><td>Acetona en CHCl₃</td></tr>
+            <tr><td><strong>Ión–dipolo inducido</strong></td><td>~2–10 kJ/mol</td><td>Cl⁻ en hexano</td></tr>
+            <tr><td><strong>Dipolo–dipolo inducido</strong></td><td>~1–5 kJ/mol</td><td>Acetona en hexano</td></tr>
+            <tr><td><strong>Dispersión (London)</strong></td><td>0,05–40 kJ/mol</td><td>Octano en hexano</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+
+    <!-- APPLETS 2 -->
+    <div class="subsection">
+      <div class="subsection-title"><div class="icon">🔬</div>Applets Interactivos</div>
+      <div class="applets-grid">
+
+        <!-- Applet 2A: Miscibility predictor -->
+        <div class="applet-card">
+          <div class="applet-header">🧲 Predictor de miscibilidad</div>
+          <div class="applet-body">
+            <div class="applet-desc">Seleccioná dos sustancias y observá si se mezclan. Se muestra el tipo de interacción predominante.</div>
+            <div class="ctrl">
+              <label>Sustancia A:</label>
+              <select id="subA" onchange="updateMisc()">
+                <option value="agua">Agua (polar, puentes H)</option>
+                <option value="etanol">Etanol (polar, puentes H)</option>
+                <option value="hexano">Hexano (apolar, dispersión)</option>
+                <option value="acetona">Acetona (polar, dipolo)</option>
+                <option value="nacl">NaCl (iónico)</option>
+                <option value="ccl4">CCl₄ (apolar)</option>
+              </select>
+              <label>Sustancia B:</label>
+              <select id="subB" onchange="updateMisc()">
+                <option value="hexano">Hexano (apolar, dispersión)</option>
+                <option value="agua">Agua (polar, puentes H)</option>
+                <option value="etanol">Etanol (polar, puentes H)</option>
+                <option value="acetona">Acetona (polar, dipolo)</option>
+                <option value="nacl">NaCl (iónico)</option>
+                <option value="ccl4">CCl₄ (apolar)</option>
+              </select>
+            </div>
+            <canvas id="cv2a" class="apc" height="140"></canvas>
+            <div class="out" id="out2a"></div>
+          </div>
+        </div>
+
+        <!-- Applet 2B: Interaction strength -->
+        <div class="applet-card">
+          <div class="applet-header">⚡ Jerarquía de interacciones</div>
+          <div class="applet-body">
+            <div class="applet-desc">Hacé clic en cada interacción para ver un ejemplo y su energía relativa.</div>
+            <canvas id="cv2b" class="apc" height="200"></canvas>
+            <div class="out" id="out2b" style="font-size:0.83rem;text-align:left;min-height:3rem;">Hacé clic en una barra del gráfico.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Video 2 -->
+    <div class="subsection">
+      <div class="subsection-title"><div class="icon">▶</div>Video de la Clase</div>
+      <div class="video-wrap"><video controls preload="metadata"><source src="Interacciones_intermoleculares.mp4" type="video/mp4"/>Tu navegador no soporta video.</video></div>
+    </div>
+
+    <!-- Questions 2 -->
+    <div class="subsection">
+      <div class="subsection-title"><div class="icon">❓</div>Guía de Estudio — Preguntas</div>
+      <div class="questions-container">
+        <div class="question-item"><div class="question-num">1</div><div class="question-text">Enunciá la regla "lo similar disuelve lo similar" y explicá su fundamento a nivel molecular.</div></div>
+        <div class="question-item"><div class="question-num">2</div><div class="question-text">¿Por qué el etanol es completamente miscible en agua, pero el hexano no lo es? Relacioná con las interacciones intermoleculares involucradas.</div></div>
+        <div class="question-item"><div class="question-num">3</div><div class="question-text">Explicá por qué el azufre se disuelve en CS₂ pero no en agua. ¿Qué tipo de interacciones predominan en cada caso?</div></div>
+        <div class="question-item"><div class="question-num">4</div><div class="question-text">Para que una solución se forme espontáneamente, ¿qué relación debe existir entre las tres clases de interacciones intermoleculares?</div></div>
+        <div class="question-item"><div class="question-num">5</div><div class="question-text">Identificá el tipo de interacción predominante en: a) NaCl en agua, b) CH₃OH en agua, c) CH₃OH en CHCl₃, d) Cl⁻ en hexano, e) Acetona en hexano, f) Octano en hexano.</div></div>
+        <div class="question-item"><div class="question-num">6</div><div class="question-text">¿Por qué las interacciones ión–dipolo son generalmente más fuertes que las dipolo–dipolo? ¿Cómo influye esto en la solubilidad de sales iónicas en agua?</div></div>
+        <div class="question-item"><div class="question-num">7</div><div class="question-text">Predecí miscibilidad y justificá: a) Aceite vegetal y agua, b) Etanol y acetona, c) CCl₄ y hexano, d) KBr y agua.</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════ TEMA 3 ══════════ -->
+<section class="tema" id="tema3">
+  <div class="tema-header"><div class="tema-number">3</div><h2>Termodinámica del Proceso de Disolución</h2></div>
+  <div class="tema-body">
+
+    <div class="subsection">
+      <div class="subsection-title"><div class="icon">📘</div>Desarrollo Matemático y Conceptual</div>
+      <div class="content-text">
+        <div class="formula-box">
+          <div class="label">Ecuación de Gibbs:</div>
+          \[\Delta G_{\text{disolución}} = \Delta H_{\text{disolución}} - T\,\Delta S_{\text{disolución}}\]
+          Espontánea si \(\Delta G < 0\). &nbsp; Siempre: \(\Delta S > 0\) (favorece la disolución).
+        </div>
+        <div class="stages">
+          <div class="stage-card stage-endo"><div class="stage-num">①</div><strong>Separación del soluto</strong><br>\(\Delta H_1 > 0\) — endotérmico<br><small>Se rompen fuerzas soluto–soluto</small></div>
+          <div class="stage-card stage-endo"><div class="stage-num">②</div><strong>Separación del solvente</strong><br>\(\Delta H_2 > 0\) — endotérmico<br><small>Se crean huecos en el solvente</small></div>
+          <div class="stage-card stage-exo"><div class="stage-num">③</div><strong>Solvatación</strong><br>\(\Delta H_3 < 0\) — exotérmico<br><small>Interacciones soluto–solvente</small></div>
+        </div>
+        <div class="formula-box">
+          <div class="label">Entalpía global y ciclo de Born-Haber:</div>
+          \[\Delta H_{\text{soln}} = \Delta H_1 + \Delta H_2 + \Delta H_3\]
+          \[\Delta H_{\text{soln}} = \Delta H_{\text{reticular}} + \Delta H_{\text{hidratación}}\]
+        </div>
+
+        <hr style="border:none;border-top:2px solid var(--border);margin:1.2rem 0;">
+        <p style="font-weight:700;color:var(--primary);font-size:1rem;margin-bottom:0.6rem;">🔀 El factor entrópico — ΔS en la disolución</p>
+
+        <div class="definition-box">
+          <strong>¿Por qué ΔS &gt; 0 en la mayoría de las disoluciones?</strong><br>
+          Al disolverse, las partículas del soluto pasan de un estado <em>ordenado</em> (cristal o líquido puro) a distribuirse aleatoriamente entre las moléculas del solvente. El número de microestados posibles del sistema aumenta enormemente, lo que eleva la entropía.
+        </div>
+
+        <div class="formula-box">
+          <div class="label">Descomposición de ΔS de disolución:</div>
+          \[\Delta S_{\text{soln}} = \Delta S_{\text{mezcla}} + \Delta S_{\text{estructural}}\]
+          <br>
+          \(\Delta S_{\text{mezcla}} > 0\) siempre — al mezclar, el número de microestados accesibles crece.<br>
+          \(\Delta S_{\text{estructural}}\) puede ser \(< 0\) — si el solvente se ordena alrededor del soluto (ej. capa de hidratación iónica fuerte como en Li⁺).
+        </div>
+
+        <div class="table-wrap"><table>
+          <thead><tr><th>Sistema</th><th>ΔS_soln (J/mol·K)</th><th>Comentario</th></tr></thead>
+          <tbody>
+            <tr><td>NaCl en H₂O</td><td>+43</td><td>Iones pequeños con hidratación moderada</td></tr>
+            <tr><td>KCl en H₂O</td><td>+76</td><td>Iones más grandes, menor hidratación estructural</td></tr>
+            <tr><td>NH₄NO₃ en H₂O</td><td>+108</td><td>Iones grandes, poca ordenación del solvente</td></tr>
+            <tr><td>LiF en H₂O</td><td>−37</td><td>Li⁺ muy pequeño y cargado → ordena mucho el agua</td></tr>
+            <tr><td>Gas (O₂) en H₂O</td><td>−110</td><td>El gas pasa de alta libertad a estado más ordenado</td></tr>
+          </tbody>
+        </table></div>
+
+        <div class="highlight-box">
+          <strong>Contribución de −TΔS a la espontaneidad:</strong><br>
+          Como \(\Delta S_{\text{soln}} > 0\) en la mayoría de los casos, el término \(-T\Delta S < 0\), lo que hace que \(\Delta G\) sea más negativo.<br>
+          A temperaturas más altas, este término se vuelve <em>más importante</em> y puede compensar un ΔH positivo (endotérmico), haciendo la disolución espontánea.
+          <div class="formula-box" style="margin-top:0.7rem;background:#1e293b;">
+            \[-T\Delta S = -(298\,\text{K})(80\,\text{J/mol·K}) = -23{,}8\,\text{kJ/mol}\]
+            <small style="color:#94a3b8;">Ejemplo típico: un ΔS de 80 J/mol·K a 298 K contribuye −23,8 kJ/mol al ΔG.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- APPLETS 3 -->
+    <div class="subsection">
+      <div class="subsection-title"><div class="icon">🔬</div>Applets Interactivos</div>
+      <div class="applets-grid">
+
+        <!-- Applet 3A: Gibbs calculator -->
+        <div class="applet-card">
+          <div class="applet-header">⚗️ Calculadora ΔG = ΔH − TΔS</div>
+          <div class="applet-body">
+            <div class="applet-desc">Ajustá ΔH, ΔS y la temperatura T. El gráfico de barras descompone la contribución de cada término a ΔG.</div>
+            <div class="ctrl">
+              <label>ΔH = <span id="lbl3a-dh">+25</span> kJ/mol</label>
+              <input type="range" id="sl3a-dh" min="-600" max="600" value="25" step="5" oninput="update3a()">
+              <label>ΔS = <span id="lbl3a-ds">+108</span> J/mol·K &nbsp;<small style="color:var(--muted)">(NH₄NO₃ ≈ 108, NaCl ≈ 43)</small></label>
+              <input type="range" id="sl3a-ds" min="-150" max="200" value="108" step="1" oninput="update3a()">
+              <label>T = <span id="lbl3a-T">298</span> K</label>
+              <input type="range" id="sl3a-T" min="250" max="450" value="298" step="1" oninput="update3a()">
+            </div>
+            <canvas id="cv3a" class="apc" height="140"></canvas>
+            <div class="out" id="out3a"></div>
+          </div>
+        </div>
+
+        <!-- Applet 3B: Energy diagram -->
+        <div class="applet-card">
+          <div class="applet-header">📊 Diagrama energético de las 3 etapas</div>
+          <div class="applet-body">
+            <div class="applet-desc">Modificá la energía de cada etapa. El diagrama muestra si ΔH_soln es positivo (endotérmico) o negativo (exotérmico).</div>
+            <div class="ctrl">
+              <label>ΔH₁ (separar soluto): <span id="lbl3b1">+200</span> kJ/mol</label>
+              <input type="range" id="sl3b1" min="50" max="500" value="200" step="10" oninput="draw3b()">
+              <label>ΔH₂ (separar solvente): <span id="lbl3b2">+150</span> kJ/mol</label>
+              <input type="range" id="sl3b2" min="50" max="400" value="150" step="10" oninput="draw3b()">
+              <label>ΔH₃ (solvatación): <span id="lbl3b3">-380</span> kJ/mol</label>
+              <input type="range" id="sl3b3" min="-700" max="-50" value="-380" step="10" oninput="draw3b()">
+            </div>
+            <canvas id="cv3b" class="apc" height="160"></canvas>
+            <div class="out" id="out3b"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Applet 3C: Entropy visualizer — full width -->
+      <div class="applet-card" style="margin-top:1.2rem;">
+        <div class="applet-header">🔀 Visualizador de entropía — orden → desorden</div>
+        <div class="applet-body" style="flex-direction:row;flex-wrap:wrap;gap:1rem;align-items:flex-start;">
+          <div style="flex:1;min-width:200px;display:flex;flex-direction:column;gap:0.6rem;">
+            <div class="applet-desc">Observá cómo las partículas pasan de un estado ordenado (cristal + solvente puro) a un estado desordenado (solución). Ajustá ΔS y T para ver la contribución −TΔS al ΔG.</div>
+            <div class="ctrl">
+              <label>ΔS = <span id="lbl3c-ds">+80</span> J/mol·K</label>
+              <input type="range" id="sl3c-ds" min="-150" max="200" value="80" step="5" oninput="update3c()">
+              <label>T = <span id="lbl3c-T">298</span> K</label>
+              <input type="range" id="sl3c-T" min="250" max="450" value="298" step="1" oninput="update3c()">
+            </div>
+            <div class="out" id="out3c" style="text-align:left;font-size:0.85rem;"></div>
+          </div>
+          <div style="flex:2;min-width:260px;">
+            <canvas id="cv3c" class="apc" height="200"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Video 3 -->
+    <div class="subsection">
+      <div class="subsection-title"><div class="icon">▶</div>Video de la Clase</div>
+      <div class="video-wrap"><video controls preload="metadata"><source src="La_Termodinámica_de_la_Disolución.mp4" type="video/mp4"/>Tu navegador no soporta video.</video></div>
+    </div>
+
+    <!-- Questions 3 -->
+    <div class="subsection">
+      <div class="subsection-title"><div class="icon">❓</div>Guía de Estudio — Preguntas y Problemas</div>
+      <div class="questions-container">
+        <div class="subsection-subtitle">Preguntas conceptuales</div>
+        <div class="question-item"><div class="question-num">1</div><div class="question-text">Escribí la ecuación de Gibbs e identificá cada término. ¿Cuál es la condición para que la disolución sea espontánea?</div></div>
+        <div class="question-item"><div class="question-num">2</div><div class="question-text">Explicá por qué ΔS generalmente favorece la disolución. ¿En qué situaciones podría no ser así?</div></div>
+        <div class="question-item"><div class="question-num">3</div><div class="question-text">Describí las tres etapas del modelo energético de disolución, indicando si cada una es endotérmica o exotérmica.</div></div>
+        <div class="question-item"><div class="question-num">4</div><div class="question-text">¿De qué depende que ΔH_soln sea positivo o negativo? Explicalo en términos de las magnitudes relativas de las tres etapas.</div></div>
+        <div class="question-item"><div class="question-num">5</div><div class="question-text">La disolución de NH₄NO₃ en agua es endotérmica y sin embargo ocurre espontáneamente. ¿Cómo es posible? ¿Qué factor termodinámico compensa?</div></div>
+        <div class="question-item"><div class="question-num">6</div><div class="question-text">Si al disolver LiCl la temperatura aumenta, ¿qué signo tiene ΔH? ¿Y si la temperatura disminuye?</div></div>
+        <div class="question-item"><div class="question-num">7</div><div class="question-text">¿Qué es la energía reticular? ¿Cómo se relaciona con la solubilidad a través del ciclo de Born-Haber?</div></div>
+        <div class="subsection-subtitle">Problemas</div>
+        <div class="problem-item"><div class="problem-num">P1</div><div class="question-text">Para un sólido iónico hipotético: energía reticular = 800 kJ/mol, ΔH_hidratación = −780 kJ/mol. ¿Signo de ΔH_soln? ¿Esperarías que la disolución sea espontánea?</div></div>
+        <div class="problem-item"><div class="problem-num">P2</div><div class="question-text">La sal A enfría la solución y la sal B la calienta. ¿Cuál tiene ΔH > 0? Si ambas se disuelven espontáneamente, ¿qué concluís sobre ΔS y ΔG en cada caso?</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════ TEMA 4 ══════════ -->
+<section class="tema" id="tema4">
+  <div class="tema-header"><div class="tema-number">4</div><h2>Solubilidad y Efecto de la Temperatura</h2></div>
+  <div class="tema-body">
+
+    <div class="subsection">
+      <div class="subsection-title"><div class="icon">📘</div>Desarrollo Conceptual</div>
+      <div class="content-text">
+        <div class="definition-box"><strong>Solubilidad:</strong> máxima cantidad de soluto que puede disolverse en una cantidad dada de solvente a una temperatura determinada. Corresponde a la concentración de la <em>solución saturada</em> a esa temperatura.</div>
+        <div class="formula-box">
+          <div class="label">Efecto de T según Le Chatelier:</div>
+          Si \(\Delta H_{\text{soln}} > 0\): solubilidad <strong style="color:#86efac">↑</strong> con T &nbsp;|&nbsp;
+          Si \(\Delta H_{\text{soln}} < 0\): solubilidad <strong style="color:#fca5a5">↓</strong> con T<br><br>
+          Para gases en líquidos: siempre \(\Delta H < 0\) → solubilidad <strong style="color:#fca5a5">↓</strong> al calentar.
+        </div>
+        <div class="formula-box">
+          <div class="label">Masa que cristaliza al enfriar de T₁ a T₂:</div>
+          \[m_{\text{cristaliza}} = m_{\text{disuelto}} - S(T_2) \times \frac{V_{\text{solvente}}}{100\,\text{mL}}\]
+        </div>
+      </div>
+    </div>
+
+    <!-- APPLETS 4 -->
+    <div class="subsection">
+      <div class="subsection-title"><div class="icon">🔬</div>Applets Interactivos</div>
+
+      <!-- ── GRÁFICO 1: KNO₃ Diagrama de saturación ── -->
+      <div class="applet-card" style="margin-bottom:1.2rem;">
+        <div class="applet-header">🔴🟢 Diagrama de saturación — KNO₃ (generado con Python / matplotlib)</div>
+        <div class="applet-body">
+          <div class="applet-desc">El gráfico muestra la curva de solubilidad del KNO₃ y cuatro puntos de referencia que ilustran los distintos estados de saturación a 80°C.</div>
+          <img src="grafico1_kno3_saturacion.png" alt="Diagrama de saturación KNO₃"
+               style="width:100%;border-radius:8px;border:1px solid var(--border);display:block;">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:0.5rem;margin-top:0.6rem;font-size:0.85rem;">
+            <div style="background:#fef2f2;border:1px solid #fca5a5;border-radius:6px;padding:0.4rem 0.7rem;"><span style="color:#ef4444;font-weight:800;">●</span> SC sobresaturada — punto <strong>sobre</strong> la curva (inestable)</div>
+            <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:6px;padding:0.4rem 0.7rem;"><span style="color:#22c55e;font-weight:800;">●</span> SC saturada — punto <strong>sobre</strong> la curva (equilibrio)</div>
+            <div style="background:#faf5ff;border:1px solid #d8b4fe;border-radius:6px;padding:0.4rem 0.7rem;"><span style="color:#8b5cf6;font-weight:800;">●</span> SC no saturada (concentrada) — <strong>debajo</strong> de la curva</div>
+            <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:6px;padding:0.4rem 0.7rem;"><span style="color:#3b82f6;font-weight:800;">●</span> SC no saturada (diluida) — <strong>debajo</strong> de la curva</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Applet 4A: Solubility curves — full width -->
+      <div class="applet-card" style="margin-bottom:1.2rem;">
+        <div class="applet-header">📈 Curvas de solubilidad interactivas</div>
+        <div class="applet-body chart-full">
+          <div class="applet-desc">Usá el slider de temperatura para leer la solubilidad de cada compuesto. Activá/desactivá compuestos con los botones.</div>
+          <div class="btn-row" id="sc-legend" style="margin-bottom:0.5rem;"></div>
+          <div style="position:relative;">
+            <canvas id="cv4a" style="width:100%;max-height:320px;"></canvas>
+          </div>
+          <div class="ctrl" style="margin-top:0.7rem;">
+            <label>Temperatura seleccionada: <strong id="lbl4a-T">50</strong> °C</label>
+            <input type="range" id="sl4a-T" min="0" max="100" value="50" step="1" oninput="update4a()">
+          </div>
+          <div id="out4a-vals" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.5rem;margin-top:0.5rem;font-size:0.82rem;"></div>
+        </div>
+      </div>
+
+      <!-- Applet 4B: Crystallization calculator -->
+      <div class="applets-grid">
+        <div class="applet-card">
+          <div class="applet-header">❄️ Calculadora de cristalización</div>
+          <div class="applet-body">
+            <div class="applet-desc">¿Cuánto soluto precipita al enfriar? Completá los datos y calculá.</div>
+            <div class="ctrl">
+              <label>Compuesto:</label>
+              <select id="sel4b">
+                <option value="KNO3">KNO₃</option>
+                <option value="NaNO3">NaNO₃</option>
+                <option value="KBr">KBr</option>
+              </select>
+              <label>Temperatura inicial T₁ (°C):</label>
+              <input type="number" id="in4b-T1" value="80" min="0" max="100">
+              <label>Temperatura final T₂ (°C):</label>
+              <input type="number" id="in4b-T2" value="20" min="0" max="100">
+              <label>Volumen de solvente (mL H₂O):</label>
+              <input type="number" id="in4b-vol" value="100" min="10" max="1000">
+            </div>
+            <button class="abtn" onclick="calc4b()" style="background:var(--primary);color:white;padding:0.5rem 1rem;border-radius:8px;width:100%;font-size:0.9rem;margin-top:0.2rem;">Calcular →</button>
+            <div class="out" id="out4b" style="text-align:left;display:none;"></div>
+          </div>
+        </div>
+
+        <div class="applet-card">
+          <div class="applet-header">🌡️ Gases en agua vs temperatura (Python / matplotlib)</div>
+          <div class="applet-body">
+            <div class="applet-desc">Todos los gases son menos solubles al aumentar la temperatura (ΔH &lt; 0). El CO₂ es ~50× más soluble que el N₂ a igual presión parcial.</div>
+            <img src="grafico2_gases_temperatura.png" alt="Solubilidad de gases vs temperatura"
+                 style="width:100%;border-radius:8px;border:1px solid var(--border);display:block;">
+            <div class="out red" style="font-size:0.82rem;margin-top:0.4rem;">
+              ΔH<sub>disolución</sub> &lt; 0 para todos los gases → la solubilidad <strong>disminuye</strong> al aumentar T. Por eso las bebidas calientes pierden carbonatación y los lagos calientes tienen menos O₂ disponible.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── GRÁFICO 3: Sólidos vs temperatura (muchos compuestos) ── -->
+    <div class="subsection">
+      <div class="subsection-title"><div class="icon">📊</div>Curvas de solubilidad — sólidos en agua (Python / matplotlib)</div>
+      <div class="applets-grid">
+        <div class="applet-card">
+          <div class="applet-header">📈 Compuestos con ΔH &gt; 0 y ΔH &lt; 0</div>
+          <div class="applet-body">
+            <div class="applet-desc">Diferentes compuestos responden de forma opuesta al aumento de temperatura, según el signo de su entalpía de disolución.</div>
+            <img src="grafico3_solidos_temperatura.png" alt="Solubilidad de sólidos vs temperatura"
+                 style="width:100%;border-radius:8px;border:1px solid var(--border);display:block;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-top:0.5rem;font-size:0.82rem;">
+              <div class="out green">↑ ΔH &gt; 0: KNO₃, NaNO₃, NaBr, KBr, KCl<br>Solubilidad <strong>aumenta</strong> con T</div>
+              <div class="out red">↓ ΔH &lt; 0: Ce₂(SO₄)₃, Li₂SO₄<br>Solubilidad <strong>disminuye</strong> con T</div>
+            </div>
+          </div>
+        </div>
+        <div class="applet-card">
+          <div class="applet-header">📈 Compuestos con comportamientos especiales</div>
+          <div class="applet-body">
+            <div class="applet-desc">El Na₂SO₄ tiene un máximo a ~32°C (transición decahidratado→anhidro). El Li₂SO₄ tiene ΔH &lt; 0. AgNO₃ aumenta muy fuertemente.</div>
+            <img src="grafico4_solidos_especiales.png" alt="Solubilidad de sólidos especiales vs temperatura"
+                 style="width:100%;border-radius:8px;border:1px solid var(--border);display:block;">
+            <div class="out yellow" style="margin-top:0.5rem;font-size:0.82rem;">
+              ⚠️ <strong>Na₂SO₄:</strong> La transición de decahidratado (Na₂SO₄·10H₂O) a anhidro (Na₂SO₄) alrededor de 32°C invierte la tendencia de solubilidad — caso típico de pregunta de examen.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Video 4 -->
+    <div class="subsection">
+      <div class="subsection-title"><div class="icon">▶</div>Video de la Clase</div>
+      <div class="video-wrap"><video controls preload="metadata"><source src="Solubilidad_y_Temperatura.mp4" type="video/mp4"/>Tu navegador no soporta video.</video></div>
+    </div>
+
+    <!-- Questions 4 -->
+    <div class="subsection">
+      <div class="subsection-title"><div class="icon">❓</div>Guía de Estudio — Preguntas y Problemas</div>
+      <div class="questions-container">
+        <div class="subsection-subtitle">Preguntas conceptuales</div>
+        <div class="question-item"><div class="question-num">1</div><div class="question-text">Definí solubilidad. ¿A qué tipo de solución corresponde su valor a una temperatura dada?</div></div>
+        <div class="question-item"><div class="question-num">2</div><div class="question-text">En una curva de solubilidad (S vs. T), explicá qué representan: un punto sobre la curva, por debajo, y por encima.</div></div>
+        <div class="question-item"><div class="question-num">3</div><div class="question-text">¿Qué compuestos ven aumentada su solubilidad con T? ¿Qué signo tiene su ΔH? ¿Existe algún compuesto con comportamiento opuesto?</div></div>
+        <div class="question-item"><div class="question-num">4</div><div class="question-text">El Na₂SO₄ presenta un cambio brusco de pendiente alrededor de 32°C. ¿A qué se debe? (pista: transición entre la forma decahidratada y la anhidra).</div></div>
+        <div class="question-item"><div class="question-num">5</div><div class="question-text">Explicá por qué la solubilidad de los gases disminuye al aumentar T. ¿Qué signo tiene ΔH de disolución para gases?</div></div>
+        <div class="question-item"><div class="question-num">6</div><div class="question-text">¿Por qué un lago de agua caliente tiene menos oxígeno disuelto que uno frío? ¿Qué consecuencias tiene para los organismos acuáticos?</div></div>
+        <div class="subsection-subtitle">Problemas</div>
+        <div class="problem-item"><div class="problem-num">P1</div><div class="question-text">A 80°C, S(KNO₃) ≈ 170 g/100 mL. Tenés 100 g de KNO₃ en 100 mL a 80°C. a) ¿La solución es saturada, no saturada o sobresaturada? b) Al enfriar a 30°C (S ≈ 45 g/100 mL), ¿cuántos gramos cristalizan?</div></div>
+        <div class="problem-item"><div class="problem-num">P2</div><div class="question-text">Tenés 200 mL de agua a 60°C saturada con NaNO₃ (S ≈ 125 g/100 mL). ¿Cuántos gramos contiene? Al enfriar a 20°C (S ≈ 88 g/100 mL), ¿cuántos gramos precipitan?</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════ TEMA 5 ══════════ -->
+<section class="tema" id="tema5">
+  <div class="tema-header"><div class="tema-number">5</div><h2>Efecto de la Presión y Ley de Henry</h2></div>
+  <div class="tema-body">
+
+    <div class="subsection">
+      <div class="subsection-title"><div class="icon">📘</div>Desarrollo Matemático y Conceptual</div>
+      <div class="content-text">
+        <div class="definition-box"><strong>Ley de Henry:</strong> La solubilidad de un gas en un líquido a temperatura constante es directamente proporcional a la presión parcial del gas sobre la solución.</div>
+        <div class="formula-box">
+          <div class="label">Ley de Henry:</div>
+          \[S = k_H \cdot P\]
+          \(S\) = solubilidad (M) &nbsp;·&nbsp; \(k_H\) = constante de Henry (M/mmHg) &nbsp;·&nbsp; \(P\) = presión parcial (mmHg)
+        </div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Gas</th><th>k_H a 25°C (M/mmHg)</th><th>Solubilidad relativa</th></tr></thead>
+          <tbody>
+            <tr><td>N₂</td><td>8,42 × 10⁻⁷</td><td>Baja</td></tr>
+            <tr><td>O₂</td><td>1,66 × 10⁻⁶</td><td>Baja–media</td></tr>
+            <tr><td>CO₂</td><td>4,48 × 10⁻⁵</td><td>Alta (≈50× más que O₂)</td></tr>
+          </tbody>
+        </table></div>
+        <div class="highlight-box"><strong>Enfermedad de descompresión:</strong> A 30 m, la presión total es ~4 atm → mayor solubilidad de N₂ en sangre. Si el buzo sube rápido, el N₂ no se elimina gradualmente y forma burbujas en tejidos y vasos sanguíneos, causando dolor severo.</div>
+      </div>
+    </div>
+
+    <!-- APPLETS 5 -->
+    <div class="subsection">
+      <div class="subsection-title"><div class="icon">🔬</div>Applets Interactivos</div>
+      <div class="applets-grid">
+
+        <!-- Applet 5A: Henry's Law calculator -->
+        <div class="applet-card">
+          <div class="applet-header">🔢 Calculadora — Ley de Henry</div>
+          <div class="applet-body">
+            <div class="applet-desc">Seleccioná un gas y variá la presión parcial. Se calcula S = k_H · P y se compara la solubilidad de los tres gases.</div>
+            <div class="ctrl">
+              <label>Gas seleccionado:</label>
+              <select id="sel5a" onchange="update5a()">
+                <option value="N2">N₂ — k_H = 8,42×10⁻⁷ M/mmHg</option>
+                <option value="O2" selected>O₂ — k_H = 1,66×10⁻⁶ M/mmHg</option>
+                <option value="CO2">CO₂ — k_H = 4,48×10⁻⁵ M/mmHg</option>
+              </select>
+              <label>Presión parcial P = <span id="lbl5a-P">760</span> mmHg</label>
+              <input type="range" id="sl5a-P" min="1" max="4000" value="760" step="1" oninput="update5a()">
+            </div>
+            <canvas id="cv5a" class="apc" height="160"></canvas>
+            <div class="out" id="out5a"></div>
+          </div>
+        </div>
+
+        <!-- Applet 5B: Diver simulator -->
+        <div class="applet-card">
+          <div class="applet-header">🤿 Simulador del buzo — N₂ en sangre</div>
+          <div class="applet-body">
+            <div class="applet-desc">Variá la profundidad y observá cómo cambia la presión, la solubilidad del N₂ en sangre y el riesgo de descompresión.</div>
+            <div class="ctrl">
+              <label>Profundidad: <span id="lbl5b-d">0</span> m</label>
+              <input type="range" id="sl5b-d" min="0" max="50" value="0" step="1" oninput="update5b()">
+            </div>
+            <canvas id="cv5b" class="apc" height="200"></canvas>
+            <div class="out" id="out5b"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Video 5 -->
+    <div class="subsection">
+      <div class="subsection-title"><div class="icon">▶</div>Video de la Clase</div>
+      <div class="video-wrap"><video controls preload="metadata"><source src="La_presión_invisible.mp4" type="video/mp4"/>Tu navegador no soporta video.</video></div>
+    </div>
+
+    <!-- Questions 5 -->
+    <div class="subsection">
+      <div class="subsection-title"><div class="icon">❓</div>Guía de Estudio — Preguntas y Problemas</div>
+      <div class="questions-container">
+        <div class="subsection-subtitle">Preguntas conceptuales</div>
+        <div class="question-item"><div class="question-num">1</div><div class="question-text">¿Sobre qué tipo de soluciones tiene efecto significativo la presión: sólidos en líquidos, líquidos en líquidos, o gases en líquidos? Justificá.</div></div>
+        <div class="question-item"><div class="question-num">2</div><div class="question-text">Explicá usando el modelo molecular por qué al aumentar la presión de un gas sobre un líquido aumenta la cantidad de gas disuelto.</div></div>
+        <div class="question-item"><div class="question-num">3</div><div class="question-text">Enunciá la Ley de Henry e identificá cada variable y sus unidades.</div></div>
+        <div class="question-item"><div class="question-num">4</div><div class="question-text">¿Qué significado físico tiene k_H? ¿Qué indica un valor alto de k_H respecto de la solubilidad de ese gas?</div></div>
+        <div class="question-item"><div class="question-num">5</div><div class="question-text">Con k_H(N₂)=8,42×10⁻⁷, k_H(O₂)=1,66×10⁻⁶, k_H(CO₂)=4,48×10⁻⁵ M/mmHg: ¿cuál es más soluble a igual presión parcial? ¿A qué se debe la diferencia?</div></div>
+        <div class="question-item"><div class="question-num">6</div><div class="question-text">Explicá qué ocurre a nivel molecular cuando abrís una botella de gaseosa. ¿Por qué se forman burbujas? Relacioná con la Ley de Henry.</div></div>
+        <div class="question-item"><div class="question-num">7</div><div class="question-text">¿En qué situaciones no se cumple la Ley de Henry? Mencioná al menos dos limitaciones.</div></div>
+        <div class="subsection-subtitle">Problemas</div>
+        <div class="problem-item"><div class="problem-num">P1</div><div class="question-text">Calculá la solubilidad del O₂ en agua a 25°C con P(O₂) = 159 mmHg. Usá k_H(O₂) = 1,66×10⁻⁶ M/mmHg.</div></div>
+        <div class="problem-item"><div class="problem-num">P2</div><div class="question-text">Una gaseosa se embotella con CO₂ a 4,0 atm (3040 mmHg). k_H(CO₂) = 4,48×10⁻⁵ M/mmHg. a) [CO₂] en botella cerrada; b) al abrir, P_CO₂ baja a 0,3 mmHg, ¿cuál es la nueva [CO₂]? c) ¿Por qué hay burbujeo?</div></div>
+        <div class="problem-item"><div class="problem-num">P3</div><div class="question-text">A 30 m de profundidad (P_total ≈ 4 atm), P(N₂) ≈ 2356 mmHg. Calculá la solubilidad de N₂ en sangre y comparala con la superficie (P_N₂ ≈ 593 mmHg). ¿Por qué la descompresión rápida es peligrosa?</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>Soluciones I · Química · Material de estudio complementario</p>
+  <p style="margin-top:0.3rem;font-size:0.8rem;">📄 <a href="Copia de 05-SolucionesI.pdf" target="_blank" style="color:var(--accent);">Descargar apuntes de clase (PDF)</a></p>
+</footer>
+
+<!-- ═══════════════════════════════════════
+     ALL JAVASCRIPT APPLETS
+═══════════════════════════════════════ -->
+<script>
+/* ──────────────────────────────
+   SHARED HELPERS
+────────────────────────────── */
+function resizeCanvas(cv) {
+  const rect = cv.parentElement.getBoundingClientRect();
+  const W = Math.max(200, Math.round(rect.width));
+  if (cv.width !== W) { cv.width = W; cv.height = parseInt(cv.getAttribute('height')||'200'); }
+  return { W: cv.width, H: cv.height };
+}
+
+/* ──────────────────────────────
+   APPLET 1A — BEAKER SIMULATOR
+────────────────────────────── */
+(function(){
+  const SOLUBILITY = 36;
+  const sl = document.getElementById('sl1a');
+  const lbl = document.getElementById('lbl1a');
+  const out = document.getElementById('out1a');
+  const cv = document.getElementById('cv1a');
+  const ctx = cv.getContext('2d');
+
+  function draw(g) {
+    const {W,H} = resizeCanvas(cv);
+    ctx.clearRect(0,0,W,H);
+    const bx=40, bw=W-80, by=15, bh=H-30;
+    const waterTop = by+10;
+    const waterBot = by+bh-5;
+    const waterH = waterBot - waterTop;
+
+    // water fill
+    ctx.fillStyle='rgba(59,130,246,0.12)';
+    ctx.fillRect(bx+3,waterTop,bw-6,waterH);
+
+    // dissolved particles
+    const nDissolv = Math.round(Math.min(g,SOLUBILITY)*0.7);
+    const seed = (i,a,b)=>((i*a+b)%1+1)%1;
+    ctx.fillStyle='rgba(37,99,235,0.55)';
+    for(let i=0;i<nDissolv;i++){
+      const x=bx+8+(seed(i,47,13))*(bw-16);
+      const y=waterTop+8+(seed(i,31,7))*(waterH-25);
+      ctx.beginPath();ctx.arc(x,y,3,0,Math.PI*2);ctx.fill();
+    }
+
+    // undissolved crystals
+    if(g>SOLUBILITY){
+      const excess=g-SOLUBILITY;
+      const nCryst=Math.min(Math.round(excess*0.6),30);
+      ctx.fillStyle='#94a3b8'; ctx.strokeStyle='#64748b'; ctx.lineWidth=0.8;
+      for(let i=0;i<nCryst;i++){
+        const x=bx+8+(seed(i,23,5))*(bw-20);
+        const y=waterBot-8-(i%4)*7;
+        ctx.fillRect(x,y,7,5); ctx.strokeRect(x,y,7,5);
+      }
+    }
+
+    // beaker outline
+    ctx.strokeStyle='#94a3b8'; ctx.lineWidth=3; ctx.lineJoin='round';
+    ctx.beginPath();
+    ctx.moveTo(bx,by);ctx.lineTo(bx,by+bh);ctx.lineTo(bx+bw,by+bh);ctx.lineTo(bx+bw,by);
+    ctx.stroke();
+
+    // solubility line
+    ctx.setLineDash([5,4]);
+    ctx.strokeStyle='#ef4444'; ctx.lineWidth=1.5;
+    const fracSol=SOLUBILITY/60;
+    const solY=waterBot-waterH*fracSol;
+    ctx.beginPath();ctx.moveTo(bx+3,solY);ctx.lineTo(bx+bw-3,solY);ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='#ef4444';ctx.font='bold 10px sans-serif';ctx.textAlign='right';
+    ctx.fillText('límite sol.',bx+bw-4,solY-3);
+
+    // label
+    ctx.fillStyle='#1e293b';ctx.font='11px sans-serif';ctx.textAlign='center';
+    ctx.fillText('100 mL H₂O',bx+bw/2,waterBot+14);
+  }
+
+  function update(){
+    const g=parseInt(sl.value);
+    lbl.textContent=g;
+    let state,cls;
+    if(g<SOLUBILITY){state='✅ No saturada — puede disolver más soluto';cls='green';}
+    else if(g===SOLUBILITY){state='🟡 Saturada — en equilibrio ('+g+' g/100 mL)';cls='yellow';}
+    else{state='🔴 Sobresaturada — estado metaestable';cls='red';}
+    out.textContent=''; out.className='out '+cls;
+    out.innerHTML='<span class="big">'+state+'</span>';
+    draw(g);
+  }
+
+  sl.addEventListener('input',update);
+  window.addEventListener('resize',()=>update());
+  update();
+})();
+
+/* ──────────────────────────────
+   APPLET 1B — CLASSIFIER QUIZ
+────────────────────────────── */
+(function(){
+  const questions=[
+    {text:'30,0 g de NaCl en 100 mL de H₂O',ans:'no saturada',explanation:'Tiene menos que los 36,0 g necesarios para saturar.'},
+    {text:'36,0 g de NaCl en 100 mL de H₂O',ans:'saturada',explanation:'Justo en el límite de saturación a esa temperatura.'},
+    {text:'42,0 g de NaCl en 100 mL de H₂O — sin cuerpo de fondo',ans:'sobresaturada',explanation:'Tiene más de 36 g disueltos sin precipitar — estado metaestable.'},
+    {text:'18,0 g de NaCl en 50 mL de H₂O',ans:'saturada',explanation:'La relación es 36 g/100 mL, y 18 g/50 mL = 36 g/100 mL: justo saturada.'},
+    {text:'10,0 g de NaCl en 100 mL de H₂O',ans:'no saturada',explanation:'Muy por debajo del límite de saturación.'},
+  ];
+  let idx=0, answered=false;
+  const scen=document.getElementById('q1b-scenario');
+  const fb=document.getElementById('q1b-fb');
+  const prog=document.getElementById('q1b-prog');
+  const nextBtn=document.getElementById('q1b-next');
+
+  function showQuestion(){
+    answered=false;
+    const q=questions[idx];
+    scen.textContent=q.text;
+    fb.style.display='none';
+    nextBtn.style.display='none';
+    prog.textContent='Pregunta '+(idx+1)+' / '+questions.length;
+    document.querySelectorAll('#q1b-btns .abtn').forEach(b=>{b.className='abtn';});
+  }
+
+  window.ans1b=function(choice){
+    if(answered)return;
+    answered=true;
+    const q=questions[idx];
+    const correct=(choice===q.ans);
+    fb.style.display='block';
+    fb.className='out '+(correct?'green':'red');
+    fb.innerHTML=(correct?'✅ ¡Correcto! ':'❌ Incorrecto. La respuesta es <strong>'+q.ans+'</strong>. ')+q.explanation;
+    nextBtn.style.display=idx<questions.length-1?'inline-block':'none';
+    if(idx===questions.length-1&&correct){nextBtn.style.display='none';fb.innerHTML+=' 🎉 ¡Completaste todas las preguntas!';}
+  };
+
+  window.next1b=function(){
+    if(idx<questions.length-1){idx++;showQuestion();}
+  };
+
+  showQuestion();
+})();
+
+/* ──────────────────────────────
+   APPLET 2A — MISCIBILITY
+────────────────────────────── */
+(function(){
+  const data={
+    agua:{pol:true,type:'polar',label:'Agua',color:'#3b82f6',tag:'polar'},
+    etanol:{pol:true,type:'polar',label:'Etanol',color:'#8b5cf6',tag:'polar'},
+    hexano:{pol:false,type:'apolar',label:'Hexano',color:'#f59e0b',tag:'apolar'},
+    acetona:{pol:true,type:'polar',label:'Acetona',color:'#06b6d4',tag:'polar'},
+    nacl:{pol:true,type:'iónico',label:'NaCl',color:'#ec4899',tag:'ionica'},
+    ccl4:{pol:false,type:'apolar',label:'CCl₄',color:'#84cc16',tag:'apolar'},
+  };
+  const interactions={
+    'iónico-polar':'Ión–dipolo ⚡ (muy fuerte) → miscibles',
+    'polar-polar':'Dipolo–dipolo / Puentes H → miscibles',
+    'apolar-apolar':'Dispersión de London → miscibles',
+    'polar-apolar':'Interacciones débiles o nulas → inmiscibles',
+    'apolar-polar':'Interacciones débiles o nulas → inmiscibles',
+    'iónico-apolar':'Mínima interacción → inmiscibles',
+    'apolar-iónico':'Mínima interacción → inmiscibles',
+  };
+  const cv=document.getElementById('cv2a');
+  const ctx=cv.getContext('2d');
+  const out=document.getElementById('out2a');
+
+  function getKey(a,b){
+    const ta=data[a].type, tb=data[b].type;
+    return ta+'-'+tb;
+  }
+
+  function isMiscible(a,b){
+    const k=getKey(a,b);
+    return k==='polar-polar'||k==='apolar-apolar'||k==='iónico-polar'||k==='polar-iónico';
+  }
+
+  function draw(){
+    const {W,H}=resizeCanvas(cv);
+    ctx.clearRect(0,0,W,H);
+    const selA=document.getElementById('subA').value;
+    const selB=document.getElementById('subB').value;
+    const dA=data[selA], dB=data[selB];
+    const misc=isMiscible(selA,selB);
+    const cx=W/2, cy=H/2, r=Math.min(W/4,H/2.2);
+
+    if(misc){
+      // Single uniform circle — mixed
+      const grad=ctx.createRadialGradient(cx,cy,r*0.1,cx,cy,r);
+      // mix colors
+      grad.addColorStop(0,dA.color+'cc');
+      grad.addColorStop(1,dB.color+'99');
+      ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);
+      ctx.fillStyle=grad;ctx.fill();
+      ctx.strokeStyle='#ffffff55';ctx.lineWidth=2;ctx.stroke();
+      ctx.fillStyle='white';ctx.font='bold 13px sans-serif';ctx.textAlign='center';
+      ctx.fillText('MISCIBLES',cx,cy-8);
+      ctx.font='11px sans-serif';
+      ctx.fillText(dA.label+' + '+dB.label,cx,cy+10);
+      ctx.fillText('solución homogénea',cx,cy+26);
+    } else {
+      // Two separated circles
+      const r2=r*0.75;
+      const gap=10;
+      const x1=cx-r2-gap/2, x2=cx+r2+gap/2;
+
+      ctx.beginPath();ctx.arc(x1,cy,r2,0,Math.PI*2);
+      ctx.fillStyle=dA.color+'bb';ctx.fill();
+      ctx.strokeStyle=dA.color;ctx.lineWidth=2;ctx.stroke();
+
+      ctx.beginPath();ctx.arc(x2,cy,r2,0,Math.PI*2);
+      ctx.fillStyle=dB.color+'bb';ctx.fill();
+      ctx.strokeStyle=dB.color;ctx.lineWidth=2;ctx.stroke();
+
+      ctx.fillStyle='white';ctx.font='bold 11px sans-serif';ctx.textAlign='center';
+      ctx.fillText(dA.label,x1,cy-5);ctx.fillText(dB.label,x2,cy-5);
+      ctx.font='10px sans-serif';ctx.fillStyle='white';
+      ctx.fillText(dA.type,x1,cy+12);ctx.fillText(dB.type,x2,cy+12);
+
+      ctx.fillStyle='#1e293b';ctx.font='bold 12px sans-serif';
+      ctx.fillText('INMISCIBLES',cx,H-8);
+    }
+  }
+
+  window.updateMisc=function(){
+    draw();
+    const selA=document.getElementById('subA').value;
+    const selB=document.getElementById('subB').value;
+    const k=getKey(selA,selB);
+    const desc=interactions[k]||interactions[k.split('-').reverse().join('-')]||'Interacciones débiles → inmiscibles';
+    const misc=isMiscible(selA,selB);
+    out.className='out '+(misc?'green':'red');
+    out.innerHTML='<strong>Interacción predominante:</strong> '+desc;
+  };
+
+  window.addEventListener('resize',()=>{draw();});
+  updateMisc();
+})();
+
+/* ──────────────────────────────
+   APPLET 2B — INTERACTION BAR CHART
+────────────────────────────── */
+(function(){
+  const cv=document.getElementById('cv2b');
+  const ctx=cv.getContext('2d');
+  const out=document.getElementById('out2b');
+
+  const interactions=[
+    {name:'Ión–dipolo',energy:300,color:'#1a4f8a',desc:'Ej: NaCl en agua. El ión Na⁺ o Cl⁻ atrae el dipolo del H₂O. Muy fuertes (40–600 kJ/mol).'},
+    {name:'Puente H',energy:180,color:'#7c3aed',desc:'Ej: etanol en agua. H unido a O o N interacciona con par solitario. Fuertes (10–40 kJ/mol).'},
+    {name:'Dipolo–dipolo',energy:90,color:'#0891b2',desc:'Ej: acetona en CHCl₃. Entre dos moléculas polares. Moderadas (3–25 kJ/mol).'},
+    {name:'Ión–dip. ind.',energy:55,color:'#059669',desc:'Ej: Cl⁻ en hexano. Un ión polariza una molécula apolar. Débil–moderadas.'},
+    {name:'Dip.–dip. ind.',energy:28,color:'#d97706',desc:'Ej: acetona en hexano. Un dipolo polariza molécula apolar. Débiles.'},
+    {name:'Dispersión',energy:10,color:'#dc2626',desc:'Ej: octano en hexano. Dipolos instantáneos en cualquier molécula. Muy débiles.'},
+  ];
+
+  let selected=-1;
+
+  function draw(){
+    const {W,H}=resizeCanvas(cv);
+    ctx.clearRect(0,0,W,H);
+    const pad=8, barH=24, gap=7;
+    const maxE=350, labelW=90;
+    const barAreaW=W-labelW-pad*2-20;
+
+    interactions.forEach((it,i)=>{
+      const y=pad+i*(barH+gap);
+      const bw=Math.round((it.energy/maxE)*barAreaW);
+
+      // highlight selected
+      if(i===selected){ctx.fillStyle='#f0f9ff';ctx.fillRect(0,y-2,W,barH+4);}
+
+      // label
+      ctx.fillStyle='#1e293b';ctx.font=(i===selected?'bold ':'')+'10px sans-serif';ctx.textAlign='left';
+      ctx.fillText(it.name,pad,y+barH/2+4);
+
+      // bar
+      const barX=labelW;
+      ctx.fillStyle=it.color+(i===selected?'ff':'cc');
+      const rad=4;
+      ctx.beginPath();
+      ctx.roundRect(barX,y,bw,barH,rad);
+      ctx.fill();
+
+      // value
+      ctx.fillStyle='white';ctx.font='bold 10px sans-serif';ctx.textAlign='right';
+      if(bw>30)ctx.fillText(it.energy+' kJ',barX+bw-4,y+barH/2+4);
+    });
+  }
+
+  cv.addEventListener('click',function(e){
+    const rect=cv.getBoundingClientRect();
+    const my=e.clientY-rect.top;
+    const H=cv.height;
+    const pad=8,barH=24,gap=7;
+    for(let i=0;i<interactions.length;i++){
+      const y=pad+i*(barH+gap);
+      if(my>=y&&my<=y+barH){
+        selected=i;
+        out.className='out gray';
+        out.innerHTML='<strong>'+interactions[i].name+':</strong> '+interactions[i].desc;
+        draw();return;
+      }
+    }
+  });
+
+  window.addEventListener('resize',()=>draw());
+  draw();
+})();
+
+/* ──────────────────────────────
+   APPLET 3A — GIBBS CALCULATOR (ΔS variable)
+────────────────────────────── */
+(function(){
+  const slDH=document.getElementById('sl3a-dh');
+  const slDS=document.getElementById('sl3a-ds');
+  const slT=document.getElementById('sl3a-T');
+  const lblDH=document.getElementById('lbl3a-dh');
+  const lblDS=document.getElementById('lbl3a-ds');
+  const lblT=document.getElementById('lbl3a-T');
+  const out=document.getElementById('out3a');
+  const cv=document.getElementById('cv3a');
+  const ctx=cv.getContext('2d');
+
+  function draw(dH,dS,T,TdS_kJ,dG){
+    const {W,H}=resizeCanvas(cv);
+    ctx.clearRect(0,0,W,H);
+    const cy=H/2;
+    const barW=Math.min(52,(W-60)/4);
+    const maxVal=700;
+    const scaleH=(H-50)/2;
+    const baseY=cy+5;
+
+    // background
+    ctx.fillStyle='#f8fafc';ctx.strokeStyle='#e2e8f0';ctx.lineWidth=1;
+    ctx.beginPath();ctx.roundRect(8,8,W-16,H-16,8);ctx.fill();ctx.stroke();
+
+    function drawBar(x,val,colPos,colNeg,lbl,sublbl){
+      if(Math.abs(val)<0.001)val=0;
+      const h=Math.max(2,Math.abs(val/maxVal)*scaleH);
+      const y=val<=0?baseY:baseY-h;
+      ctx.fillStyle=val<0?colNeg:colPos;
+      ctx.beginPath();ctx.roundRect(x-barW/2,y,barW,h,3);ctx.fill();
+      ctx.fillStyle='#1e293b';ctx.font='bold 9px sans-serif';ctx.textAlign='center';
+      ctx.fillText(lbl,x,H-16);
+      ctx.fillText(sublbl||'',x,H-5);
+      const numY=val<0?y+h+10:y-3;
+      ctx.fillStyle=val<0?colNeg:colPos;ctx.font='bold 10px sans-serif';
+      ctx.fillText((val>0?'+':'')+val.toFixed(1),x,numY);
+    }
+
+    const xs=[W*0.18,W*0.38,W*0.58,W*0.80];
+    drawBar(xs[0],dH,'#ef4444aa','#ef4444aa','ΔH','(kJ/mol)');
+    drawBar(xs[1],-TdS_kJ,'#3b82f6aa','#3b82f6aa','−TΔS','(kJ/mol)');
+    // visual separator
+    ctx.strokeStyle='#e2e8f080';ctx.lineWidth=1;ctx.setLineDash([4,3]);
+    ctx.beginPath();ctx.moveTo(xs[1]+barW/2+12,18);ctx.lineTo(xs[1]+barW/2+12,H-25);ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='#94a3b8';ctx.font='11px sans-serif';ctx.textAlign='center';
+    ctx.fillText('=',xs[2]-barW/2-10,baseY+5);
+    drawBar(xs[2],dG,'#059669aa','#dc2626aa','ΔG','(kJ/mol)');
+
+    // zero line
+    ctx.strokeStyle='#94a3b8';ctx.lineWidth=1.2;ctx.setLineDash([3,3]);
+    ctx.beginPath();ctx.moveTo(12,baseY);ctx.lineTo(W-12,baseY);ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='#64748b';ctx.font='9px sans-serif';ctx.textAlign='right';
+    ctx.fillText('0',10,baseY+3);
+
+    // spontaneity arrow
+    const arrowColor=dG<0?'#059669':'#dc2626';
+    ctx.fillStyle=arrowColor;ctx.font='bold 9px sans-serif';ctx.textAlign='left';
+    ctx.fillText(dG<0?'✓ espontánea':'✗ no espontánea',xs[2]+barW/2+8,baseY+4);
+  }
+
+  window.update3a=function(){
+    const dH=parseInt(slDH.value);
+    const dS=parseInt(slDS.value);
+    const T=parseInt(slT.value);
+    lblDH.textContent=(dH>=0?'+':'')+dH;
+    lblDS.textContent=(dS>=0?'+':'')+dS;
+    lblT.textContent=T;
+    const TdS_kJ=T*dS/1000;
+    const dG=dH-TdS_kJ;
+    draw(dH,dS,T,TdS_kJ,dG);
+    const spon=dG<0;
+    out.className='out '+(spon?'green':'red');
+    out.innerHTML=
+      'ΔG = <strong>'+(dH>=0?'+':'')+dH+'</strong> − ('+T+' × '+(dS/1000).toFixed(3)+') = '+
+      '<strong>'+(dG>=0?'+':'')+dG.toFixed(1)+' kJ/mol</strong><br>'+
+      '−TΔS = '+(TdS_kJ>=0?'+':'')+TdS_kJ.toFixed(1)+' kJ/mol &nbsp;·&nbsp; '+
+      (spon?'✅ Disolución <strong>espontánea</strong>':'❌ Disolución <strong>no espontánea</strong>');
+  };
+
+  window.addEventListener('resize',()=>update3a());
+  update3a();
+})();
+
+/* ──────────────────────────────
+   APPLET 3C — ENTROPY VISUALIZER
+────────────────────────────── */
+(function(){
+  const cv=document.getElementById('cv3c');
+  const ctx=cv.getContext('2d');
+
+  // Pre-defined particle positions for the disordered state (deterministic pseudo-random)
+  function seedRand(i,a,b){return((i*a+b*i*i+i*3+17)%97)/97;}
+
+  function draw(dS,T){
+    const {W,H}=resizeCanvas(cv);
+    ctx.clearRect(0,0,W,H);
+
+    // Layout: LEFT = ordered | ARROW | RIGHT = disordered
+    const arrowW=44;
+    const panelW=(W-arrowW)/2;
+    const pad=8;
+
+    // ── LEFT PANEL: ordered crystal + pure solvent ──
+    const Lx=0, Lw=panelW;
+    ctx.fillStyle='#eff6ff';
+    ctx.strokeStyle='#bfdbfe';ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.roundRect(pad,pad,Lw-pad*2,H-pad*2,8);ctx.fill();ctx.stroke();
+
+    // Crystal lattice (blue solute particles)
+    const nGrid=4;
+    const crystalX=Lw*0.25, crystalW=Lw*0.4, crystalY=H*0.18, crystalH=H*0.5;
+    const spc=Math.min(crystalW,crystalH)/(nGrid);
+    ctx.fillStyle='#2563eb';
+    for(let i=0;i<nGrid;i++)for(let j=0;j<nGrid;j++){
+      const x=crystalX+spc*0.5+i*spc;
+      const y=crystalY+spc*0.5+j*spc;
+      ctx.beginPath();ctx.arc(x,y,5,0,Math.PI*2);ctx.fill();
+      // lattice bonds
+      if(i<nGrid-1){ctx.strokeStyle='#93c5fd55';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+spc,y);ctx.stroke();}
+      if(j<nGrid-1){ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x,y+spc);ctx.stroke();}
+    }
+
+    // Solvent molecules (small gray dots on left panel, separate zone)
+    ctx.fillStyle='#94a3b8';
+    const nSolv=10;
+    for(let i=0;i<nSolv;i++){
+      const x=Lw*0.70+seedRand(i,23,5)*(Lw*0.22);
+      const y=pad*2+seedRand(i,37,11)*(H-pad*4);
+      ctx.beginPath();ctx.arc(x,y,3.5,0,Math.PI*2);ctx.fill();
+    }
+
+    // Labels
+    ctx.fillStyle='#1e3a5f';ctx.font='bold 9px sans-serif';ctx.textAlign='center';
+    ctx.fillText('ANTES',Lw/2,H-pad-4);
+    ctx.fillStyle='#475569';ctx.font='8px sans-serif';
+    ctx.fillText('cristal (orden) + solvente puro',Lw/2,H-pad+7);
+
+    // ── ARROW IN CENTER ──
+    const Ax=panelW;
+    const arrY=H/2;
+    const TdS=-(T*dS/1000);
+    const sign=dS>0?'+':dS<0?'−':'';
+    const arrowColor=dS>0?'#059669':dS<0?'#dc2626':'#94a3b8';
+
+    ctx.strokeStyle=arrowColor;ctx.lineWidth=2.5;
+    ctx.beginPath();ctx.moveTo(Ax+4,arrY);ctx.lineTo(Ax+arrowW-8,arrY);ctx.stroke();
+    // arrowhead
+    ctx.fillStyle=arrowColor;
+    ctx.beginPath();ctx.moveTo(Ax+arrowW-6,arrY);ctx.lineTo(Ax+arrowW-14,arrY-5);ctx.lineTo(Ax+arrowW-14,arrY+5);ctx.closePath();ctx.fill();
+
+    ctx.fillStyle=arrowColor;ctx.font='bold 9px sans-serif';ctx.textAlign='center';
+    ctx.fillText('ΔS='+sign+Math.abs(dS),Ax+arrowW/2,arrY-8);
+    ctx.fillText('J/mol·K',Ax+arrowW/2,arrY+18);
+
+    // ── RIGHT PANEL: dissolved (disordered) ──
+    const Rx=panelW+arrowW, Rw=W-Rx;
+    ctx.fillStyle=dS>0?'#f0fdf4':dS<0?'#fef2f2':'#f8fafc';
+    ctx.strokeStyle=dS>0?'#86efac':dS<0?'#fca5a5':'#e2e8f0';ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.roundRect(Rx+pad,pad,Rw-pad*2,H-pad*2,8);ctx.fill();ctx.stroke();
+
+    // Mixed particles (solute in blue, solvent in gray, randomly distributed)
+    const nBlue=16, nGray=10;
+    ctx.fillStyle='#2563ebaa';
+    for(let i=0;i<nBlue;i++){
+      const x=Rx+pad*2+seedRand(i+50,41,7)*(Rw-pad*4);
+      const y=pad*2+seedRand(i+50,29,13)*(H-pad*4);
+      ctx.beginPath();ctx.arc(x,y,4.5,0,Math.PI*2);ctx.fill();
+    }
+    ctx.fillStyle='#94a3b8aa';
+    for(let i=0;i<nGray;i++){
+      const x=Rx+pad*2+seedRand(i+80,53,19)*(Rw-pad*4);
+      const y=pad*2+seedRand(i+80,61,23)*(H-pad*4);
+      ctx.beginPath();ctx.arc(x,y,3.5,0,Math.PI*2);ctx.fill();
+    }
+
+    ctx.fillStyle='#14532d';ctx.font='bold 9px sans-serif';ctx.textAlign='center';
+    ctx.fillText('DESPUÉS',Rx+Rw/2,H-pad-4);
+    ctx.fillStyle='#475569';ctx.font='8px sans-serif';
+    ctx.fillText('solución (desorden)',Rx+Rw/2,H-pad+7);
+
+    // ── ENTROPY BARS at top ──
+    const barRegionH=14;
+    const maxE=200;
+    // ΔS bar
+    const dSfrac=Math.min(Math.max(dS/maxE,-1),1);
+    const barX=pad+2, barMaxW=Lw-pad*2-4;
+    ctx.fillStyle='#e2e8f0';ctx.fillRect(barX,pad+1,barMaxW,barRegionH);
+    ctx.fillStyle=dS>=0?'#22c55e':'#ef4444';
+    ctx.fillRect(dS>=0?barX:barX+barMaxW*(1+dSfrac),pad+1,barMaxW*Math.abs(dSfrac),barRegionH);
+    ctx.fillStyle='#1e293b';ctx.font='bold 8px sans-serif';ctx.textAlign='center';
+    ctx.fillText('ΔS = '+(dS>=0?'+':'')+dS+' J/mol·K',barX+barMaxW/2,pad+10);
+  }
+
+  window.update3c=function(){
+    const dS=parseInt(document.getElementById('sl3c-ds').value);
+    const T=parseInt(document.getElementById('sl3c-T').value);
+    document.getElementById('lbl3c-ds').textContent=(dS>=0?'+':'')+dS;
+    document.getElementById('lbl3c-T').textContent=T;
+    const TdS_kJ=(T*dS/1000).toFixed(1);
+    const mTdS=(-T*dS/1000).toFixed(1);
+    draw(dS,T);
+    const out=document.getElementById('out3c');
+    if(dS>0){
+      out.className='out green';
+      out.innerHTML=
+        '<strong>ΔS = +'+dS+' J/mol·K → desorden aumenta ✅</strong><br>'+
+        '−TΔS = −('+T+' × '+dS/1000+') = <strong>'+mTdS+' kJ/mol</strong><br>'+
+        '<small>Este término negativo favorece ΔG &lt; 0 (espontaneidad). '+
+        'Cuanto mayor sea T, mayor es la contribución entrópica.</small>';
+    } else if(dS<0){
+      out.className='out red';
+      out.innerHTML=
+        '<strong>ΔS = '+dS+' J/mol·K → el sistema se ordena ❌</strong><br>'+
+        '−TΔS = −('+T+' × '+dS/1000+') = <strong>'+mTdS+' kJ/mol</strong><br>'+
+        '<small>Este término positivo dificulta la espontaneidad. '+
+        'Ejemplo: gases disueltos en agua (ΔS_estruc muy negativo).</small>';
+    } else {
+      out.className='out gray';
+      out.innerHTML='ΔS = 0 → no hay contribución entrópica. ΔG = ΔH.';
+    }
+  };
+
+  window.addEventListener('resize',()=>update3c());
+  update3c();
+})();
+
+/* ──────────────────────────────
+   APPLET 3B — ENERGY DIAGRAM
+────────────────────────────── */
+(function(){
+  function draw3b(){
+    const sl1=document.getElementById('sl3b1');
+    const sl2=document.getElementById('sl3b2');
+    const sl3=document.getElementById('sl3b3');
+    const dH1=parseInt(sl1.value);
+    const dH2=parseInt(sl2.value);
+    const dH3=parseInt(sl3.value);
+    document.getElementById('lbl3b1').textContent='+'+(dH1);
+    document.getElementById('lbl3b2').textContent='+'+(dH2);
+    document.getElementById('lbl3b3').textContent=(dH3);
+    const dHsoln=dH1+dH2+dH3;
+
+    const cv=document.getElementById('cv3b');
+    const ctx=cv.getContext('2d');
+    const {W,H}=resizeCanvas(cv);
+    ctx.clearRect(0,0,W,H);
+
+    // Energy level diagram
+    const baseY=H-25;
+    const maxE=700;
+    const scH=H-50;
+
+    // Ground state (soluto+solvente separados)
+    const y0=baseY;
+    // Etapa 1+2: soluto y solvente separados
+    const y12=baseY-((dH1+dH2)/maxE)*scH;
+    // Solución
+    const yF=baseY-(dHsoln/maxE)*scH;
+
+    const lw=70;
+
+    function hline(y,x,col,lbl){
+      ctx.strokeStyle=col;ctx.lineWidth=2;
+      ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+lw,y);ctx.stroke();
+      ctx.fillStyle=col;ctx.font='10px sans-serif';ctx.textAlign='left';
+      ctx.fillText(lbl,x+lw+4,y+4);
+    }
+
+    function arrow(x1,y1,x2,y2,col){
+      ctx.strokeStyle=col;ctx.lineWidth=1.5;ctx.setLineDash([3,2]);
+      ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    const cx=W/2;
+    hline(y0,cx-lw/2,'#1e293b','Estado inicial');
+    hline(Math.min(y12,H-45),20,'#dc2626','Etapas 1+2');
+    hline(Math.max(Math.min(yF,H-45),12),W-lw-60,dHsoln<0?'#059669':'#dc2626','Solución');
+
+    arrow(cx,y0,40,Math.min(y12,H-45),'#dc2626');
+    arrow(W-45,Math.min(y12,H-45),W-45,Math.max(Math.min(yF,H-45),12),'#2563eb');
+
+    // Labels
+    ctx.fillStyle='#1e293b';ctx.font='bold 11px sans-serif';ctx.textAlign='center';
+    const dHsign=dHsoln>0?'+':'';
+    ctx.fillText('ΔH_soln = '+dHsign+dHsoln+' kJ/mol',cx,12);
+
+    const out=document.getElementById('out3b');
+    out.className='out '+(dHsoln<0?'green':dHsoln===0?'gray':'red');
+    out.innerHTML='ΔH₁+ΔH₂ = +'+(dH1+dH2)+' kJ &nbsp;|&nbsp; ΔH₃ = '+dH3+' kJ &nbsp;→&nbsp; <strong>ΔH_soln = '+dHsign+dHsoln+' kJ/mol</strong> ('+(dHsoln<0?'Exotérmico ❄️':'Endotérmico 🔥')+')';
+  }
+
+  window.draw3b=draw3b;
+  window.addEventListener('resize',()=>draw3b());
+  draw3b();
+})();
+
+/* ──────────────────────────────
+   APPLET 4A — SOLUBILITY CURVES (Chart.js)
+────────────────────────────── */
+(function(){
+  const temps=[0,10,20,30,40,50,60,70,80,90,100];
+  const compounds=[
+    {id:'KNO3', name:'KNO₃', data:[13.3,20.9,31.6,45.8,63.9,85.5,110,138,168.8,202.9,245], color:'#3b82f6', dH:'>0'},
+    {id:'NaCl', name:'NaCl', data:[35.7,35.8,36.0,36.3,36.6,37.0,37.3,37.8,38.4,38.9,39.2], color:'#ef4444', dH:'≈0'},
+    {id:'NaNO3', name:'NaNO₃', data:[73,80,88,96,104,114,124,134,148,163,180], color:'#f59e0b', dH:'>0'},
+    {id:'KBr', name:'KBr', data:[53.5,59.5,65.2,70.7,75.5,80.2,85.5,90,95,99.2,104], color:'#8b5cf6', dH:'>0'},
+    {id:'Ce2SO4', name:'Ce₂(SO₄)₃', data:[20.8,16.2,10.1,7.0,5.0,3.8,3.0,null,null,null,null], color:'#06b6d4', dH:'<0'},
+  ];
+  let visible=new Set(['KNO3','NaCl','NaNO3','KBr','Ce2SO4']);
+  let currentT=50;
+
+  // Build legend buttons
+  const legendDiv=document.getElementById('sc-legend');
+  compounds.forEach(c=>{
+    const btn=document.createElement('button');
+    btn.className='abtn active';
+    btn.style.borderColor=c.color;
+    btn.style.color=c.color;
+    btn.innerHTML='<span style="background:'+c.color+';width:10px;height:10px;display:inline-block;border-radius:50%;margin-right:4px;vertical-align:middle;"></span>'+c.name;
+    btn.onclick=function(){
+      if(visible.has(c.id)){visible.delete(c.id);btn.className='abtn';}
+      else{visible.add(c.id);btn.className='abtn active';btn.style.color=c.color;}
+      updateChart();
+    };
+    legendDiv.appendChild(btn);
+  });
+
+  function interpolate(data,t){
+    const idx=Math.floor(t/10);
+    if(idx>=10)return data[10];
+    if(data[idx]===null||data[idx+1]===null)return null;
+    const frac=(t%10)/10;
+    return data[idx]*(1-frac)+data[idx+1]*frac;
+  }
+
+  const ctx4a=document.getElementById('cv4a').getContext('2d');
+  const chart=new Chart(ctx4a,{
+    type:'line',
+    data:{
+      labels:temps,
+      datasets:compounds.map(c=>({
+        label:c.name,
+        data:c.data,
+        borderColor:c.color,
+        backgroundColor:c.color+'22',
+        borderWidth:2.5,
+        pointRadius:3,
+        tension:0.35,
+        spanGaps:false,
+      }))
+    },
+    options:{
+      responsive:true,
+      interaction:{mode:'index',intersect:false},
+      plugins:{
+        legend:{display:false},
+        tooltip:{
+          callbacks:{
+            label:ctx=>'  '+ctx.dataset.label+': '+(ctx.parsed.y!==null?ctx.parsed.y.toFixed(1):'-')+' g/100g H₂O'
+          }
+        },
+        annotation:{annotations:{}}
+      },
+      scales:{
+        x:{title:{display:true,text:'Temperatura (°C)'},grid:{color:'#e2e8f0'}},
+        y:{title:{display:true,text:'Solubilidad (g / 100 g H₂O)'},min:0,grid:{color:'#e2e8f0'}}
+      }
+    }
+  });
+
+  function updateChart(){
+    chart.data.datasets.forEach((ds,i)=>{
+      ds.hidden=!visible.has(compounds[i].id);
+    });
+    chart.update();
+    updateValues();
+  }
+
+  function updateValues(){
+    const T=currentT;
+    const div=document.getElementById('out4a-vals');
+    div.innerHTML='';
+    compounds.forEach(c=>{
+      if(!visible.has(c.id))return;
+      const s=interpolate(c.data,T);
+      if(s===null)return;
+      const d=document.createElement('div');
+      d.style.cssText='background:white;border:1px solid #e2e8f0;border-radius:6px;padding:0.4rem 0.6rem;text-align:center;';
+      d.innerHTML='<div style="color:'+c.color+';font-weight:700;font-size:0.82rem;">'+c.name+'</div><div style="font-size:0.9rem;font-weight:800;">'+s.toFixed(1)+' g</div><div style="font-size:0.7rem;color:#94a3b8;">por 100 g H₂O a '+T+'°C</div>';
+      div.appendChild(d);
+    });
+  }
+
+  window.update4a=function(){
+    currentT=parseInt(document.getElementById('sl4a-T').value);
+    document.getElementById('lbl4a-T').textContent=currentT;
+    updateValues();
+  };
+
+  updateValues();
+})();
+
+/* ──────────────────────────────
+   APPLET 4B — CRYSTALLIZATION CALC
+────────────────────────────── */
+(function(){
+  // Solubility data: g / 100mL at different temps
+  const solData={
+    KNO3:[[0,13.3],[10,20.9],[20,31.6],[30,45.8],[40,63.9],[50,85.5],[60,110],[70,138],[80,168.8],[90,202.9],[100,245]],
+    NaNO3:[[0,73],[10,80],[20,88],[30,96],[40,104],[50,114],[60,124],[70,134],[80,148],[90,163],[100,180]],
+    KBr:[[0,53.5],[10,59.5],[20,65.2],[30,70.7],[40,75.5],[50,80.2],[60,85.5],[70,90],[80,95],[90,99.2],[100,104]],
+  };
+
+  function getSolubility(compound, T){
+    const d=solData[compound];
+    if(T<=d[0][0])return d[0][1];
+    if(T>=d[d.length-1][0])return d[d.length-1][1];
+    for(let i=0;i<d.length-1;i++){
+      if(T>=d[i][0]&&T<=d[i+1][0]){
+        const frac=(T-d[i][0])/(d[i+1][0]-d[i][0]);
+        return d[i][1]*(1-frac)+d[i+1][1]*frac;
+      }
+    }
+    return null;
+  }
+
+  window.calc4b=function(){
+    const comp=document.getElementById('sel4b').value;
+    const T1=parseFloat(document.getElementById('in4b-T1').value);
+    const T2=parseFloat(document.getElementById('in4b-T2').value);
+    const vol=parseFloat(document.getElementById('in4b-vol').value);
+    const out=document.getElementById('out4b');
+
+    if(T2>=T1){out.style.display='block';out.className='out red';out.innerHTML='⚠️ T₂ debe ser menor que T₁ para que cristalice soluto.';return;}
+
+    const s1=getSolubility(comp,T1);
+    const s2=getSolubility(comp,T2);
+    const factor=vol/100;
+    const dissolved=s1*factor;
+    const maxDissolvedAt2=s2*factor;
+    const crystallized=Math.max(0,dissolved-maxDissolvedAt2);
+
+    out.style.display='block';
+    out.className='out green';
+    out.innerHTML=
+      '<strong>Compuesto:</strong> '+comp+'<br>'+
+      '📊 S('+T1+'°C) = '+s1.toFixed(1)+' g/100 mL → en '+vol+' mL: <strong>'+dissolved.toFixed(1)+' g disueltos</strong><br>'+
+      '📊 S('+T2+'°C) = '+s2.toFixed(1)+' g/100 mL → en '+vol+' mL: puede disolver hasta <strong>'+maxDissolvedAt2.toFixed(1)+' g</strong><br>'+
+      '<hr style="margin:0.4rem 0;border:none;border-top:1px solid #86efac;">'+
+      '❄️ <strong>Masa que cristaliza: '+crystallized.toFixed(1)+' g de '+comp+'</strong>';
+  };
+})();
+
+/* ──────────────────────────────
+   APPLET 4C — GAS SOLUBILITY CHART
+────────────────────────────── */
+(function(){
+  const cv=document.getElementById('cv4c');
+  const ctx=cv.getContext('2d');
+  // O2 solubility in mg/L at 1 atm
+  const o2Data=[[0,14.6],[5,12.8],[10,11.3],[15,10.1],[20,9.1],[25,8.3],[30,7.6],[35,7.1],[40,6.4],[50,5.6],[60,4.8]];
+
+  function draw(){
+    const {W,H}=resizeCanvas(cv);
+    ctx.clearRect(0,0,W,H);
+    const padL=40,padR=15,padT=20,padB=35;
+    const pw=W-padL-padR,ph=H-padT-padB;
+
+    // axes
+    ctx.strokeStyle='#94a3b8';ctx.lineWidth=1.5;
+    ctx.beginPath();
+    ctx.moveTo(padL,padT);ctx.lineTo(padL,padT+ph);ctx.lineTo(padL+pw,padT+ph);
+    ctx.stroke();
+
+    // grid & y labels
+    const yTicks=[0,2,4,6,8,10,12,14,16];
+    yTicks.forEach(v=>{
+      const y=padT+ph-v/16*ph;
+      ctx.strokeStyle='#e2e8f0';ctx.lineWidth=0.8;
+      ctx.beginPath();ctx.moveTo(padL,y);ctx.lineTo(padL+pw,y);ctx.stroke();
+      ctx.fillStyle='#64748b';ctx.font='9px sans-serif';ctx.textAlign='right';
+      ctx.fillText(v,padL-4,y+3);
+    });
+
+    // x labels
+    [0,10,20,30,40,50,60].forEach(t=>{
+      const x=padL+t/60*pw;
+      ctx.fillStyle='#64748b';ctx.font='9px sans-serif';ctx.textAlign='center';
+      ctx.fillText(t+'°',x,padT+ph+12);
+    });
+
+    // axis labels
+    ctx.fillStyle='#1e293b';ctx.font='bold 10px sans-serif';ctx.textAlign='center';
+    ctx.fillText('Temperatura (°C)',padL+pw/2,H-4);
+    ctx.save();ctx.translate(10,padT+ph/2);ctx.rotate(-Math.PI/2);
+    ctx.fillText('O₂ disuelto (mg/L)',0,0);ctx.restore();
+
+    // O2 curve
+    ctx.strokeStyle='#3b82f6';ctx.lineWidth=2.5;ctx.lineJoin='round';
+    ctx.beginPath();
+    o2Data.forEach(([t,s],i)=>{
+      const x=padL+t/60*pw;
+      const y=padT+ph-s/16*ph;
+      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    });
+    ctx.stroke();
+
+    // fill under curve
+    ctx.fillStyle='rgba(59,130,246,0.08)';
+    ctx.beginPath();
+    o2Data.forEach(([t,s],i)=>{
+      const x=padL+t/60*pw;
+      const y=padT+ph-s/16*ph;
+      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    });
+    ctx.lineTo(padL+60/60*pw,padT+ph);ctx.lineTo(padL,padT+ph);ctx.closePath();ctx.fill();
+
+    // dots
+    ctx.fillStyle='#3b82f6';
+    o2Data.forEach(([t,s])=>{
+      const x=padL+t/60*pw,y=padT+ph-s/16*ph;
+      ctx.beginPath();ctx.arc(x,y,3,0,Math.PI*2);ctx.fill();
+    });
+
+    // title
+    ctx.fillStyle='#1e293b';ctx.font='bold 10px sans-serif';ctx.textAlign='center';
+    ctx.fillText('Solubilidad del O₂ en agua a 1 atm',padL+pw/2,padT-5);
+  }
+
+  window.addEventListener('resize',()=>draw());
+  draw();
+})();
+
+/* ──────────────────────────────
+   APPLET 5A — HENRY'S LAW CALCULATOR
+────────────────────────────── */
+(function(){
+  const kH={N2:8.42e-7, O2:1.66e-6, CO2:4.48e-5};
+  const names={N2:'N₂',O2:'O₂',CO2:'CO₂'};
+  const colors={N2:'#3b82f6',O2:'#ef4444',CO2:'#f59e0b'};
+  const cv=document.getElementById('cv5a');
+  const ctx=cv.getContext('2d');
+  const out=document.getElementById('out5a');
+
+  function draw(gas,P){
+    const {W,H}=resizeCanvas(cv);
+    ctx.clearRect(0,0,W,H);
+    const gases=['N2','O2','CO2'];
+    const barW=Math.min(50,(W-60)/(gases.length*1.5));
+    const gap=(W-60-gases.length*barW)/(gases.length+1);
+    const maxS=kH['CO2']*P;
+
+    gases.forEach((g,i)=>{
+      const S=kH[g]*P;
+      const x=30+gap*(i+1)+barW*i;
+      const barH=maxS>0?Math.max(2,(S/maxS)*(H-55)):2;
+      const y=H-30-barH;
+
+      ctx.fillStyle=colors[g]+(g===gas?'ff':'88');
+      ctx.beginPath();ctx.roundRect(x,y,barW,barH,4);ctx.fill();
+
+      if(g===gas){
+        ctx.strokeStyle=colors[g];ctx.lineWidth=2;
+        ctx.beginPath();ctx.roundRect(x,y,barW,barH,4);ctx.stroke();
+      }
+
+      ctx.fillStyle='#1e293b';ctx.font=(g===gas?'bold ':'')+' 10px sans-serif';ctx.textAlign='center';
+      ctx.fillText(names[g],x+barW/2,H-15);
+
+      const label=S<1e-6?S.toExponential(2)+' M':(S*1000).toFixed(3)+' mM';
+      ctx.fillStyle=colors[g];ctx.font='9px sans-serif';
+      ctx.fillText(label,x+barW/2,Math.max(y-3,10));
+    });
+
+    ctx.fillStyle='#94a3b8';ctx.font='9px sans-serif';ctx.textAlign='center';
+    ctx.fillText('Solubilidad a P='+P+' mmHg',W/2,H-3);
+  }
+
+  window.update5a=function(){
+    const gas=document.getElementById('sel5a').value;
+    const P=parseInt(document.getElementById('sl5a-P').value);
+    document.getElementById('lbl5a-P').textContent=P;
+    const S=kH[gas]*P;
+    draw(gas,P);
+    const Sfmt=S<1e-5?S.toExponential(3):S.toFixed(5);
+    out.className='out gray';
+    out.innerHTML='S('+names[gas]+') = '+kH[gas].toExponential(2)+' × '+P+' = <strong>'+Sfmt+' M</strong>';
+  };
+
+  window.addEventListener('resize',()=>update5a());
+  update5a();
+})();
+
+/* ──────────────────────────────
+   APPLET 5B — DIVER SIMULATOR
+────────────────────────────── */
+(function(){
+  const kH_N2=8.42e-7; // M/mmHg
+  const P0_N2=593;     // mmHg at surface (78% of 760)
+  const S0=kH_N2*P0_N2;
+
+  const cv=document.getElementById('cv5b');
+  const ctx=cv.getContext('2d');
+  const out=document.getElementById('out5b');
+
+  function draw(depth){
+    const {W,H}=resizeCanvas(cv);
+    ctx.clearRect(0,0,W,H);
+
+    // Sky / water gradient
+    const skyH=H*0.15;
+    const waterH=H-skyH;
+
+    // sky
+    ctx.fillStyle='#bfdbfe';
+    ctx.fillRect(0,0,W,skyH);
+
+    // water
+    const grad=ctx.createLinearGradient(0,skyH,0,H);
+    grad.addColorStop(0,'#3b82f6');
+    grad.addColorStop(1,'#0f172a');
+    ctx.fillStyle=grad;
+    ctx.fillRect(0,skyH,W,waterH);
+
+    // water surface line
+    ctx.strokeStyle='rgba(255,255,255,0.4)';ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(0,skyH);ctx.lineTo(W,skyH);ctx.stroke();
+
+    // Depth markers on right side
+    const maxDepth=50;
+    for(let d=0;d<=maxDepth;d+=10){
+      const y=skyH+(d/maxDepth)*waterH;
+      ctx.strokeStyle='rgba(255,255,255,0.2)';ctx.lineWidth=0.8;
+      ctx.beginPath();ctx.moveTo(W*0.7,y);ctx.lineTo(W,y);ctx.stroke();
+      ctx.fillStyle='rgba(255,255,255,0.6)';ctx.font='9px sans-serif';ctx.textAlign='right';
+      ctx.fillText(d+'m',W-4,y+3);
+    }
+
+    // Diver position
+    const diverY=skyH+(depth/maxDepth)*waterH;
+    const diverX=W*0.35;
+
+    // Diver body (simple)
+    ctx.fillStyle='#fbbf24';
+    ctx.beginPath();ctx.arc(diverX,diverY,10,0,Math.PI*2);ctx.fill();
+    ctx.strokeStyle='#92400e';ctx.lineWidth=1.5;ctx.stroke();
+    ctx.fillStyle='#1e293b';ctx.font='14px sans-serif';ctx.textAlign='center';
+    ctx.fillText('🤿',diverX,diverY+5);
+
+    // Bubbles (when deep)
+    if(depth>5){
+      const nb=Math.min(Math.round(depth/8),6);
+      ctx.fillStyle='rgba(255,255,255,0.5)';
+      for(let i=0;i<nb;i++){
+        const bx=diverX+(i%2===0?-8:8);
+        const by=diverY-15-i*10;
+        const br=2+i*0.5;
+        ctx.beginPath();ctx.arc(bx,by,br,0,Math.PI*2);ctx.fill();
+      }
+    }
+
+    // Pressure bar on left
+    const P=(1+depth/10); // atm
+    const PN2=P*0.78*760; // mmHg
+    const barX=15,barMaxH=waterH*0.85,barW2=12;
+    const barH=Math.min((P/6)*barMaxH,barMaxH);
+    const barY=skyH+waterH-barH;
+
+    ctx.fillStyle='rgba(0,0,0,0.3)';ctx.fillRect(barX,skyH+waterH-barMaxH,barW2,barMaxH);
+    const pGrad=ctx.createLinearGradient(0,skyH+waterH,0,skyH+waterH-barMaxH);
+    pGrad.addColorStop(0,'#22c55e');pGrad.addColorStop(0.4,'#f59e0b');pGrad.addColorStop(1,'#ef4444');
+    ctx.fillStyle=pGrad;ctx.fillRect(barX,barY,barW2,barH);
+    ctx.fillStyle='white';ctx.font='bold 8px sans-serif';ctx.textAlign='center';
+    ctx.fillText('P',barX+barW2/2,skyH+waterH-barMaxH-4);
+    ctx.fillText(P.toFixed(1),barX+barW2/2,skyH+waterH+10);
+    ctx.fillText('atm',barX+barW2/2,skyH+waterH+20);
+  }
+
+  window.update5b=function(){
+    const depth=parseInt(document.getElementById('sl5b-d').value);
+    document.getElementById('lbl5b-d').textContent=depth;
+    const P=(1+depth/10);
+    const PN2=P*0.78*760;
+    const S=kH_N2*PN2;
+    const ratio=S/S0;
+    draw(depth);
+
+    let risk,cls;
+    if(depth<=10){risk='✅ Riesgo bajo — profundidad segura para buceo recreacional';cls='green';}
+    else if(depth<=25){risk='🟡 Riesgo moderado — el N₂ empieza a acumularse significativamente';cls='yellow';}
+    else{risk='🔴 Riesgo alto — descompresión lenta obligatoria para evitar el bends';cls='red';}
+
+    out.className='out '+cls;
+    out.innerHTML=
+      '<strong>Profundidad:</strong> '+depth+' m &nbsp;·&nbsp; <strong>P_total:</strong> '+P.toFixed(1)+' atm<br>'+
+      '<strong>P_N₂:</strong> '+PN2.toFixed(0)+' mmHg &nbsp;·&nbsp; <strong>S(N₂) en sangre:</strong> '+(S*1e6).toFixed(2)+'×10⁻⁶ M<br>'+
+      '<strong>Relación vs superficie:</strong> '+ratio.toFixed(1)+'× más N₂ disuelto<br>'+
+      risk;
+  };
+
+  window.addEventListener('resize',()=>update5b());
+  update5b();
+})();
+
+</script>
+</body>
+</html>

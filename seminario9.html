@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seminario 9 — Estados de Agregación y Diagramas de Fases</title>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<style>
+:root{--primary:#1a4f8a;--secondary:#2e7d9c;--accent:#e07b39;--light-bg:#f4f8fc;--card-bg:#fff;--text:#1e293b;--border:#cbd5e1;--radius:12px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--light-bg);color:var(--text);line-height:1.7}
+a{color:var(--secondary)}
+header{background:linear-gradient(135deg,#0f3460,var(--secondary));color:#fff;padding:2rem 1.5rem 1.5rem;text-align:center;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px #0003}
+header h1{font-size:clamp(1.2rem,4vw,2rem);font-weight:700}
+header p.sub{opacity:.85;font-size:.92rem;margin-top:.25rem}
+nav{margin-top:.9rem;display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem}
+nav a{background:#fff2;color:#fff;border-radius:20px;padding:.28rem .85rem;font-size:.8rem;text-decoration:none;transition:background .2s}
+nav a:hover{background:#fff4}
+.back-bar{background:#0f3460;color:#fff;padding:.45rem 1.5rem;font-size:.88rem}
+.back-bar a{color:#90caf9;text-decoration:none}
+.back-bar a:hover{text-decoration:underline}
+main{max-width:1100px;margin:0 auto;padding:2rem 1rem 4rem}
+.tema{background:var(--card-bg);border-radius:var(--radius);box-shadow:0 2px 16px #0001;margin-bottom:3rem;overflow:hidden}
+.tema-header{background:linear-gradient(90deg,var(--primary),var(--secondary));color:#fff;padding:1.2rem 1.5rem}
+.tema-header h2{font-size:1.2rem;font-weight:700}
+.tema-header p{opacity:.85;font-size:.88rem;margin-top:.2rem}
+.tema-body{padding:1.5rem}
+.card{background:var(--light-bg);border:1px solid var(--border);border-radius:var(--radius);padding:1.2rem;margin-bottom:1.2rem}
+.card h3{color:var(--primary);font-size:.98rem;margin-bottom:.7rem;border-bottom:2px solid var(--accent);padding-bottom:.35rem}
+table{width:100%;border-collapse:collapse;font-size:.88rem;margin:.8rem 0}
+th{background:var(--primary);color:#fff;padding:.55rem .75rem;text-align:left}
+td{padding:.5rem .75rem;border-bottom:1px solid var(--border)}
+tr:nth-child(even) td{background:#f8fafc}
+.graphs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.2rem;margin:1.2rem 0}
+.graph-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:.8rem;text-align:center}
+.graph-card img{width:100%;border-radius:8px;display:block}
+.graph-card p{font-size:.78rem;color:#64748b;margin-top:.4rem;font-style:italic}
+.applets-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.2rem;margin-bottom:1.2rem}
+.applet-card{background:#f8fafc;border:1px solid var(--border);border-radius:var(--radius);padding:1rem;display:flex;flex-direction:column}
+.applet-card h4{color:var(--secondary);font-size:.9rem;font-weight:600;margin-bottom:.7rem}
+canvas{display:block;width:100%;background:#fff;border-radius:8px;border:1px solid var(--border)}
+.ctrl{display:flex;flex-direction:column;gap:.35rem;margin-top:.7rem;font-size:.8rem}
+.ctrl label{display:flex;justify-content:space-between;align-items:center;color:#475569}
+.ctrl input[type=range]{width:100%;accent-color:var(--secondary)}
+.ctrl select{width:100%;padding:.28rem;border:1px solid var(--border);border-radius:6px;font-size:.8rem}
+.out-box{margin-top:.55rem;padding:.55rem .8rem;background:#e8f4f8;border-radius:8px;font-size:.8rem;min-height:2.4rem;line-height:1.5}
+.math-block{background:#f0f4ff;border-left:4px solid var(--secondary);padding:.9rem 1.1rem;border-radius:0 var(--radius) var(--radius) 0;margin:.9rem 0}
+.formula-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.9rem;margin:.9rem 0}
+.formula-box{background:#fff;border:1px solid var(--border);border-radius:8px;padding:.9rem;text-align:center}
+.formula-box .label{font-size:.78rem;color:#64748b;margin-top:.4rem}
+.info-box{background:#e0f2fe;border:1px solid #7dd3fc;border-radius:8px;padding:.8rem 1rem;margin:.7rem 0;font-size:.87rem}
+.warning-box{background:#fef9c3;border:1px solid #fde047;border-radius:8px;padding:.8rem 1rem;margin:.7rem 0;font-size:.87rem}
+.video-wrap{background:#1e293b;border-radius:var(--radius);aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#94a3b8;margin-bottom:1.2rem}
+.video-wrap .play-icon{font-size:3rem;opacity:.4;margin-bottom:.6rem}
+.video-wrap p{font-size:.9rem;opacity:.7}
+.video-wrap span{font-size:.78rem;opacity:.45;margin-top:.2rem}
+.questions{background:#fffbf0;border:1px solid #fde68a;border-radius:var(--radius);padding:1.2rem}
+.questions h3{color:#92400e;font-size:.98rem;margin-bottom:.7rem}
+.questions ol{padding-left:1.35rem}
+.questions li{margin-bottom:.55rem;font-size:.9rem}
+.scheme-row{display:flex;flex-wrap:wrap;gap:.9rem;align-items:center;justify-content:center;margin:1rem 0}
+.scheme-box{background:#f8fafc;border:1.5px solid var(--border);border-radius:10px;padding:.75rem 1rem;text-align:center;min-width:130px}
+.scheme-arrow{font-size:1.7rem;color:var(--secondary)}
+.step{display:flex;gap:.9rem;margin-bottom:1rem;align-items:flex-start}
+.step-num{background:var(--secondary);color:#fff;border-radius:50%;min-width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;flex-shrink:0;margin-top:.15rem}
+.step-body p{font-size:.88rem;margin-bottom:.35rem;color:#374151}
+.aprox{background:#fff3cd;border:1px solid #ffc107;border-radius:6px;padding:.4rem .75rem;font-size:.83rem;color:#856404;margin:.35rem 0}
+.result-box{background:linear-gradient(90deg,#1a4f8a,#2e7d9c);color:#fff;border-radius:8px;padding:.8rem 1.1rem;text-align:center;margin:.9rem 0;font-size:1rem}
+#guia{background:var(--card-bg);border-radius:var(--radius);box-shadow:0 2px 16px #0001;margin-bottom:3rem;overflow:hidden}
+.guia-header{background:linear-gradient(90deg,#4a1d96,#6d28d9);color:#fff;padding:1.2rem 1.5rem}
+.guia-header h2{font-size:1.15rem;font-weight:700}
+.guia-body{padding:1.5rem}
+.guia-section{margin-bottom:1.5rem}
+.guia-section h3{color:#5b21b6;font-size:.98rem;border-bottom:2px solid #c4b5fd;padding-bottom:.32rem;margin-bottom:.75rem}
+.guia-section ol,.guia-section ul{padding-left:1.35rem}
+.guia-section li{margin-bottom:.5rem;font-size:.89rem}
+footer{background:#0f3460;color:#94a3b8;text-align:center;padding:1.5rem;font-size:.85rem}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>⚗️ Seminario 9 — Estados de Agregación y Diagramas de Fases</h1>
+  <p class="sub">Química para Ingeniería (U1901) · Temas: EC vs FIM · Presión de Vapor · Diagramas P-T · Propiedades Coligativas · Factor de van't Hoff</p>
+  <nav>
+    <a href="#tema1">1. Estados de Agregación</a>
+    <a href="#tema2">2. Presión de Vapor</a>
+    <a href="#tema3">3. Diagramas de Fases</a>
+    <a href="#tema4">4. Prop. Coligativas</a>
+    <a href="#tema5">5. Factor van't Hoff</a>
+    <a href="#guia">📋 Guía de Estudio</a>
+  </nav>
+</header>
+
+<div class="back-bar">
+  ← Volver a: <a href="soluciones.html">Soluciones I</a> &nbsp;|&nbsp; <a href="soluciones2.html">Soluciones II — Propiedades Coligativas</a>
+</div>
+
+<main>
+
+<!-- ═══════════════════════════════════════════════════════════ TEMA 1 -->
+<section class="tema" id="tema1">
+  <div class="tema-header">
+    <h2>1. Estados de Agregación de la Materia</h2>
+    <p>Sólido · Líquido · Gas — balance entre EC y FIM, efecto de P y T</p>
+  </div>
+  <div class="tema-body">
+
+    <div class="card">
+      <h3>⚡ Energía Cinética (EC) vs Fuerzas Intermoleculares (FIM)</h3>
+      <p>El estado de agregación de una sustancia pura depende del <strong>balance competitivo</strong> entre:</p>
+      <ul style="padding-left:1.3rem;margin:.6rem 0">
+        <li><strong>Energía cinética (EC)</strong>: proporcional a la temperatura (T). A mayor T, las moléculas se mueven más vigorosamente y tienden a separarse.</li>
+        <li><strong>Fuerzas intermoleculares (FIM)</strong>: fuerzas de atracción entre moléculas (puentes H, dipolo-dipolo, fuerzas de London). Mantienen las moléculas unidas. Se favorecen a alta presión.</li>
+      </ul>
+      <div class="math-block">
+        <strong>Sólido:</strong> EC ≪ FIM &nbsp;→&nbsp; <strong>Líquido:</strong> EC ≈ FIM &nbsp;→&nbsp; <strong>Gas:</strong> EC ≫ FIM
+      </div>
+      <p style="font-size:.9rem"><strong>Temperatura:</strong> Aumentar T → aumenta EC → favorece transiciones Sólido → Líquido → Gas.<br>
+      <strong>Presión:</strong> Aumentar P → fuerza moléculas juntas → favorece fases más densas Gas → Líquido → Sólido.</p>
+    </div>
+
+    <div class="card">
+      <h3>📊 Tabla Comparativa de los Estados de Agregación</h3>
+      <table>
+        <tr><th>Propiedad</th><th>Sólido</th><th>Líquido</th><th>Gas</th></tr>
+        <tr><td>Forma</td><td>Definida y rígida</td><td>Indefinida (adopta recipiente)</td><td>Indefinida (ocupa todo)</td></tr>
+        <tr><td>Volumen</td><td>Definido</td><td>Definido</td><td>Indefinido (expansible)</td></tr>
+        <tr><td>Compresibilidad</td><td>Muy baja</td><td>Baja</td><td>Alta</td></tr>
+        <tr><td>Orden molecular</td><td>Alto (cristalino)</td><td>Bajo (desorden local)</td><td>Muy bajo (caótico)</td></tr>
+        <tr><td>Movimiento partículas</td><td>Vibración en posiciones fijas</td><td>Deslizamiento, flujo</td><td>Movimiento libre y rápido</td></tr>
+        <tr><td>Distancia intermolecular</td><td>Corta (contacto)</td><td>Corta-media</td><td>Grande</td></tr>
+        <tr><td>EC vs FIM</td><td><strong>FIM ≫ EC</strong></td><td><strong>FIM ≈ EC</strong></td><td><strong>EC ≫ FIM</strong></td></tr>
+        <tr><td>Densidad</td><td>Alta</td><td>Media-alta</td><td>Muy baja</td></tr>
+      </table>
+    </div>
+
+    <div class="graphs-grid">
+      <div class="graph-card">
+        <img src="sem9/s9_estados_moleculares.png" alt="Estados moleculares: sólido, líquido, gas">
+        <p>Representación molecular: sólido (red ordenada), líquido (móvil pero compacto), gas (libre con velocidades aleatorias)</p>
+      </div>
+    </div>
+
+    <div class="applets-grid">
+      <div class="applet-card">
+        <h4>🔬 Applet 1A — Simulador Molecular: EC vs FIM</h4>
+        <canvas id="cv1a" height="200"></canvas>
+        <div class="ctrl">
+          <label>Temperatura (T): <span id="v1aT">300</span> K</label>
+          <input type="range" id="s1aT" min="50" max="800" value="300">
+          <label>Presión (P): <span id="v1aP">1</span> atm</label>
+          <input type="range" id="s1aP" min="1" max="200" value="1" step="1">
+        </div>
+        <div class="out-box" id="o1a">Ajusta T y P para ver el estado de agregación.</div>
+      </div>
+
+      <div class="applet-card">
+        <h4>⚖️ Applet 1B — Balance EC vs FIM (gauge)</h4>
+        <canvas id="cv1b" height="200"></canvas>
+        <div class="ctrl">
+          <label>Temperatura: <span id="v1bT">300</span> K</label>
+          <input type="range" id="s1bT" min="50" max="1000" value="300">
+          <label>Sustancia:</label>
+          <select id="sel1b">
+            <option value="400">Agua (FIM fuertes, Tb=373 K)</option>
+            <option value="200">Etanol (FIM medias, Tb=351 K)</option>
+            <option value="100">Butano (FIM débiles, Tb=272 K)</option>
+          </select>
+        </div>
+        <div class="out-box" id="o1b">Selecciona sustancia y temperatura.</div>
+      </div>
+    </div>
+
+    <div class="video-wrap">
+      <div class="play-icon">▶</div>
+      <p>Video: Estados de agregación y fuerzas intermoleculares</p>
+      <span>Próximamente disponible</span>
+    </div>
+
+    <div class="questions">
+      <h3>❓ Preguntas de Comprensión — Tema 1</h3>
+      <ol>
+        <li>¿Por qué al aumentar la presión una sustancia tiende a pasar a fases más densas?</li>
+        <li>Un sólido se calienta manteniendo la presión constante. Describe a nivel molecular los cambios que ocurren durante la fusión.</li>
+        <li>¿Por qué los gases son mucho más compresibles que los sólidos y líquidos?</li>
+        <li>Tres sustancias A, B y C son líquidas a −10°C con puntos de ebullición normales 110,6°C; −0,5°C y 78,3°C respectivamente. ¿Cuál es más volátil? ¿Cuál tiene FIM más intensas?</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ TEMA 2 -->
+<section class="tema" id="tema2">
+  <div class="tema-header">
+    <h2>2. Presión de Vapor, Ebullición y Volatilidad</h2>
+    <p>Equilibrio líquido-vapor · Clausius-Clapeyron · Punto de ebullición normal</p>
+  </div>
+  <div class="tema-body">
+
+    <div class="card">
+      <h3>💨 Presión de Vapor (Pv)</h3>
+      <p>En un recipiente cerrado, algunas moléculas del líquido con suficiente EC escapan a la fase gaseosa (<strong>evaporación</strong>). Simultáneamente, moléculas de gas vuelven al líquido (<strong>condensación</strong>). Cuando ambas velocidades se igualan, se alcanza el <strong>equilibrio dinámico</strong>.</p>
+      <div class="math-block">
+        <strong>Presión de vapor</strong> = presión ejercida por el vapor en equilibrio con la fase líquida a una temperatura dada.
+      </div>
+      <ul style="padding-left:1.3rem;margin:.5rem 0;font-size:.92rem">
+        <li>Aumenta con la temperatura (más moléculas con EC suficiente para escapar).</li>
+        <li>Disminuye si las FIM son más intensas (más difícil escapar).</li>
+        <li><strong>Alta volatilidad</strong> ↔ alta Pv ↔ bajo punto de ebullición ↔ FIM débiles.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>🌡️ Punto de Ebullición Normal</h3>
+      <p><strong>Definición:</strong> temperatura a la cual la presión de vapor del líquido iguala la presión externa (Pext = 1 atm).</p>
+      <div class="info-box">⚡ En el punto de ebullición, la vaporización ocurre en todo el volumen del líquido (burbujas). Si Pext aumenta, el punto de ebullición sube; si Pext baja, el PE baja (e.g. en altitudes elevadas el agua hierve a menos de 100°C).</div>
+    </div>
+
+    <div class="card">
+      <h3>📐 Ecuación de Clausius-Clapeyron</h3>
+      <p>Describe cuantitativamente la dependencia de la presión de vapor con la temperatura:</p>
+      <div class="math-block">
+        $$\ln\frac{P_2}{P_1} = -\frac{\Delta H_{vap}}{R}\left(\frac{1}{T_2} - \frac{1}{T_1}\right)$$
+      </div>
+      <p style="font-size:.89rem">donde ΔH<sub>vap</sub> es la entalpía de vaporización (J/mol) y R = 8.314 J/(mol·K).<br>
+      Un gráfico de ln(Pv) vs 1/T da una <strong>recta de pendiente −ΔH<sub>vap</sub>/R</strong>.</p>
+      <div class="formula-grid">
+        <div class="formula-box">
+          <div>$$\Delta H_{vap}(H_2O) = 40700 \text{ J/mol}$$</div>
+          <div class="label">Agua (mayor por puentes H)</div>
+        </div>
+        <div class="formula-box">
+          <div>$$\Delta H_{vap}(EtOH) = 38600 \text{ J/mol}$$</div>
+          <div class="label">Etanol</div>
+        </div>
+        <div class="formula-box">
+          <div>$$\Delta H_{vap}(Et_2O) = 27100 \text{ J/mol}$$</div>
+          <div class="label">Dietiléter (FIM débiles)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="graphs-grid">
+      <div class="graph-card">
+        <img src="sem9/s9_clausius_clapeyron.png" alt="Clausius-Clapeyron: Pv vs T y ln(Pv) vs 1/T">
+        <p>Izquierda: Pv vs T para distintas sustancias. La intersección con P=1 atm da el PE normal. Derecha: gráfico linealizado — pendiente = −ΔH<sub>vap</sub>/R</p>
+      </div>
+      <div class="graph-card">
+        <img src="sem9/placeholder_Pv_vs_T.png" alt="Pv vs T: agua pura, glucosa 1M, NaCl 1M">
+        <p>Agua pura vs solución glucosa 1M vs solución NaCl 1M. Orden de Pv: agua pura > glucosa > NaCl (mayor disminución por mayor n° de partículas)</p>
+      </div>
+    </div>
+
+    <div class="applets-grid">
+      <div class="applet-card">
+        <h4>🧪 Applet 2A — Calculadora de Presión de Vapor</h4>
+        <canvas id="cv2a" height="200"></canvas>
+        <div class="ctrl">
+          <label>Sustancia:</label>
+          <select id="sel2a">
+            <option value="40700,373.15">Agua (Tb=100°C)</option>
+            <option value="38600,351.45">Etanol (Tb=78.3°C)</option>
+            <option value="27100,307.65">Dietiléter (Tb=34.5°C)</option>
+            <option value="30800,353.25">Benceno (Tb=80.1°C)</option>
+          </select>
+          <label>Temperatura: <span id="v2aT">25</span> °C</label>
+          <input type="range" id="s2aT" min="-30" max="150" value="25" step="1">
+        </div>
+        <div class="out-box" id="o2a">Selecciona sustancia y temperatura.</div>
+      </div>
+
+      <div class="applet-card">
+        <h4>📈 Applet 2B — Efecto de Pext sobre el Punto de Ebullición</h4>
+        <canvas id="cv2b" height="200"></canvas>
+        <div class="ctrl">
+          <label>Presión externa: <span id="v2bP">1.00</span> atm</label>
+          <input type="range" id="s2bP" min="0.1" max="3" value="1" step="0.05">
+          <label>Sustancia:</label>
+          <select id="sel2b">
+            <option value="40700,373.15">Agua</option>
+            <option value="38600,351.45">Etanol</option>
+            <option value="27100,307.65">Dietiléter</option>
+          </select>
+        </div>
+        <div class="out-box" id="o2b">Ajusta la presión externa para ver el punto de ebullición.</div>
+      </div>
+    </div>
+
+    <div class="video-wrap">
+      <div class="play-icon">▶</div>
+      <p>Video: Presión de vapor y ecuación de Clausius-Clapeyron</p>
+      <span>Próximamente disponible</span>
+    </div>
+
+    <div class="questions">
+      <h3>❓ Preguntas de Comprensión — Tema 2</h3>
+      <ol>
+        <li>¿Por qué la presión de vapor aumenta con la temperatura? Explica a nivel molecular.</li>
+        <li>Usando la ecuación de Clausius-Clapeyron, calcula la presión de vapor del agua a 80°C sabiendo que Pv(100°C) = 1 atm y ΔH<sub>vap</sub> = 40700 J/mol.</li>
+        <li>¿En qué altitud hierve el agua a 85°C? (Usa la ecuación C-C con los datos del agua.)</li>
+        <li>Tres sustancias tienen ΔH<sub>vap</sub> de 25, 40 y 55 kJ/mol. ¿Cuál tiene mayor pendiente en el gráfico ln(Pv) vs 1/T? ¿Cuál tiene FIM más intensas?</li>
+        <li>Justifica por qué el agua tiene un punto de ebullición anormalmente alto para su masa molar (18 g/mol).</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ TEMA 3 -->
+<section class="tema" id="tema3">
+  <div class="tema-header">
+    <h2>3. Diagramas de Fases</h2>
+    <p>Curvas S-L, L-G, S-G · Punto triple y crítico · H₂O vs CO₂</p>
+  </div>
+  <div class="tema-body">
+
+    <div class="card">
+      <h3>🗺️ Qué es un Diagrama de Fases</h3>
+      <p>Un diagrama de fases es un mapa P-T que muestra las fases estables (S, L, G) de una sustancia pura y los equilibrios entre ellas. Cada punto del plano P-T indica cuál fase es estable bajo esas condiciones.</p>
+      <table>
+        <tr><th>Curva / Punto</th><th>Significado</th><th>Condición</th></tr>
+        <tr><td>Curva S-L (fusión)</td><td>S y L en equilibrio</td><td>Tf a cada P</td></tr>
+        <tr><td>Curva L-G (vaporización)</td><td>L y G en equilibrio</td><td>Pv(T) del líquido</td></tr>
+        <tr><td>Curva S-G (sublimación)</td><td>S y G en equilibrio</td><td>Pv(T) del sólido</td></tr>
+        <tr><td><strong>Punto Triple (PT)</strong></td><td>S, L y G coexisten</td><td>Única (P,T) posible</td></tr>
+        <tr><td><strong>Punto Crítico (PC)</strong></td><td>Fin de la curva L-G</td><td>T>Tc, P>Pc: fluido supercrítico</td></tr>
+      </table>
+      <div class="info-box">📌 Regla de las fases de Gibbs: F = C − P + 2. Para sustancia pura (C=1): en una región = 2 grados de libertad; en una curva = 1; en el punto triple = 0.</div>
+    </div>
+
+    <div class="graphs-grid">
+      <div class="graph-card">
+        <img src="sem9/placeholder_diagrama_generico_puntos.png" alt="Diagrama de fases genérico con puntos notables">
+        <p>Diagrama genérico: regiones S, L, G; curvas de equilibrio; punto triple (S+L+G); punto crítico (fin de curva L-G); puntos normales a 1 atm</p>
+      </div>
+      <div class="graph-card">
+        <img src="sem9/placeholder_Diagrama_H2O.png" alt="Diagrama de fases del agua">
+        <p>Diagrama de fases del H₂O. Nota la pendiente <strong>negativa</strong> de la curva S-L (anomalía: el hielo es menos denso que el agua). PT = (0.006 atm, 0.01°C)</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🔄 H₂O vs CO₂ — Diferencias Clave</h3>
+      <table>
+        <tr><th>Propiedad</th><th>H₂O</th><th>CO₂</th></tr>
+        <tr><td>Pendiente curva S-L</td><td><strong>Negativa</strong> (anomalía: hielo menos denso que agua)</td><td><strong>Positiva</strong> (típico: sólido más denso)</td></tr>
+        <tr><td>Presión del Punto Triple</td><td>0.006 atm (&lt; 1 atm)</td><td>5.11 atm (&gt; 1 atm)</td></tr>
+        <tr><td>Temperatura del Punto Triple</td><td>0.01°C</td><td>−56.6°C</td></tr>
+        <tr><td>A 1 atm y 25°C</td><td><strong>Líquido</strong></td><td><strong>Gas</strong></td></tr>
+        <tr><td>Comportamiento a 1 atm</td><td>Funde a 0°C, hierve a 100°C</td><td><strong>Sublima a −78.5°C</strong> (nunca líquido a 1 atm)</td></tr>
+        <tr><td>Punto Crítico</td><td>374°C, 218 atm</td><td>31.1°C, 73.8 atm</td></tr>
+      </table>
+      <div class="warning-box">⚠️ El CO₂ no puede existir como líquido por debajo de 5.11 atm. Por eso el "hielo seco" (CO₂ sólido a 1 atm) sublima directamente a gas sin pasar por líquido.</div>
+    </div>
+
+    <div class="graphs-grid">
+      <div class="graph-card">
+        <img src="sem9/s9_diagrama_CO2.png" alt="Diagrama de fases del CO2">
+        <p>Diagrama de fases del CO₂: punto triple a 5.11 atm, punto crítico a 31.1°C/73.8 atm. A 1 atm solo existe sólido y gas (sublima a −78.5°C)</p>
+      </div>
+      <div class="graph-card">
+        <img src="sem9/s9_comparacion_pendientes.png" alt="Comparación pendientes H2O vs CO2">
+        <p>Comparación esquemática: H₂O tiene pendiente negativa en la curva S-L (fusión favorecida por presión), CO₂ tiene pendiente positiva (típico)</p>
+      </div>
+    </div>
+
+    <div class="applets-grid">
+      <div class="applet-card">
+        <h4>🗺️ Applet 3A — Explorador de Diagrama de Fases</h4>
+        <canvas id="cv3a" height="220"></canvas>
+        <div class="ctrl">
+          <label>Sustancia:</label>
+          <select id="sel3a">
+            <option value="h2o">Agua (H₂O)</option>
+            <option value="co2">Dióxido de carbono (CO₂)</option>
+          </select>
+          <label>Temperatura: <span id="v3aT">25</span> °C</label>
+          <input type="range" id="s3aT" min="-100" max="400" value="25" step="1">
+          <label>Presión: <span id="v3aP">1</span> atm</label>
+          <input type="range" id="s3aP" min="0.01" max="20" value="1" step="0.01">
+        </div>
+        <div class="out-box" id="o3a">Selecciona sustancia y condiciones P-T.</div>
+      </div>
+
+      <div class="applet-card">
+        <h4>🌡️ Applet 3B — Trayectoria a Presión Constante</h4>
+        <canvas id="cv3b" height="220"></canvas>
+        <div class="ctrl">
+          <label>Sustancia:</label>
+          <select id="sel3b">
+            <option value="h2o">Agua (H₂O)</option>
+            <option value="co2">CO₂</option>
+          </select>
+          <label>Presión fija: <span id="v3bP">1.0</span> atm</label>
+          <input type="range" id="s3bP" min="0.01" max="10" value="1" step="0.01">
+          <label>Temperatura: <span id="v3bT">25</span> °C</label>
+          <input type="range" id="s3bT" min="-100" max="400" value="25" step="1">
+        </div>
+        <div class="out-box" id="o3b">Sigue la trayectoria de calentamiento a P constante.</div>
+      </div>
+    </div>
+
+    <div class="video-wrap">
+      <div class="play-icon">▶</div>
+      <p>Video: Diagramas de fases — H₂O vs CO₂</p>
+      <span>Próximamente disponible</span>
+    </div>
+
+    <div class="questions">
+      <h3>❓ Preguntas de Comprensión — Tema 3</h3>
+      <ol>
+        <li>¿Por qué el agua tiene pendiente negativa en la curva de fusión? ¿Qué consecuencia física importante tiene esta anomalía?</li>
+        <li>¿Por qué el CO₂ no puede ser líquido a 1 atm? Explica usando el concepto de punto triple.</li>
+        <li>Describe las fases que atraviesa el H₂O al calentar de −30°C a 200°C a 1 atm. Repite para el CO₂.</li>
+        <li>¿Qué ocurre al comprimir CO₂ gas a 25°C hasta 100 atm? ¿Y a 50°C?</li>
+        <li>¿Qué es el fluido supercrítico? Menciona una aplicación tecnológica del CO₂ supercrítico.</li>
+        <li>Explica por qué se puede patinar sobre hielo: ¿está relacionado con la anomalía de la curva S-L del agua? (Debate actual en la literatura científica.)</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ TEMA 4 -->
+<section class="tema" id="tema4">
+  <div class="tema-header">
+    <h2>4. Propiedades Coligativas — No Electrolitos</h2>
+    <p>Descenso Pv · Ebulloscopía · Crioscopía · Presión Osmótica</p>
+  </div>
+  <div class="tema-body">
+
+    <div class="card">
+      <h3>🧂 Definición y Origen</h3>
+      <p><strong>Propiedades coligativas</strong>: propiedades de las soluciones que dependen <em>únicamente</em> del número relativo de partículas de soluto disuelto (no de su identidad química), para soluto no volátil.</p>
+      <div class="scheme-row">
+        <div class="scheme-box"><strong>Descenso Pv</strong><br>ΔP = P°·x<sub>B</sub></div>
+        <div class="scheme-arrow">→</div>
+        <div class="scheme-box"><strong>Ascenso T<sub>e</sub></strong><br>ΔT<sub>e</sub> = K<sub>e</sub>·m</div>
+        <div class="scheme-arrow">+</div>
+        <div class="scheme-box"><strong>Descenso T<sub>f</sub></strong><br>ΔT<sub>f</sub> = K<sub>f</sub>·m</div>
+        <div class="scheme-arrow">→</div>
+        <div class="scheme-box"><strong>Presión Osmótica</strong><br>π = CRT</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>📉 Ley de Raoult y Descenso de Presión de Vapor</h3>
+      <div class="math-block">
+        $$P_A = x_A \cdot P_A^0 \qquad \Rightarrow \qquad \Delta P = P_A^0 - P_A = x_B \cdot P_A^0$$
+        $$\frac{\Delta P}{P_A^0} = x_B \quad \text{(descenso relativo)}$$
+      </div>
+      <p style="font-size:.9rem">El soluto no volátil ocupa lugares en la superficie del líquido y reduce la probabilidad de evaporación de las moléculas de solvente. A mayor concentración de soluto (mayor x<sub>B</sub>), mayor descenso de Pv.</p>
+      <div class="info-box">💡 Este descenso de Pv "desplaza" la curva L-G del diagrama de fases hacia abajo, causando simultáneamente el <strong>ascenso del punto de ebullición</strong> y el <strong>descenso del punto de fusión</strong>.</div>
+    </div>
+
+    <div class="graphs-grid">
+      <div class="graph-card">
+        <img src="sem9/0bcbd3_dd16caab6e6f43899ea910bffa6bd9a8~mv2.jpg" alt="Diagrama de fases solución vs solvente puro">
+        <p>Efecto del soluto sobre el diagrama de fases: la curva L-G baja (descenso Pv), el punto triple se desplaza, resultando en ascenso ebulloscópico ΔT<sub>e</sub> y descenso crioscópico ΔT<sub>f</sub></p>
+      </div>
+      <div class="graph-card">
+        <img src="sem9/bg3.png" alt="Pv vs T con anotaciones de ebulloscopía">
+        <p>Pv vs T para agua pura y solución: la curva de la solución está por debajo. A 1 atm: T<sub>e</sub> &gt; 100°C (ascenso) y T<sub>f</sub> &lt; 0°C (descenso)</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🌡️ Ebulloscopía y Crioscopía</h3>
+      <div class="formula-grid">
+        <div class="formula-box">
+          <div>$$\Delta T_e = K_e \cdot m$$</div>
+          <div class="label">Ascenso ebulloscópico<br>K<sub>e</sub>(H₂O) = 0.512 °C·kg/mol</div>
+        </div>
+        <div class="formula-box">
+          <div>$$\Delta T_f = K_f \cdot m$$</div>
+          <div class="label">Descenso crioscópico<br>K<sub>f</sub>(H₂O) = 1.853 °C·kg/mol</div>
+        </div>
+        <div class="formula-box">
+          <div>$$m = \frac{n_{soluto}}{kg_{solvente}}$$</div>
+          <div class="label">Molalidad (independiente de T)</div>
+        </div>
+        <div class="formula-box">
+          <div>$$MM = \frac{K_f \cdot g_{sol}}{\Delta T_f \cdot kg_{solv}}$$</div>
+          <div class="label">Determinación de masa molar</div>
+        </div>
+      </div>
+      <div class="info-box">📌 Se usa molalidad (no molaridad) porque es independiente de la temperatura. K<sub>e</sub> y K<sub>f</sub> dependen solo del solvente, no del soluto.</div>
+    </div>
+
+    <div class="card">
+      <h3>🫧 Presión Osmótica</h3>
+      <p><strong>Ósmosis</strong>: flujo neto espontáneo de solvente a través de una membrana semipermeable desde la solución más diluida hacia la más concentrada (o del solvente puro hacia la solución).</p>
+      <div class="math-block">
+        $$\pi = C \cdot R \cdot T$$
+      </div>
+      <p style="font-size:.89rem">C = molaridad (mol/L); R = 0.08206 L·atm/(mol·K); T en Kelvin.<br>
+      <strong>Presión osmótica</strong>: presión externa necesaria para detener el flujo neto de solvente.</p>
+      <div class="scheme-row">
+        <div class="scheme-box">🔵 Solución<br>concentrada</div>
+        <div class="scheme-arrow">← solvente</div>
+        <div class="scheme-box">⚪ Solución<br>diluida</div>
+      </div>
+      <p style="font-size:.87rem;color:#64748b;text-align:center">Membrana semipermeable: el solvente fluye hacia donde hay más soluto (hacia mayor concentración)</p>
+      <div class="info-box">🔬 La ecuación π = CRT es análoga a la de los gases ideales (PV=nRT) y permite determinar la masa molar de macromoléculas (proteínas, polímeros) usando concentraciones muy bajas.</div>
+    </div>
+
+    <div class="graphs-grid">
+      <div class="graph-card">
+        <img src="sem9/s9_resumen_coligativas.png" alt="Resumen 4 propiedades coligativas">
+        <p>Panel 4: propiedades coligativas. Arriba: ΔP vs x<sub>B</sub> (Raoult), ΔT<sub>e</sub>/ΔT<sub>f</sub> vs molalidad. Abajo: presión osmótica vs C, factor de van't Hoff vs concentración</p>
+      </div>
+      <div class="graph-card">
+        <img src="sem9/osmosis-2-e1554334469179.png" alt="Diagrama de ósmosis">
+        <p>Diagrama de ósmosis: el nivel del líquido sube del lado de la solución concentrada. La diferencia de nivel corresponde a la presión osmótica π</p>
+      </div>
+    </div>
+
+    <div class="applets-grid">
+      <div class="applet-card">
+        <h4>🧮 Applet 4A — Calculadora ΔP, ΔTe, ΔTf</h4>
+        <canvas id="cv4a" height="200"></canvas>
+        <div class="ctrl">
+          <label>Molalidad m: <span id="v4aM">0.5</span> mol/kg</label>
+          <input type="range" id="s4aM" min="0" max="5" value="0.5" step="0.05">
+          <label>Fracción molar soluto xB: <span id="v4axB">0.01</span></label>
+          <input type="range" id="s4axB" min="0" max="0.3" value="0.01" step="0.005">
+          <label>Solvente:</label>
+          <select id="sel4a">
+            <option value="0.512,1.853,1.0">Agua (Ke=0.512, Kf=1.853)</option>
+            <option value="1.22,5.12,0.879">Benceno (Ke=2.53, Kf=5.12)</option>
+          </select>
+        </div>
+        <div class="out-box" id="o4a">Ajusta los parámetros.</div>
+      </div>
+
+      <div class="applet-card">
+        <h4>🫧 Applet 4B — Presión Osmótica</h4>
+        <canvas id="cv4b" height="200"></canvas>
+        <div class="ctrl">
+          <label>Concentración C: <span id="v4bC">0.1</span> mol/L</label>
+          <input type="range" id="s4bC" min="0" max="2" value="0.1" step="0.01">
+          <label>Temperatura T: <span id="v4bT">25</span> °C</label>
+          <input type="range" id="s4bT" min="0" max="100" value="25" step="1">
+        </div>
+        <div class="out-box" id="o4b">Ajusta concentración y temperatura.</div>
+      </div>
+    </div>
+
+    <div class="video-wrap">
+      <div class="play-icon">▶</div>
+      <p>Video: Propiedades coligativas — derivación y aplicaciones</p>
+      <span>Próximamente disponible</span>
+    </div>
+
+    <div class="questions">
+      <h3>❓ Preguntas y Problemas — Tema 4</h3>
+      <ol>
+        <li>¿Por qué se usa molalidad (no molaridad) en las fórmulas de ebulloscopía y crioscopía?</li>
+        <li><strong>Problema:</strong> Calcula el punto de congelación de una solución que contiene 15 g de glucosa (MM=180 g/mol) en 250 g de agua (K<sub>f</sub>=1.853 °C·kg/mol).</li>
+        <li><strong>Problema:</strong> Se disuelven 2 g de una sustancia desconocida en 100 g de benceno. El descenso crioscópico es 1.28°C. Si K<sub>f</sub>(benceno)=5.12°C·kg/mol, ¿cuál es la masa molar del soluto?</li>
+        <li><strong>Problema:</strong> Calcula la presión osmótica a 37°C de una solución de glucosa 0.001 M (concentración sanguínea aproximada de glucosa adicional en diabetes). ¿Es detectable?</li>
+        <li>¿Por qué se usa anticongelante (etilenglicol) en los radiadores de automóviles? ¿Qué propiedad coligativa explica su efecto en invierno y en verano?</li>
+        <li>Explica el mecanismo de la sal en las calles para derretir el hielo. ¿Por qué CaCl₂ es más efectivo que NaCl en moles iguales?</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ TEMA 5 -->
+<section class="tema" id="tema5">
+  <div class="tema-header">
+    <h2>5. Factor de van't Hoff — Electrolitos</h2>
+    <p>Disociación iónica · Factor i · Grado de disociación α</p>
+  </div>
+  <div class="tema-body">
+
+    <div class="card">
+      <h3>⚡ El Problema con los Electrolitos</h3>
+      <p>Los electrolitos (ácidos, bases, sales) se <strong>disocian en iones</strong> en solución, aumentando el número real de partículas disueltas por mol de soluto. Las propiedades coligativas medidas son mayores de lo esperado para no electrolitos.</p>
+      <div class="math-block">
+        $$\text{NaCl} \xrightarrow{H_2O} \text{Na}^+ + \text{Cl}^- \quad (\nu = 2 \text{ partículas por mol})$$
+        $$\text{CaCl}_2 \xrightarrow{H_2O} \text{Ca}^{2+} + 2\text{Cl}^- \quad (\nu = 3 \text{ partículas por mol})$$
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🔢 Factor de van't Hoff (i)</h3>
+      <p>El factor <strong>i</strong> corrige las fórmulas de propiedades coligativas para electrolitos:</p>
+      <div class="math-block">
+        $$i = \frac{\text{Propiedad coligativa medida}}{\text{Propiedad calculada (sin disociación)}}$$
+      </div>
+      <div class="formula-grid">
+        <div class="formula-box">
+          <div>$$\Delta T_e = i \cdot K_e \cdot m$$</div>
+          <div class="label">Ebulloscopía con electrolitos</div>
+        </div>
+        <div class="formula-box">
+          <div>$$\Delta T_f = i \cdot K_f \cdot m$$</div>
+          <div class="label">Crioscopía con electrolitos</div>
+        </div>
+        <div class="formula-box">
+          <div>$$\pi = i \cdot C \cdot R \cdot T$$</div>
+          <div class="label">Presión osmótica con electrolitos</div>
+        </div>
+      </div>
+      <table style="margin-top:.8rem">
+        <tr><th>Soluto</th><th>Disociación</th><th>ν (teórico)</th><th>i experimental</th></tr>
+        <tr><td>Glucosa (no elec.)</td><td>No se disocia</td><td>1</td><td>≈ 1.00</td></tr>
+        <tr><td>NaCl</td><td>Na⁺ + Cl⁻</td><td>2</td><td>1.7 – 1.9</td></tr>
+        <tr><td>CaCl₂</td><td>Ca²⁺ + 2Cl⁻</td><td>3</td><td>2.5 – 2.8</td></tr>
+        <tr><td>Na₂SO₄</td><td>2Na⁺ + SO₄²⁻</td><td>3</td><td>2.4 – 2.7</td></tr>
+        <tr><td>Ácido débil HA</td><td>H⁺ + A⁻ (parcial)</td><td>1-2</td><td>1 &lt; i &lt; 2</td></tr>
+      </table>
+      <div class="warning-box">⚠️ El i experimental es siempre menor que ν teórico porque en soluciones concentradas los iones interaccionan entre sí (formación de pares iónicos), reduciendo el número efectivo de partículas libres.</div>
+    </div>
+
+    <div class="card">
+      <h3>📐 Relación con el Grado de Disociación α</h3>
+      <p>Para un electrolito A<sub>x</sub>B<sub>y</sub> → x A<sup>z+</sup> + y B<sup>z−</sup> con ν = x + y iones:</p>
+      <div class="math-block">
+        $$i = 1 + \alpha(\nu - 1) \qquad \Leftrightarrow \qquad \alpha = \frac{i-1}{\nu-1}$$
+      </div>
+      <div class="scheme-row">
+        <div class="scheme-box">α = 0<br>No disocia<br>i = 1</div>
+        <div class="scheme-arrow">→</div>
+        <div class="scheme-box">0 &lt; α &lt; 1<br>Disociación parcial<br>1 &lt; i &lt; ν</div>
+        <div class="scheme-arrow">→</div>
+        <div class="scheme-box">α = 1<br>Disociación total<br>i = ν</div>
+      </div>
+      <p style="font-size:.89rem;margin-top:.5rem">Electrolitos fuertes (NaCl, HCl, NaOH) → α ≈ 1 en solución diluida. Electrolitos débiles (CH₃COOH, NH₃) → 0 &lt; α &lt; 1, depende de la concentración.</p>
+    </div>
+
+    <div class="graphs-grid">
+      <div class="graph-card">
+        <img src="sem9/s9_resumen_coligativas.png" alt="Factor van't Hoff vs concentración">
+        <p>Panel inferior derecho: factor i vs concentración para NaCl, CaCl₂ y ácido débil. A dilución infinita i → ν; en concentrado i disminuye por interacciones iónicas</p>
+      </div>
+    </div>
+
+    <div class="applets-grid">
+      <div class="applet-card">
+        <h4>⚡ Applet 5A — Explorador del Factor i</h4>
+        <canvas id="cv5a" height="200"></canvas>
+        <div class="ctrl">
+          <label>Electrolito:</label>
+          <select id="sel5a">
+            <option value="1,1">Glucosa (no electrolito, ν=1)</option>
+            <option value="2,0.8">NaCl (ν=2, interacción iónica)</option>
+            <option value="3,0.7">CaCl₂ (ν=3)</option>
+            <option value="3,0.65">Na₂SO₄ (ν=3)</option>
+          </select>
+          <label>Molalidad m: <span id="v5aM">0.1</span> mol/kg</label>
+          <input type="range" id="s5aM" min="0.001" max="2" value="0.1" step="0.001">
+        </div>
+        <div class="out-box" id="o5a">Selecciona electrolito y concentración.</div>
+      </div>
+
+      <div class="applet-card">
+        <h4>🔬 Applet 5B — Grado de Disociación α</h4>
+        <canvas id="cv5b" height="200"></canvas>
+        <div class="ctrl">
+          <label>Factor i medido: <span id="v5bi">1.50</span></label>
+          <input type="range" id="s5bi" min="1" max="3" value="1.5" step="0.01">
+          <label>ν (iones teóricos):</label>
+          <select id="sel5b">
+            <option value="2">ν = 2 (ej: NaCl, HCl)</option>
+            <option value="3">ν = 3 (ej: CaCl₂, Na₂SO₄)</option>
+            <option value="4">ν = 4 (ej: FeCl₃, AlCl₃)</option>
+          </select>
+        </div>
+        <div class="out-box" id="o5b">Ajusta i y ν para obtener α.</div>
+      </div>
+    </div>
+
+    <div class="video-wrap">
+      <div class="play-icon">▶</div>
+      <p>Video: Factor de van't Hoff y electrolitos</p>
+      <span>Próximamente disponible</span>
+    </div>
+
+    <div class="questions">
+      <h3>❓ Preguntas y Problemas — Tema 5</h3>
+      <ol>
+        <li>¿Por qué el factor i experimental de NaCl a 0.1 mol/kg es ≈ 1.87 y no exactamente 2? ¿Qué fenómeno causa esto?</li>
+        <li><strong>Problema:</strong> Una solución 0.05 m de un ácido débil HA tiene ΔT<sub>f</sub> = 0.105°C. Calcula i y el grado de disociación α (K<sub>f</sub>(H₂O)=1.853).</li>
+        <li><strong>Problema:</strong> Compara el descenso crioscópico de soluciones 0.1 m de: glucosa, NaCl y CaCl₂. ¿Cuál da el mayor efecto?</li>
+        <li><strong>Problema:</strong> Una solución 0.2 m de Na₂SO₄ tiene i = 2.6. ¿Cuál es el grado de disociación? ¿Podría ser un electrolito fuerte ideal?</li>
+        <li>¿Por qué el CaCl₂ (ν=3) es más efectivo que el NaCl (ν=2) para el deshielo de calles por mol de sal aplicado? Calcula la diferencia en ΔT<sub>f</sub> para 0.1 mol/kg de cada uno asumiendo disociación completa.</li>
+        <li>¿Cómo determinarías experimentalmente si un electrolito está completamente o parcialmente disociado usando medidas de propiedades coligativas?</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ GUÍA -->
+<section id="guia">
+  <div class="guia-header">
+    <h2>📋 Guía de Estudio — Seminario 9 Completa</h2>
+  </div>
+  <div class="guia-body">
+
+    <div class="guia-section">
+      <h3>1. Estados de Agregación</h3>
+      <p style="font-size:.9rem;margin-bottom:.6rem"><strong>Conceptuales:</strong></p>
+      <ol>
+        <li>¿Cuáles son los tres estados principales de agregación? Describe las características macroscópicas de cada uno (forma, volumen, compresibilidad, orden molecular).</li>
+        <li>¿Cómo afecta un aumento de temperatura al estado de agregación de una sustancia? ¿Y un aumento de presión? Justifica en términos de EC y FIM.</li>
+        <li>Tres sustancias son líquidas a −10°C. Sus puntos de ebullición normales son: A: 110.6°C, B: −0.5°C, C: 78.3°C. (a) ¿Cuál es más volátil? (b) ¿Cuál tiene FIM más intensas? (c) Ordena las tres por volatilidad y por intensidad de FIM.</li>
+        <li>¿Por qué los gases son compresibles pero los sólidos no? Explica a nivel molecular.</li>
+      </ol>
+    </div>
+
+    <div class="guia-section">
+      <h3>2. Presión de Vapor y Punto de Ebullición</h3>
+      <p style="font-size:.9rem;margin-bottom:.6rem"><strong>Conceptuales:</strong></p>
+      <ol>
+        <li>Define presión de vapor. ¿Por qué depende de la temperatura y de las FIM?</li>
+        <li>¿Qué ocurre molecularmente cuando un líquido alcanza el punto de ebullición?</li>
+        <li>¿Por qué el agua hierve a menos de 100°C en alturas elevadas? ¿A qué presión hierve el agua a 90°C? (Usa Clausius-Clapeyron con ΔH<sub>vap</sub>=40700 J/mol.)</li>
+      </ol>
+      <p style="font-size:.9rem;margin:.6rem 0"><strong>Problemas numéricos:</strong></p>
+      <ol start="4">
+        <li>La presión de vapor del agua a 25°C es 0.0313 atm. Calcula la presión de vapor a 60°C. (ΔH<sub>vap</sub>=40700 J/mol, R=8.314 J/mol·K.)</li>
+        <li>Dos líquidos A y B tienen puntos de ebullición 100°C y 60°C respectivamente. Si ΔH<sub>vap</sub>(A)=40700 J/mol y ΔH<sub>vap</sub>(B)=29000 J/mol, calcula la presión de vapor de cada uno a 80°C.</li>
+      </ol>
+    </div>
+
+    <div class="guia-section">
+      <h3>3. Diagramas de Fases</h3>
+      <p style="font-size:.9rem;margin-bottom:.6rem"><strong>Conceptuales:</strong></p>
+      <ol>
+        <li>¿Qué información proporciona un diagrama de fases? Identifica y explica: curva de vaporización, curva de fusión, curva de sublimación, punto triple, punto crítico.</li>
+        <li>¿Por qué la curva S-L del agua tiene pendiente negativa mientras que la del CO₂ tiene pendiente positiva? ¿Qué propiedad estructural del hielo lo explica?</li>
+        <li>¿Por qué el CO₂ nunca puede ser líquido a 1 atm? Explica usando el punto triple. ¿Qué significa que el "hielo seco" sublime?</li>
+        <li>¿Qué es el fluido supercrítico? Menciona condiciones de T y P para el CO₂ supercrítico y una aplicación industrial.</li>
+      </ol>
+      <p style="font-size:.9rem;margin:.6rem 0"><strong>Problemas de diagrama:</strong></p>
+      <ol start="5">
+        <li>Para el H₂O (PT: 0.01°C, 0.006 atm; PC: 374°C, 218 atm): (a) ¿En qué fase está a 25°C, 1 atm? (b) ¿Y a 200°C, 5 atm? (c) ¿Qué ocurre al comprimir gas de agua a 25°C? (d) Describe el calentamiento de hielo a −30°C a 1 atm hasta 200°C.</li>
+        <li>Para el CO₂ (PT: −56.6°C, 5.11 atm; PC: 31.1°C, 73.8 atm): (a) ¿En qué fase está a 25°C, 1 atm? (b) ¿Y a −30°C, 50 atm? (c) ¿Qué ocurre al calentar CO₂ sólido a 1 atm? (d) ¿Puede existir CO₂ líquido a 25°C?</li>
+      </ol>
+    </div>
+
+    <div class="guia-section">
+      <h3>4. Propiedades Coligativas — No Electrolitos</h3>
+      <p style="font-size:.9rem;margin-bottom:.6rem"><strong>Datos:</strong> H₂O: K<sub>e</sub>=0.512°C·kg/mol, K<sub>f</sub>=1.853°C·kg/mol, Pv(25°C)=0.0313 atm. R=0.08206 L·atm/(mol·K).</p>
+      <ol>
+        <li>Explica cualitativamente por qué la presencia de un soluto no volátil disminuye la presión de vapor del solvente (Ley de Raoult).</li>
+        <li>¿Cómo el descenso de presión de vapor produce simultáneamente ascenso del PE y descenso del PF? Usa un diagrama de fases para tu explicación.</li>
+        <li><strong>Problema:</strong> 20 g de sacarosa (MM=342 g/mol) se disuelven en 200 g de agua. Calcula: (a) x<sub>B</sub> (fracción molar de sacarosa), (b) ΔP (descenso de Pv a 25°C), (c) ΔT<sub>e</sub>, (d) ΔT<sub>f</sub>, (e) π a 25°C.</li>
+        <li><strong>Problema:</strong> 3.85 g de azufre se disuelven en 100 g de CS₂ (K<sub>f</sub>=3.83°C·kg/mol). El descenso crioscópico es 1.56°C. ¿Cuántos átomos de S tiene la molécula de azufre disuelto?</li>
+        <li><strong>Problema:</strong> La presión osmótica de una solución de hemoglobina (5 g en 100 mL a 25°C) es 1.73×10⁻³ atm. Calcula la masa molar de la hemoglobina.</li>
+        <li><strong>Problema:</strong> ¿Qué cantidad de anticongelante (etilenglicol, MM=62 g/mol, densidad=1.11 g/mL) se debe añadir a 5 L de agua para que la solución no congele hasta −20°C?</li>
+      </ol>
+    </div>
+
+    <div class="guia-section">
+      <h3>5. Factor de van't Hoff — Electrolitos</h3>
+      <p style="font-size:.9rem;margin-bottom:.6rem"><strong>Datos:</strong> H₂O: K<sub>f</sub>=1.853°C·kg/mol, K<sub>e</sub>=0.512°C·kg/mol. R=0.08206 L·atm/(mol·K).</p>
+      <ol>
+        <li>¿Qué es el factor de van't Hoff i? ¿Por qué i &lt; ν para electrolitos concentrados?</li>
+        <li>Deduce la relación i = 1 + α(ν − 1) a partir de la definición de α y ν. Verifica los casos límite α=0 y α=1.</li>
+        <li><strong>Problema:</strong> Una solución 0.1 m de NaCl tiene ΔT<sub>f</sub>=0.348°C. Calcula i y α para NaCl.</li>
+        <li><strong>Problema:</strong> Solución 0.1 m de ácido acético (HA, ν=2) en agua. ΔT<sub>f</sub>=0.188°C. (a) Calcula i; (b) Calcula α; (c) Si la constante de acidez Ka = α²·C/(1−α), estima Ka.</li>
+        <li><strong>Problema:</strong> Compara ΔT<sub>f</sub> de tres soluciones 0.05 m: (a) glucosa, (b) NaCl (i=1.9), (c) CaCl₂ (i=2.7). ¿Cuál congela más tarde?</li>
+        <li><strong>Problema:</strong> La presión osmótica de una solución 0.01 M de Na₂SO₄ a 27°C es 0.0738 atm. Calcula i y el grado de disociación α de Na₂SO₄ (ν=3).</li>
+        <li><strong>Aplicación:</strong> La solución de diálisis usada en nefrología debe ser isotónica con la sangre (π ≈ 7.7 atm a 37°C). ¿Qué concentración de NaCl (i≈1.8) se necesita?</li>
+      </ol>
+    </div>
+
+    <div class="guia-section">
+      <h3>📌 Formulario Resumen</h3>
+      <div class="formula-grid">
+        <div class="formula-box"><div>$$P_A = x_A \cdot P_A^0$$</div><div class="label">Ley de Raoult</div></div>
+        <div class="formula-box"><div>$$\Delta P = x_B \cdot P_A^0$$</div><div class="label">Descenso Pv</div></div>
+        <div class="formula-box"><div>$$\Delta T_e = i \cdot K_e \cdot m$$</div><div class="label">Ascenso ebulloscópico</div></div>
+        <div class="formula-box"><div>$$\Delta T_f = i \cdot K_f \cdot m$$</div><div class="label">Descenso crioscópico</div></div>
+        <div class="formula-box"><div>$$\pi = i \cdot C \cdot R \cdot T$$</div><div class="label">Presión osmótica</div></div>
+        <div class="formula-box"><div>$$i = 1 + \alpha(\nu-1)$$</div><div class="label">van't Hoff ↔ α</div></div>
+        <div class="formula-box"><div>$$\ln\frac{P_2}{P_1} = -\frac{\Delta H_{vap}}{R}\left(\frac{1}{T_2}-\frac{1}{T_1}\right)$$</div><div class="label">Clausius-Clapeyron</div></div>
+        <div class="formula-box"><div>$$MM = \frac{K_f \cdot g_{sol}}{\Delta T_f \cdot kg_{solv}}$$</div><div class="label">Masa molar por crioscopía</div></div>
+      </div>
+      <div class="info-box" style="margin-top:1rem">
+        <strong>Constantes del agua:</strong> K<sub>e</sub>=0.512°C·kg/mol · K<sub>f</sub>=1.853°C·kg/mol · Pv(25°C)=0.0313 atm · Pv(100°C)=1 atm · ΔH<sub>vap</sub>=40.7 kJ/mol · ΔH<sub>fus</sub>=6.01 kJ/mol<br>
+        <strong>Constante de gases:</strong> R=8.314 J/(mol·K) = 0.08206 L·atm/(mol·K)
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>Seminario 9 — Estados de Agregación y Diagramas de Fases · Química para Ingeniería (U1901)</p>
+  <p style="margin-top:.4rem;font-size:.8rem">← <a href="soluciones.html" style="color:#64b5f6">Soluciones I</a> &nbsp;|&nbsp; <a href="soluciones2.html" style="color:#64b5f6">Soluciones II</a></p>
+</footer>
+
+<script>
+// ─── HELPERS ───────────────────────────────────────────────────────────────
+function resizeCanvas(cv){
+  const r=cv.getBoundingClientRect();
+  if(cv.width!==Math.round(r.width)){cv.width=Math.round(r.width);}
+  return {w:cv.width,h:cv.height};
+}
+function clearC(cv,ctx){const{w,h}=resizeCanvas(cv);ctx.clearRect(0,0,w,h);return{w,h};}
+
+// ─── TEMA 1 ─────────────────────────────────────────────────────────────────
+(function(){
+  const cv=document.getElementById('cv1a'),ctx=cv.getContext('2d');
+  const sT=document.getElementById('s1aT'),sP=document.getElementById('s1aP');
+  const vT=document.getElementById('v1aT'),vP=document.getElementById('v1aP');
+  const out=document.getElementById('o1a');
+  let parts=[];
+  function initParts(n,w,h){
+    parts=[];
+    for(let i=0;i<n;i++) parts.push({x:10+Math.random()*(w-20),y:10+Math.random()*(h-20),vx:(Math.random()-.5)*2,vy:(Math.random()-.5)*2,r:6});
+  }
+  function draw(){
+    const{w,h}=resizeCanvas(cv);
+    const T=+sT.value,P=+sP.value;
+    vT.textContent=T; vP.textContent=P;
+    // Determine state: rough phase diagram for water-like
+    let state,col,bgCol;
+    const Tm=273+P*0.001, Tb=373+Math.log(P)*10;
+    if(T<Tm){state='SÓLIDO';col='#3b82f6';bgCol='#dbeafe';}
+    else if(T<Tb){state='LÍQUIDO';col='#0ea5e9';bgCol='#e0f2fe';}
+    else{state='GAS';col='#ef4444';bgCol='#fee2e2';}
+    ctx.fillStyle=bgCol;ctx.fillRect(0,0,w,h);
+    if(parts.length!==12) initParts(12,w,h-20);
+    const speed = state==='GAS'?3:state==='LÍQUIDO'?1:0.05;
+    parts.forEach(p=>{
+      if(state==='SÓLIDO'){
+        // grid positions
+      } else {
+        p.x+=p.vx*speed*(T/300); p.y+=p.vy*speed*(T/300);
+        if(p.x<p.r||p.x>w-p.r) p.vx*=-1;
+        if(p.y<p.r||p.y>(h-20)-p.r) p.vy*=-1;
+      }
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=col+'cc';ctx.fill();
+      if(state==='GAS'){
+        ctx.beginPath();ctx.moveTo(p.x,p.y);
+        ctx.lineTo(p.x-p.vx*8,p.y-p.vy*8);ctx.strokeStyle=col+'66';ctx.lineWidth=1.5;ctx.stroke();
+      }
+    });
+    if(state==='SÓLIDO'){
+      // draw grid for solid
+      const nx=4,ny=3,dx=w/nx,dy=(h-20)/ny;
+      for(let i=0;i<nx;i++) for(let j=0;j<ny;j++){
+        const x=dx*(i+0.5),y=dy*(j+0.5);
+        ctx.beginPath();ctx.arc(x,y,7,0,Math.PI*2);ctx.fillStyle=col+'cc';ctx.fill();
+        if(i<nx-1){ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+dx,y);ctx.strokeStyle=col+'44';ctx.lineWidth=1.5;ctx.stroke();}
+        if(j<ny-1){ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x,y+dy);ctx.strokeStyle=col+'44';ctx.lineWidth=1.5;ctx.stroke();}
+      }
+    }
+    ctx.fillStyle='#1e293b';ctx.font='bold 13px Arial';ctx.textAlign='center';
+    ctx.fillText(state,w/2,h-5);
+    out.innerHTML=`<strong>Estado:</strong> ${state} &nbsp;|&nbsp; T=${T}K (${T-273}°C), P=${P} atm`;
+    requestAnimationFrame(draw);
+  }
+  sT.oninput=sP.oninput=()=>{};
+  cv.width=cv.parentElement.clientWidth||300;
+  draw();
+})();
+
+(function(){
+  const cv=document.getElementById('cv1b'),ctx=cv.getContext('2d');
+  const sT=document.getElementById('s1bT'),sel=document.getElementById('sel1b');
+  const vT=document.getElementById('v1bT'),out=document.getElementById('o1b');
+  function draw(){
+    const{w,h}=resizeCanvas(cv);
+    const T=+sT.value; vT.textContent=T;
+    const FIM=+sel.value;
+    const ratio=T/FIM; // EC/FIM ratio (1 = liquid, <1 = solid, >1 = gas)
+    ctx.fillStyle='#f8fafc';ctx.fillRect(0,0,w,h);
+    // Draw balance bar
+    const cx=w/2,cy=h/2,bw=w*0.8,bh=20;
+    // EC bar
+    const ecW=Math.min(bw/2,ratio*bw/2);
+    ctx.fillStyle='#ef4444';ctx.fillRect(cx,cy-bh/2,ecW,bh);
+    // FIM bar
+    const fimW=bw/2;
+    ctx.fillStyle='#3b82f6';ctx.fillRect(cx-fimW,cy-bh/2,fimW,bh);
+    // Labels
+    ctx.fillStyle='#fff';ctx.font='bold 11px Arial';ctx.textAlign='center';
+    ctx.fillText('EC',cx+ecW/2,cy+5);
+    ctx.fillText('FIM',cx-fimW/2,cy+5);
+    // Center line
+    ctx.fillStyle='#334155';ctx.fillRect(cx-1,cy-bh,2,bh*2);
+    // State
+    let state,col;
+    if(ratio<0.6){state='SÓLIDO (FIM domina)';col='#3b82f6';}
+    else if(ratio<1.4){state='LÍQUIDO (balance)';col='#0ea5e9';}
+    else{state='GAS (EC domina)';col='#ef4444';}
+    ctx.fillStyle=col;ctx.font='bold 14px Arial';ctx.textAlign='center';
+    ctx.fillText(state,w/2,cy-35);
+    ctx.fillStyle='#64748b';ctx.font='11px Arial';
+    ctx.fillText('← FIM (azul) vs EC (rojo) →',w/2,cy+bh/2+18);
+    ctx.fillText(`T=${T}K, FIM ref.=${FIM}K`,w/2,h-8);
+    out.innerHTML=`<strong>${state}</strong> · Ratio EC/FIM ≈ ${ratio.toFixed(2)}`;
+  }
+  sT.oninput=sel.onchange=draw;
+  cv.width=cv.parentElement.clientWidth||300;
+  draw();
+})();
+
+// ─── TEMA 2 ─────────────────────────────────────────────────────────────────
+(function(){
+  const cv=document.getElementById('cv2a'),ctx=cv.getContext('2d');
+  const sel=document.getElementById('sel2a'),sT=document.getElementById('s2aT');
+  const vT=document.getElementById('v2aT'),out=document.getElementById('o2a');
+  const R=8.314;
+  function getPv(Hvap,Tb,T_K){return Math.exp(-Hvap/R*(1/T_K-1/Tb));}
+  function draw(){
+    const{w,h}=resizeCanvas(cv);
+    const[Hvap,Tb]=sel.value.split(',').map(Number);
+    const Tc=+sT.value; vT.textContent=Tc;
+    const T_K=Tc+273.15;
+    const Pv=getPv(Hvap,Tb,T_K);
+    ctx.fillStyle='#f8fafc';ctx.fillRect(0,0,w,h);
+    // Draw curve
+    const pad=40,gw=w-pad*2,gh=h-pad*2;
+    ctx.strokeStyle='#e2e8f0';ctx.lineWidth=1;
+    for(let i=0;i<=5;i++){ctx.beginPath();ctx.moveTo(pad,pad+i*gh/5);ctx.lineTo(w-pad,pad+i*gh/5);ctx.stroke();}
+    const Tmin=-40,Tmax=160,Pmax=3;
+    function tx(t){return pad+((t-Tmin)/(Tmax-Tmin))*gw;}
+    function ty(p){return pad+gh-(p/Pmax)*gh;}
+    ctx.beginPath();ctx.strokeStyle='#2e7d9c';ctx.lineWidth=2.5;
+    for(let t=Tmin;t<=Tmax;t+=2){
+      const p=getPv(Hvap,Tb,t+273.15);
+      if(p>0&&p<Pmax){const x=tx(t),y=ty(p);t===Tmin?ctx.moveTo(x,y):ctx.lineTo(x,y);}
+    }
+    ctx.stroke();
+    // 1 atm line
+    ctx.strokeStyle='#94a3b8';ctx.setLineDash([5,3]);ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(pad,ty(1));ctx.lineTo(w-pad,ty(1));ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='#64748b';ctx.font='10px Arial';ctx.textAlign='left';
+    ctx.fillText('1 atm',w-pad+2,ty(1)+4);
+    // Current point
+    if(Pv>0&&Pv<Pmax){
+      const x=tx(Tc),y=ty(Pv);
+      ctx.beginPath();ctx.arc(x,y,6,0,Math.PI*2);ctx.fillStyle='#e07b39';ctx.fill();
+    }
+    // Labels
+    ctx.fillStyle='#334155';ctx.font='10px Arial';ctx.textAlign='center';
+    ctx.fillText('Temperatura (°C)',w/2,h-5);
+    ctx.fillStyle='#334155';ctx.font='10px Arial';ctx.textAlign='left';
+    ctx.fillText('Pv (atm)',2,pad-5);
+    out.innerHTML=`Pv(${Tc}°C) = <strong>${Pv.toFixed(4)} atm</strong> (${(Pv*101.325).toFixed(1)} kPa)${Pv>=1?' ✅ hierve':''}`;
+  }
+  sel.onchange=sT.oninput=draw;
+  cv.width=cv.parentElement.clientWidth||300;
+  draw();
+})();
+
+(function(){
+  const cv=document.getElementById('cv2b'),ctx=cv.getContext('2d');
+  const sP=document.getElementById('s2bP'),sel=document.getElementById('sel2b');
+  const vP=document.getElementById('v2bP'),out=document.getElementById('o2b');
+  const R=8.314;
+  function getTb(Hvap,Tb0,P){
+    // Clausius-Clapeyron: ln(P/1) = -Hvap/R*(1/Tb - 1/Tb0) → 1/Tb = 1/Tb0 - R*ln(P)/Hvap
+    return 1/(1/Tb0 - R*Math.log(P)/Hvap);
+  }
+  function draw(){
+    const{w,h}=resizeCanvas(cv);
+    const P=+sP.value; vP.textContent=P.toFixed(2);
+    const[Hvap,Tb0]=sel.value.split(',').map(Number);
+    const Tb_K=getTb(Hvap,Tb0,P);
+    const Tb_C=Tb_K-273.15;
+    ctx.fillStyle='#f8fafc';ctx.fillRect(0,0,w,h);
+    // Draw bar showing Tb relative to normal
+    const cx=w/2,cy=h/2;
+    const deltaT=Tb_C-(Tb0-273.15);
+    const barH=Math.min(Math.abs(deltaT)*3,h/2-20);
+    ctx.fillStyle=deltaT>0?'#ef4444':'#3b82f6';
+    ctx.fillRect(cx-30,deltaT>0?cy-barH:cy,60,barH);
+    ctx.fillStyle='#e2e8f0';ctx.fillRect(cx-30,cy-2,60,4);
+    ctx.fillStyle='#334155';ctx.font='bold 14px Arial';ctx.textAlign='center';
+    ctx.fillText(`Tb = ${Tb_C.toFixed(1)}°C`,cx,cy-barH-15<20?35:cy-barH-15);
+    ctx.fillStyle='#64748b';ctx.font='11px Arial';
+    ctx.fillText(`(Normal: ${(Tb0-273.15).toFixed(1)}°C @ 1 atm)`,cx,h-10);
+    ctx.fillText(deltaT>0?`↑ +${deltaT.toFixed(1)}°C con P>${P.toFixed(2)} atm`:`↓ ${deltaT.toFixed(1)}°C con P<1 atm`,cx,cy+barH+20>h-25?h-25:cy+barH+20);
+    out.innerHTML=`P = ${P.toFixed(2)} atm → Punto de ebullición = <strong>${Tb_C.toFixed(1)}°C</strong> (ΔTb = ${deltaT>=0?'+':''}${deltaT.toFixed(1)}°C)`;
+  }
+  sP.oninput=sel.onchange=draw;
+  cv.width=cv.parentElement.clientWidth||300;
+  draw();
+})();
+
+// ─── TEMA 3 ─────────────────────────────────────────────────────────────────
+(function(){
+  const cv=document.getElementById('cv3a'),ctx=cv.getContext('2d');
+  const sel=document.getElementById('sel3a');
+  const sT=document.getElementById('s3aT'),sP=document.getElementById('s3aP');
+  const vT=document.getElementById('v3aT'),vP=document.getElementById('v3aP');
+  const out=document.getElementById('o3a');
+  const data={
+    h2o:{name:'H₂O',Tpt:0.01,Ppt:0.006,Tc:374,Pc:218,Tb0:373.15,Hvap:40700,Hfus:6010,Tf0:273.15,slope:-130},
+    co2:{name:'CO₂',Tpt:-56.6,Ppt:5.11,Tc:31.1,Pc:73.8,Tb0:253.15,Hvap:16700,Hfus:8000,Tf0:216.55,slope:450}
+  };
+  const R=8.314;
+  function getPhase(d,T_C,P_atm){
+    const T_K=T_C+273.15;
+    // Vaporization: L-G curve
+    const Pvap=d.Ppt*Math.exp(-d.Hvap/R*(1/T_K-1/d.Tf0));
+    // Sublimation: S-G curve
+    const Psub=d.Ppt*Math.exp(-(d.Hvap+d.Hfus)/R*(1/T_K-1/d.Tf0));
+    // Fusion: P = Ppt + slope*(T-Tpt)
+    const Pfus=d.Ppt+d.slope*(T_C-d.Tpt);
+    if(T_C>d.Tc&&P_atm>d.Pc) return 'FLUIDO SUPERCRÍTICO';
+    if(T_C<d.Tpt){
+      if(P_atm>Psub) return 'SÓLIDO';
+      return 'GAS';
+    }
+    // Above triple point T
+    if(P_atm>Pfus&&Pfus>0) return 'SÓLIDO';
+    if(P_atm>Pvap&&Pvap<d.Pc) return 'LÍQUIDO';
+    return 'GAS';
+  }
+  function draw(){
+    const{w,h}=resizeCanvas(cv);
+    const key=sel.value,d=data[key];
+    const T=+sT.value,P=+sP.value;
+    vT.textContent=T; vP.textContent=P.toFixed(2);
+    const phase=getPhase(d,T,P);
+    const cols={'SÓLIDO':'#dbeafe','LÍQUIDO':'#e0f2fe','GAS':'#fee2e2','FLUIDO SUPERCRÍTICO':'#f3e8ff'};
+    const tcols={'SÓLIDO':'#3b82f6','LÍQUIDO':'#0ea5e9','GAS':'#ef4444','FLUIDO SUPERCRÍTICO':'#8b5cf6'};
+    ctx.fillStyle=cols[phase]||'#f8fafc';ctx.fillRect(0,0,w,h);
+    // Draw simplified diagram
+    const pad=35,gw=w-pad*2,gh=h-pad*2;
+    const Tmin=-110,Tmax=Math.max(50,d.Tc+20),Pmax=Math.min(20,d.Pc*0.3)||10;
+    function tx(t){return pad+(t-Tmin)/(Tmax-Tmin)*gw;}
+    function ty(p){return pad+gh-Math.min(p,Pmax)/Pmax*gh;}
+    ctx.strokeStyle='#e2e8f0';ctx.lineWidth=1;
+    [0.5,1,2,5,10].forEach(p=>{if(p<=Pmax){ctx.beginPath();ctx.moveTo(pad,ty(p));ctx.lineTo(w-pad,ty(p));ctx.stroke();}});
+    // Sublimation curve
+    ctx.beginPath();ctx.strokeStyle='#60a5fa';ctx.lineWidth=2;
+    for(let t=Tmin;t<=d.Tpt;t+=2){
+      const p=d.Ppt*Math.exp(-(d.Hvap+d.Hfus)/R*(1/(t+273.15)-1/d.Tf0));
+      if(p>0&&p<Pmax){const x=tx(t),y=ty(p);t===Tmin?ctx.moveTo(x,y):ctx.lineTo(x,y);}
+    }
+    ctx.stroke();
+    // Vaporization curve
+    ctx.beginPath();ctx.strokeStyle='#f87171';ctx.lineWidth=2;
+    for(let t=d.Tpt;t<=Math.min(d.Tc,Tmax);t+=2){
+      const p=d.Ppt*Math.exp(-d.Hvap/R*(1/(t+273.15)-1/d.Tf0));
+      if(p>0&&p<Pmax){const x=tx(t),y=ty(p);t===d.Tpt?ctx.moveTo(x,y):ctx.lineTo(x,y);}
+    }
+    ctx.stroke();
+    // Fusion curve (just a short segment near triple point)
+    ctx.beginPath();ctx.strokeStyle='#34d399';ctx.lineWidth=2;
+    for(let t=d.Tpt;t<=d.Tpt+3;t+=0.1){
+      const p=d.Ppt+d.slope*(t-d.Tpt);
+      if(p>0&&p<Pmax*2){const x=tx(t),y=ty(Math.min(p,Pmax));t===d.Tpt?ctx.moveTo(x,y):ctx.lineTo(x,y);}
+    }
+    ctx.stroke();
+    // Triple point
+    const tpx=tx(d.Tpt),tpy=ty(d.Ppt);
+    ctx.beginPath();ctx.arc(tpx,tpy,5,0,Math.PI*2);ctx.fillStyle='#1e293b';ctx.fill();
+    // 1 atm line
+    if(1<Pmax){ctx.setLineDash([4,3]);ctx.strokeStyle='#94a3b8';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(pad,ty(1));ctx.lineTo(w-pad,ty(1));ctx.stroke();ctx.setLineDash([]);}
+    // Current point
+    if(T>=Tmin&&T<=Tmax&&P>=0&&P<=Pmax){
+      ctx.beginPath();ctx.arc(tx(T),ty(P),7,0,Math.PI*2);ctx.fillStyle=tcols[phase];ctx.fill();
+      ctx.beginPath();ctx.arc(tx(T),ty(P),7,0,Math.PI*2);ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.stroke();
+    }
+    ctx.fillStyle='#334155';ctx.font='10px Arial';ctx.textAlign='center';
+    ctx.fillText('T (°C)',w/2,h-3);
+    ctx.fillStyle='#64748b';ctx.font='9px Arial';
+    ctx.fillText('P (atm)',pad-5,pad-3);
+    ctx.fillStyle=tcols[phase];ctx.font='bold 13px Arial';
+    ctx.fillText(phase,w/2,pad-15<10?15:pad-12);
+    out.innerHTML=`${d.name} · T=${T}°C, P=${P.toFixed(2)} atm → <strong>${phase}</strong>`;
+  }
+  sel.onchange=sT.oninput=sP.oninput=draw;
+  cv.width=cv.parentElement.clientWidth||300;
+  draw();
+})();
+
+(function(){
+  const cv=document.getElementById('cv3b'),ctx=cv.getContext('2d');
+  const sel=document.getElementById('sel3b');
+  const sP=document.getElementById('s3bP'),sT=document.getElementById('s3bT');
+  const vP=document.getElementById('v3bP'),vT=document.getElementById('v3bT');
+  const out=document.getElementById('o3b');
+  const R=8.314;
+  const data={
+    h2o:{name:'H₂O',Tpt:0.01,Ppt:0.006,Tc:374,Pc:218,Hvap:40700,Hfus:6010,Tf0:273.15,slope:-130,Tmin:-60,Tmax:400},
+    co2:{name:'CO₂',Tpt:-56.6,Ppt:5.11,Tc:31.1,Pc:73.8,Hvap:16700,Hfus:8000,Tf0:216.55,slope:450,Tmin:-100,Tmax:200}
+  };
+  function draw(){
+    const{w,h}=resizeCanvas(cv);
+    const key=sel.value,d=data[key];
+    const P=+sP.value,T=+sT.value;
+    vP.textContent=P.toFixed(2); vT.textContent=T;
+    ctx.fillStyle='#f8fafc';ctx.fillRect(0,0,w,h);
+    const pad=30,gw=w-pad*2,gh=h-pad*2;
+    // Temperature axis
+    const T0=d.Tmin,T1=d.Tmax;
+    function tx(t){return pad+(t-T0)/(T1-T0)*gw;}
+    // Color gradient along temperature axis
+    // Determine transitions at current P
+    // Sublimation point: Ppt*exp(-(Hvap+Hfus)/R*(1/T-1/Tf0)) = P
+    const Tsub_K=1/(1/d.Tf0+Math.log(P/d.Ppt)/(d.Hvap+d.Hfus))*R*0+d.Tf0; // rough
+    // Fusion at P: T_fus = Tpt + (P-Ppt)/slope
+    const T_fus = d.slope!==0 ? d.Tpt+(P-d.Ppt)/d.slope : d.Tpt;
+    // Vaporization: Ppt*exp(-Hvap/R*(1/T-1/Tf0))=P → 1/T=1/Tf0-R*ln(P/Ppt)/Hvap
+    const inv_Tvap=1/d.Tf0-R*Math.log(P/d.Ppt)/d.Hvap;
+    const T_vap_K=inv_Tvap>0?1/inv_Tvap:1e10;
+    const T_vap=T_vap_K-273.15;
+    // Draw color bands
+    const regions=[
+      {from:T0,to:Math.min(T_fus,T_vap,d.Tc),col:'#dbeafe',label:'S'},
+      {from:T_fus<T_vap&&P>d.Ppt?T_fus:T_vap,to:P>d.Ppt?T_vap:T_vap,col:'#e0f2fe',label:'L'},
+      {from:Math.max(T_fus,T_vap),to:T1,col:'#fee2e2',label:'G'}
+    ];
+    // Simplified: draw solid, liquid, gas bands based on transitions
+    const bands=[];
+    if(P<=d.Ppt){
+      // No liquid phase: solid → gas (sublimation)
+      const Tsub=d.Tpt+(P-d.Ppt)/((d.Hvap+d.Hfus)/R/d.Tf0/d.Tf0); // rough
+      bands.push({from:T0,to:d.Tpt,col:'#dbeafe',lbl:'SÓLIDO'});
+      bands.push({from:d.Tpt,to:T1,col:'#fee2e2',lbl:'GAS'});
+    } else {
+      const Tf=T_fus>T0?T_fus:T0;
+      const Tv=T_vap>Tf?T_vap:Tf+1;
+      bands.push({from:T0,to:Tf,col:'#dbeafe',lbl:'SÓLIDO'});
+      if(Tv<T1&&Tv>Tf) bands.push({from:Tf,to:Math.min(Tv,d.Tc),col:'#e0f2fe',lbl:'LÍQUIDO'});
+      bands.push({from:Math.min(Tv>Tf?Tv:Tf,T1),to:T1,col:'#fee2e2',lbl:'GAS'});
+    }
+    bands.forEach(b=>{
+      const x1=tx(Math.max(b.from,T0)),x2=tx(Math.min(b.to,T1));
+      if(x2>x1){
+        ctx.fillStyle=b.col;ctx.fillRect(x1,pad,x2-x1,gh);
+        ctx.fillStyle='#334155';ctx.font='11px Arial';ctx.textAlign='center';
+        ctx.fillText(b.lbl,(x1+x2)/2,h/2);
+      }
+    });
+    // Axis
+    ctx.strokeStyle='#94a3b8';ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(pad,pad+gh);ctx.lineTo(w-pad,pad+gh);ctx.stroke();
+    [T0,-50,0,50,100,150,200,300,400].filter(t=>t>=T0&&t<=T1).forEach(t=>{
+      ctx.fillStyle='#64748b';ctx.font='9px Arial';ctx.textAlign='center';
+      ctx.fillText(t+'°',tx(t),pad+gh+12);
+    });
+    // Current T pointer
+    if(T>=T0&&T<=T1){
+      const x=tx(T);
+      ctx.fillStyle='#e07b39';
+      ctx.beginPath();ctx.moveTo(x,pad+gh-3);ctx.lineTo(x-6,pad+gh+10);ctx.lineTo(x+6,pad+gh+10);ctx.closePath();ctx.fill();
+    }
+    ctx.fillStyle='#334155';ctx.font='10px Arial';ctx.textAlign='center';
+    ctx.fillText('Temperatura (°C)',w/2,h-2);
+    ctx.fillStyle='#1e293b';ctx.font='11px Arial';
+    ctx.fillText(`P = ${P.toFixed(2)} atm`,w/2,pad-10);
+    // Determine current state
+    let cstate='';
+    for(const b of bands){if(T>=b.from&&T<=b.to){cstate=b.lbl;break;}}
+    out.innerHTML=`${d.name} a P=${P.toFixed(2)} atm · T=${T}°C → <strong>${cstate||'?'}</strong>`;
+  }
+  sel.onchange=sP.oninput=sT.oninput=draw;
+  cv.width=cv.parentElement.clientWidth||300;
+  draw();
+})();
+
+// ─── TEMA 4 ─────────────────────────────────────────────────────────────────
+(function(){
+  const cv=document.getElementById('cv4a'),ctx=cv.getContext('2d');
+  const sM=document.getElementById('s4aM'),sxB=document.getElementById('s4axB');
+  const vM=document.getElementById('v4aM'),vxB=document.getElementById('v4axB');
+  const sel=document.getElementById('sel4a'),out=document.getElementById('o4a');
+  function draw(){
+    const{w,h}=resizeCanvas(cv);
+    const m=+sM.value,xB=+sxB.value;
+    const[Ke,Kf,P0]=sel.value.split(',').map(Number);
+    vM.textContent=m.toFixed(2); vxB.textContent=xB.toFixed(3);
+    const dP=xB*P0,dTe=Ke*m,dTf=Kf*m;
+    ctx.fillStyle='#f8fafc';ctx.fillRect(0,0,w,h);
+    // Bar chart
+    const bars=[
+      {lbl:'ΔP/P°',val:xB,max:0.3,col:'#2e7d9c'},
+      {lbl:'ΔTe (°C)',val:dTe,max:5,col:'#ef4444'},
+      {lbl:'ΔTf (°C)',val:dTf,max:10,col:'#3b82f6'},
+    ];
+    const bw=(w-60)/bars.length,bmax=h-60;
+    bars.forEach((b,i)=>{
+      const bh=Math.min(b.val/b.max*bmax,bmax);
+      const x=30+i*bw+5,y=h-30-bh;
+      ctx.fillStyle=b.col+'33';ctx.fillRect(x,30,bw-10,bmax);
+      ctx.fillStyle=b.col;ctx.fillRect(x,y,bw-10,bh);
+      ctx.fillStyle='#334155';ctx.font='10px Arial';ctx.textAlign='center';
+      ctx.fillText(b.lbl,x+(bw-10)/2,h-12);
+      ctx.fillText(b.val.toFixed(3),x+(bw-10)/2,y>45?y-5:35);
+    });
+    out.innerHTML=`ΔP = ${dP.toFixed(4)} atm (${(xB*100).toFixed(1)}% de P°) &nbsp;|&nbsp; ΔTe = <strong>+${dTe.toFixed(3)}°C</strong> &nbsp;|&nbsp; ΔTf = <strong>−${dTf.toFixed(3)}°C</strong>`;
+  }
+  sM.oninput=sxB.oninput=sel.onchange=draw;
+  cv.width=cv.parentElement.clientWidth||300;
+  draw();
+})();
+
+(function(){
+  const cv=document.getElementById('cv4b'),ctx=cv.getContext('2d');
+  const sC=document.getElementById('s4bC'),sT=document.getElementById('s4bT');
+  const vC=document.getElementById('v4bC'),vT=document.getElementById('v4bT');
+  const out=document.getElementById('o4b');
+  function draw(){
+    const{w,h}=resizeCanvas(cv);
+    const C=+sC.value,T=+sT.value+273.15;
+    vC.textContent=(+sC.value).toFixed(2); vT.textContent=T-273;
+    const pi=C*0.08206*T;
+    ctx.fillStyle='#f8fafc';ctx.fillRect(0,0,w,h);
+    // U-tube diagram
+    const cx=w/2,tube_w=30,tube_h=h-50,tube_top=25,sep=50;
+    // Left (pure solvent)
+    ctx.strokeStyle='#94a3b8';ctx.lineWidth=2;
+    ctx.strokeRect(cx-sep-tube_w,tube_top,tube_w,tube_h);
+    ctx.fillStyle='#bfdbfe';
+    const lvl_l=tube_h*0.6;
+    ctx.fillRect(cx-sep-tube_w+2,tube_top+tube_h-lvl_l,tube_w-4,lvl_l);
+    // Right (solution — higher level due to osmosis)
+    ctx.strokeRect(cx+sep,tube_top,tube_w,tube_h);
+    const extra=Math.min(pi*8,tube_h*0.35);
+    ctx.fillStyle='#93c5fd';
+    const lvl_r=lvl_l+extra;
+    ctx.fillRect(cx+sep+2,tube_top+tube_h-Math.min(lvl_r,tube_h)+2,tube_w-4,Math.min(lvl_r,tube_h)-2);
+    // Membrane at bottom
+    ctx.fillStyle='#f59e0b';ctx.fillRect(cx-sep,tube_top+tube_h-5,sep*2,10);
+    ctx.fillStyle='#92400e';ctx.font='bold 9px Arial';ctx.textAlign='center';
+    ctx.fillText('Membrana',cx,tube_top+tube_h+10);
+    // Labels
+    ctx.fillStyle='#1e40af';ctx.font='10px Arial';
+    ctx.fillText('Solvente',cx-sep-tube_w/2,tube_top-8);
+    ctx.fillStyle='#1d4ed8';
+    ctx.fillText('Solución',cx+sep+tube_w/2,tube_top-8);
+    // Pi arrow
+    if(extra>5){
+      ctx.strokeStyle='#ef4444';ctx.lineWidth=2;ctx.setLineDash([3,2]);
+      ctx.beginPath();ctx.moveTo(cx-sep-2,tube_top+tube_h-lvl_l);ctx.lineTo(cx+sep+tube_w+2,tube_top+tube_h-lvl_l);ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle='#ef4444';ctx.font='bold 10px Arial';
+      ctx.fillText(`π≈${pi.toFixed(2)} atm`,cx+sep+tube_w+25,tube_top+tube_h-lvl_l+4);
+    }
+    out.innerHTML=`C = ${C.toFixed(2)} mol/L · T = ${(T-273).toFixed(0)}°C → π = <strong>${pi.toFixed(3)} atm</strong> (${(pi*101.325).toFixed(1)} kPa)`;
+  }
+  sC.oninput=sT.oninput=draw;
+  cv.width=cv.parentElement.clientWidth||300;
+  draw();
+})();
+
+// ─── TEMA 5 ─────────────────────────────────────────────────────────────────
+(function(){
+  const cv=document.getElementById('cv5a'),ctx=cv.getContext('2d');
+  const sel=document.getElementById('sel5a'),sM=document.getElementById('s5aM');
+  const vM=document.getElementById('v5aM'),out=document.getElementById('o5a');
+  function draw(){
+    const{w,h}=resizeCanvas(cv);
+    const[nu,k]=sel.value.split(',').map(Number);
+    const m=+sM.value; vM.textContent=m.toFixed(3);
+    // i = nu - k*(nu-1)*sqrt(C)  (phenomenological — approaches nu as C→0)
+    const i_ideal=nu;
+    const i_real=nu-(nu-1)*k*Math.sqrt(m);
+    const i=Math.max(1,i_real);
+    const Kf=1.853;
+    const dTf_i1=Kf*m;
+    const dTf_i=i*Kf*m;
+    ctx.fillStyle='#f8fafc';ctx.fillRect(0,0,w,h);
+    // Draw curve of i vs m
+    const pad=35,gw=w-pad*2,gh=h-pad*2;
+    const mmax=2;
+    function tx(m_){return pad+m_/mmax*gw;}
+    function ty(iv){return pad+gh-(iv-1)/(nu-1+0.1)*gh;}
+    // Ideal i line
+    ctx.setLineDash([5,3]);ctx.strokeStyle='#94a3b8';ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(pad,ty(nu));ctx.lineTo(w-pad,ty(nu));ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='#94a3b8';ctx.font='9px Arial';ctx.textAlign='left';
+    ctx.fillText(`i teórico = ${nu}`,pad+3,ty(nu)-5);
+    // i=1 line
+    ctx.strokeStyle='#e2e8f0';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(pad,ty(1));ctx.lineTo(w-pad,ty(1));ctx.stroke();
+    // Real i curve
+    ctx.beginPath();ctx.strokeStyle='#2e7d9c';ctx.lineWidth=2.5;
+    for(let m_=0.001;m_<=mmax;m_+=0.01){
+      const i_=Math.max(1,nu-(nu-1)*k*Math.sqrt(m_));
+      const x=tx(m_),y=ty(i_);
+      m_<0.02?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+    // Current point
+    ctx.beginPath();ctx.arc(tx(m),ty(i),6,0,Math.PI*2);ctx.fillStyle='#e07b39';ctx.fill();
+    // Labels
+    ctx.fillStyle='#334155';ctx.font='9px Arial';ctx.textAlign='center';
+    ctx.fillText('Molalidad m (mol/kg)',w/2,h-3);
+    ctx.fillStyle='#64748b';ctx.font='9px Arial';ctx.textAlign='left';
+    ctx.fillText('i',2,pad-3);
+    out.innerHTML=`m = ${m.toFixed(3)} mol/kg → i = <strong>${i.toFixed(3)}</strong> (teórico: ${nu}) · ΔTf = <strong>${dTf_i.toFixed(3)}°C</strong> (vs ${dTf_i1.toFixed(3)} sin disociación)`;
+  }
+  sel.onchange=sM.oninput=draw;
+  cv.width=cv.parentElement.clientWidth||300;
+  draw();
+})();
+
+(function(){
+  const cv=document.getElementById('cv5b'),ctx=cv.getContext('2d');
+  const si=document.getElementById('s5bi'),sel=document.getElementById('sel5b');
+  const vi=document.getElementById('v5bi'),out=document.getElementById('o5b');
+  function draw(){
+    const{w,h}=resizeCanvas(cv);
+    const i=+si.value,nu=+sel.value;
+    vi.textContent=i.toFixed(2);
+    const alpha=Math.min(1,Math.max(0,(i-1)/(nu-1)));
+    ctx.fillStyle='#f8fafc';ctx.fillRect(0,0,w,h);
+    // Arc gauge for alpha
+    const cx=w/2,cy=h/2+15,r=Math.min(w,h)*0.32;
+    ctx.beginPath();ctx.arc(cx,cy,r,-Math.PI,0);ctx.strokeStyle='#e2e8f0';ctx.lineWidth=18;ctx.stroke();
+    ctx.beginPath();ctx.arc(cx,cy,r,-Math.PI,-Math.PI+alpha*Math.PI);
+    const g=ctx.createLinearGradient(cx-r,cy,cx+r,cy);
+    g.addColorStop(0,'#3b82f6');g.addColorStop(1,'#ef4444');
+    ctx.strokeStyle=g;ctx.lineWidth=18;ctx.stroke();
+    // Pointer
+    const ang=-Math.PI+alpha*Math.PI;
+    ctx.beginPath();ctx.moveTo(cx,cy);
+    ctx.lineTo(cx+r*0.8*Math.cos(ang),cy+r*0.8*Math.sin(ang));
+    ctx.strokeStyle='#334155';ctx.lineWidth=2.5;ctx.stroke();
+    // Labels
+    ctx.fillStyle='#334155';ctx.font='11px Arial';ctx.textAlign='left';ctx.fillText('α=0',cx-r-5,cy+20);
+    ctx.textAlign='right';ctx.fillText('α=1',cx+r+5,cy+20);
+    ctx.fillStyle='#1e293b';ctx.font='bold 18px Arial';ctx.textAlign='center';
+    ctx.fillText(`α = ${alpha.toFixed(3)}`,cx,cy-r/2+10);
+    ctx.fillStyle='#64748b';ctx.font='12px Arial';
+    ctx.fillText(`i = ${i.toFixed(2)}, ν = ${nu}`,cx,cy+35);
+    const state=alpha<0.1?'Electrolito muy débil':alpha>0.9?'Electrolito fuerte (casi completo)':'Electrolito débil / parcial';
+    ctx.fillStyle='#475569';ctx.font='10px Arial';ctx.fillText(state,cx,h-10);
+    out.innerHTML=`i = ${i.toFixed(2)}, ν = ${nu} → α = <strong>${(alpha*100).toFixed(1)}%</strong> · ${state}`;
+  }
+  si.oninput=sel.onchange=draw;
+  cv.width=cv.parentElement.clientWidth||300;
+  draw();
+})();
+
+// MathJax rerender on load
+window.addEventListener('load',()=>{if(window.MathJax)MathJax.typeset();});
+</script>
+</body>
+</html>

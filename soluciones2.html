@@ -1,0 +1,1897 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soluciones II — Propiedades Coligativas</title>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --primary:#1a4f8a; --secondary:#2e7d9c; --accent:#e07b39;
+  --light-bg:#f4f8fc; --card-bg:#ffffff; --text:#1e293b;
+  --border:#cbd5e1; --success:#059669; --warning:#d97706; --radius:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--light-bg);color:var(--text);line-height:1.7}
+a{color:var(--secondary)}
+
+/* HEADER */
+header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;padding:2rem 1.5rem 1.5rem;text-align:center;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px #0003}
+header h1{font-size:clamp(1.3rem,4vw,2.1rem);font-weight:700;letter-spacing:.5px}
+header p.sub{opacity:.85;font-size:.95rem;margin-top:.25rem}
+nav{margin-top:1rem;display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem}
+nav a{background:#fff2;color:#fff;border-radius:20px;padding:.3rem .9rem;font-size:.82rem;text-decoration:none;transition:background .2s}
+nav a:hover{background:#fff4}
+
+/* BACK LINK */
+.back-bar{background:var(--primary);color:#fff;padding:.5rem 1.5rem;font-size:.88rem}
+.back-bar a{color:#90caf9;text-decoration:none}
+.back-bar a:hover{text-decoration:underline}
+
+/* MAIN */
+main{max-width:1100px;margin:0 auto;padding:2rem 1rem 4rem}
+
+/* SECTION */
+.tema{background:var(--card-bg);border-radius:var(--radius);box-shadow:0 2px 16px #0001;margin-bottom:3rem;overflow:hidden}
+.tema-header{background:linear-gradient(90deg,var(--primary),var(--secondary));color:#fff;padding:1.2rem 1.5rem}
+.tema-header h2{font-size:1.25rem;font-weight:700}
+.tema-header p{opacity:.85;font-size:.9rem;margin-top:.2rem}
+.tema-body{padding:1.5rem}
+
+/* CARDS */
+.card{background:var(--light-bg);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-bottom:1.25rem}
+.card h3{color:var(--primary);font-size:1rem;margin-bottom:.75rem;border-bottom:2px solid var(--accent);padding-bottom:.4rem}
+
+/* MATH */
+.math-block{background:#f0f4ff;border-left:4px solid var(--secondary);padding:1rem 1.25rem;border-radius:0 var(--radius) var(--radius) 0;margin:1rem 0;font-size:1.05rem}
+.formula-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin:1rem 0}
+.formula-box{background:#fff;border:1px solid var(--border);border-radius:8px;padding:1rem;text-align:center}
+.formula-box .label{font-size:.8rem;color:#64748b;margin-top:.5rem}
+
+/* TABLE */
+table{width:100%;border-collapse:collapse;font-size:.9rem;margin:1rem 0}
+th{background:var(--primary);color:#fff;padding:.6rem .8rem;text-align:left}
+td{padding:.55rem .8rem;border-bottom:1px solid var(--border)}
+tr:nth-child(even) td{background:#f8fafc}
+
+/* APPLET */
+.applets-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.25rem;margin-bottom:1.25rem}
+.applet-card{background:#f8fafc;border:1px solid var(--border);border-radius:var(--radius);padding:1rem;display:flex;flex-direction:column}
+.applet-card h4{color:var(--secondary);font-size:.92rem;font-weight:600;margin-bottom:.75rem}
+canvas{display:block;width:100%;background:#fff;border-radius:8px;border:1px solid var(--border)}
+.ctrl{display:flex;flex-direction:column;gap:.4rem;margin-top:.75rem;font-size:.82rem}
+.ctrl label{display:flex;justify-content:space-between;align-items:center;color:#475569}
+.ctrl input[type=range]{width:100%;accent-color:var(--secondary)}
+.ctrl select{width:100%;padding:.3rem;border:1px solid var(--border);border-radius:6px;font-size:.82rem}
+.out-box{margin-top:.6rem;padding:.6rem .8rem;background:#e8f4f8;border-radius:8px;font-size:.82rem;min-height:2.5rem;line-height:1.5}
+
+/* VIDEO */
+.video-wrap{background:#1e293b;border-radius:var(--radius);overflow:hidden;margin-bottom:1.25rem}
+.video-wrap video{width:100%;display:block;border-radius:var(--radius) var(--radius) 0 0}
+.video-label{background:#0f172a;color:#94a3b8;text-align:center;padding:.4rem .8rem;font-size:.82rem}
+
+/* QUESTIONS */
+.questions{background:#fffbf0;border:1px solid #fde68a;border-radius:var(--radius);padding:1.25rem}
+.questions h3{color:#92400e;font-size:1rem;margin-bottom:.75rem}
+.questions ol{padding-left:1.4rem}
+.questions li{margin-bottom:.6rem;font-size:.92rem}
+
+/* BTN */
+.btn{display:inline-block;padding:.45rem 1rem;border-radius:8px;border:none;cursor:pointer;font-size:.82rem;font-weight:600;transition:all .18s}
+.btn-primary{background:var(--secondary);color:#fff}
+.btn-primary:hover{background:var(--primary)}
+.btn-accent{background:var(--accent);color:#fff}
+
+/* INFO */
+.info-box{background:#e0f2fe;border:1px solid #7dd3fc;border-radius:8px;padding:.9rem 1.1rem;margin:.75rem 0;font-size:.88rem}
+.warning-box{background:#fef9c3;border:1px solid #fde047;border-radius:8px;padding:.9rem 1.1rem;margin:.75rem 0;font-size:.88rem}
+
+/* GRAPH CARDS */
+.graphs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.25rem;margin:1.25rem 0}
+.graph-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:.85rem;text-align:center}
+.graph-card img{width:100%;border-radius:8px;display:block}
+.graph-card p{font-size:.8rem;color:#64748b;margin-top:.5rem;font-style:italic}
+
+/* DERIVATION STEPS */
+.derivacion{background:linear-gradient(135deg,#f0f4ff,#fff);border:1.5px solid #c7d7f8;border-radius:var(--radius);padding:1.5rem;margin:1.25rem 0}
+.derivacion h3{color:#1a4f8a;font-size:1rem;font-weight:700;margin-bottom:1rem;border-bottom:2px solid var(--secondary);padding-bottom:.4rem}
+.step{display:flex;gap:1rem;margin-bottom:1.1rem;align-items:flex-start}
+.step-num{background:var(--secondary);color:#fff;border-radius:50%;min-width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:700;flex-shrink:0;margin-top:.15rem}
+.step-body{flex:1}
+.step-body p{font-size:.9rem;margin-bottom:.4rem;color:#374151}
+.aprox{background:#fff3cd;border:1px solid #ffc107;border-radius:6px;padding:.5rem .8rem;font-size:.85rem;color:#856404;margin:.4rem 0}
+.result-box{background:linear-gradient(90deg,#1a4f8a,#2e7d9c);color:#fff;border-radius:8px;padding:.85rem 1.2rem;text-align:center;margin:1rem 0;font-size:1.05rem}
+
+/* SCHEME */
+.scheme-row{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:center;margin:1rem 0}
+.scheme-box{background:#f8fafc;border:1.5px solid var(--border);border-radius:10px;padding:.85rem 1.2rem;text-align:center;min-width:140px}
+.scheme-arrow{font-size:1.8rem;color:var(--secondary)}
+
+/* STUDY GUIDE */
+#guia{background:var(--card-bg);border-radius:var(--radius);box-shadow:0 2px 16px #0001;margin-bottom:3rem;overflow:hidden}
+.guia-header{background:linear-gradient(90deg,#4a1d96,#6d28d9);color:#fff;padding:1.2rem 1.5rem}
+.guia-header h2{font-size:1.2rem;font-weight:700}
+.guia-body{padding:1.5rem}
+.guia-section{margin-bottom:1.5rem}
+.guia-section h3{color:#5b21b6;font-size:1rem;border-bottom:2px solid #c4b5fd;padding-bottom:.35rem;margin-bottom:.8rem}
+.guia-section ol{padding-left:1.4rem}
+.guia-section li{margin-bottom:.5rem;font-size:.9rem}
+
+footer{text-align:center;padding:2rem;color:#64748b;font-size:.85rem;border-top:1px solid var(--border)}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Soluciones II — Propiedades Coligativas</h1>
+  <p class="sub">Química General &mdash; Propiedades que dependen de la cantidad, no del tipo de soluto</p>
+  <nav>
+    <a href="#tema1">1. Ley de Raoult</a>
+    <a href="#tema2">2. Descenso P. Vapor</a>
+    <a href="#tema3">3. Ebulloscopia / Crioscopia</a>
+    <a href="#tema4">4. Ósmosis</a>
+    <a href="#tema5">5. Factor de van't Hoff</a>
+    <a href="#guia">Guía de Estudio</a>
+  </nav>
+</header>
+
+<div class="back-bar">
+  ← <a href="soluciones.html">Volver a Soluciones I</a>
+</div>
+
+<main>
+
+<!-- ========== TEMA 1: LEY DE RAOULT ========== -->
+<section class="tema" id="tema1">
+  <div class="tema-header">
+    <h2>Tema 1 — Ley de Raoult y Soluciones Ideales</h2>
+    <p>Presión de vapor en mezclas binarias ideales</p>
+  </div>
+  <div class="tema-body">
+
+    <div class="card">
+      <h3>Desarrollo Conceptual</h3>
+      <p>La <strong>Ley de Raoult</strong> (François-Marie Raoult, 1887) establece que la presión parcial de vapor de cada componente en una <em>solución ideal</em> es igual a su presión de vapor pura multiplicada por su fracción molar en la mezcla:</p>
+      <div class="math-block">$$P_A = x_A \cdot P_A^* \qquad P_B = x_B \cdot P_B^*$$</div>
+      <p>La <strong>presión total</strong> de la mezcla binaria ideal (Ley de Dalton) es:</p>
+      <div class="math-block">$$P_{total} = P_A + P_B = x_A P_A^* + x_B P_B^* = x_A P_A^* + (1-x_A)P_B^*$$</div>
+
+      <div class="formula-grid">
+        <div class="formula-box">
+          \(P_A\)
+          <div class="label">Presión parcial del componente A</div>
+        </div>
+        <div class="formula-box">
+          \(x_A\)
+          <div class="label">Fracción molar de A en el líquido</div>
+        </div>
+        <div class="formula-box">
+          \(P_A^*\)
+          <div class="label">Presión de vapor del líquido puro A</div>
+        </div>
+      </div>
+
+      <p>Una solución es <strong>ideal</strong> cuando las interacciones A–B son equivalentes a las interacciones A–A y B–B. Ejemplos: benceno + tolueno, hexano + heptano.</p>
+
+      <h3 style="margin-top:1.2rem">Diagrama de Presión vs. Composición</h3>
+      <p>En una solución ideal, \(P_{total}\) varía <em>linealmente</em> con \(x_A\). La composición de la <strong>fase vapor</strong> \(y_A\) es distinta a la del líquido:</p>
+      <div class="math-block">$$y_A = \frac{P_A}{P_{total}} = \frac{x_A P_A^*}{x_A P_A^* + (1-x_A)P_B^*}$$</div>
+      <p>El vapor se enriquece en el componente más volátil (\(P^*\) mayor). Este principio es la base de la <strong>destilación fraccionada</strong>.</p>
+
+      <h3 style="margin-top:1.2rem">Desviaciones de la Idealidad</h3>
+      <div class="info-box">
+        <strong>Desviación positiva</strong>: \(P_{total} > P_{Raoult}\). Interacciones A–B más débiles que A–A y B–B. El sistema tiende a "rechazarse". Ejemplo: acetona + CS₂.<br><br>
+        <strong>Desviación negativa</strong>: \(P_{total} < P_{Raoult}\). Interacciones A–B más fuertes (puentes de H cruzados). Ejemplo: agua + HCl, agua + acetona.
+      </div>
+    </div>
+
+    <!-- Gráficos Tema 1 -->
+    <div class="graphs-grid">
+      <div class="graph-card">
+        <img src="g2_raoult_pxa.png" alt="Ley de Raoult: P vs xA">
+        <p>Gráfico 1 — P<sub>A</sub> vs x<sub>A</sub>: relación lineal de Raoult. La pendiente es P°<sub>A</sub>. El eje inferior muestra x<sub>B</sub> (soluto) en sentido inverso.</p>
+      </div>
+      <div class="graph-card">
+        <img src="g2_raoult_mezcla_completa.png" alt="Mezcla binaria A+B: PA, PB, Ptotal">
+        <p>Gráfico 2 — Diagrama P–x completo para mezcla A+B volátiles. La curva discontinua muestra la composición del vapor y<sub>A</sub> ≠ x<sub>A</sub>.</p>
+      </div>
+    </div>
+
+    <!-- Applets Tema 1 -->
+    <div class="applets-grid">
+      <div class="applet-card">
+        <h4>Applet 1A — Diagrama P–x de Raoult (Solución Ideal)</h4>
+        <canvas id="cv1a" height="230"></canvas>
+        <div class="ctrl">
+          <label>P°<sub>A</sub> (kPa): <span id="v1a-pa">80</span></label>
+          <input type="range" id="sl1a-pa" min="10" max="150" value="80">
+          <label>P°<sub>B</sub> (kPa): <span id="v1a-pb">30</span></label>
+          <input type="range" id="sl1a-pb" min="10" max="150" value="30">
+        </div>
+        <div class="out-box" id="out1a">Mueve los sliders para explorar el diagrama P–x.</div>
+      </div>
+
+      <div class="applet-card">
+        <h4>Applet 1B — Comparación Ideal vs. Real</h4>
+        <canvas id="cv1b" height="230"></canvas>
+        <div class="ctrl">
+          <label>Tipo de desviación:</label>
+          <select id="sl1b-dev">
+            <option value="0">Ideal (sin desviación)</option>
+            <option value="1">Desviación positiva</option>
+            <option value="-1">Desviación negativa</option>
+          </select>
+          <label>Intensidad desviación: <span id="v1b-int">0.5</span></label>
+          <input type="range" id="sl1b-int" min="0" max="1" step="0.05" value="0.5">
+        </div>
+        <div class="out-box" id="out1b">Curva azul: ideal. Curva naranja: real.</div>
+      </div>
+    </div>
+
+    <div class="video-wrap">
+      <video controls preload="metadata">
+        <source src="La_Ley_de_Raoult.mp4" type="video/mp4">
+      </video>
+      <div class="video-label">▶ La Ley de Raoult</div>
+    </div>
+
+    <!-- Questions -->
+    <div class="questions">
+      <h3>Preguntas de Estudio — Tema 1</h3>
+      <ol>
+        <li>Una mezcla de benceno (P° = 95 kPa) y tolueno (P° = 30 kPa) tiene x<sub>benceno</sub> = 0.4. Calcula la presión total y la composición del vapor.</li>
+        <li>¿Por qué en una solución ideal la presión total varía linealmente con la composición?</li>
+        <li>¿Qué condiciones intermoleculares producen una desviación positiva de la Ley de Raoult?</li>
+        <li>El sistema etanol–agua exhibe una desviación positiva máxima: ¿qué consecuencia práctica tiene esto para la destilación del alcohol?</li>
+        <li>Demuestra que \(y_A > x_A\) cuando \(P_A^* > P_B^*\).</li>
+      </ol>
+    </div>
+
+  </div>
+</section>
+
+<!-- ========== TEMA 2: DESCENSO PRESIÓN DE VAPOR ========== -->
+<section class="tema" id="tema2">
+  <div class="tema-header">
+    <h2>Tema 2 — Descenso de la Presión de Vapor</h2>
+    <p>Efecto de un soluto no volátil sobre la presión de vapor del solvente</p>
+  </div>
+  <div class="tema-body">
+
+    <div class="card">
+      <h3>Desarrollo Conceptual</h3>
+      <p>Cuando se disuelve un <strong>soluto no volátil</strong> en un solvente, la presión de vapor del solvente disminuye. Esto se sigue directamente de la Ley de Raoult:</p>
+      <div class="math-block">$$P_A = x_A \cdot P_A^* = (1 - x_B)\,P_A^*$$</div>
+      <p>El <strong>descenso de presión de vapor</strong> \(\Delta P\) es:</p>
+      <div class="math-block">$$\Delta P = P_A^* - P_A = P_A^* - x_A P_A^* = x_B \cdot P_A^*$$</div>
+      <p>donde \(x_B\) es la fracción molar del soluto. La disminución es <em>proporcional a la cantidad de partículas de soluto</em>, no a su naturaleza química: primera propiedad <strong>coligativa</strong>.</p>
+
+      <h3 style="margin-top:1.2rem">Interpretación Molecular</h3>
+      <p>Las moléculas de soluto en la superficie del líquido ocupan posiciones que antes ocupaban moléculas de solvente, reduciendo la frecuencia de escape del solvente hacia la fase gaseosa. La presión de vapor resultante es menor.</p>
+
+      <div class="warning-box">
+        <strong>Importancia del tipo de soluto:</strong> Esta fórmula simple (\(\Delta P = x_B P_A^*\)) vale solo para solutos <em>no volátiles y no disociantes</em>. Para electrolitos debe incluirse el factor \(i\) de van't Hoff (Tema 5).
+      </div>
+
+      <h3 style="margin-top:1.2rem">Consecuencias en el Diagrama de Fases</h3>
+      <p>El descenso de presión de vapor provoca un <em>desplazamiento hacia abajo</em> de la curva de equilibrio líquido-vapor. Esto resulta en:</p>
+      <ul style="padding-left:1.4rem;margin-top:.5rem">
+        <li><strong>Aumento del punto de ebullición</strong> (la solución necesita más temperatura para alcanzar P<sub>atm</sub>)</li>
+        <li><strong>Descenso del punto de fusión</strong> (la curva líquido-sólido también se desplaza)</li>
+      </ul>
+    </div>
+
+    <!-- Gráficos Tema 2 -->
+    <div class="graphs-grid">
+      <div class="graph-card">
+        <img src="g2_pvap_temperatura.png" alt="Curvas equilibrio líquido-vapor">
+        <p>Gráfico 3 — Curvas de equilibrio líquido-vapor. La curva de la solución (verde) está desplazada hacia abajo (ΔP) y a la derecha (ΔT<sub>e</sub>).</p>
+      </div>
+      <div class="graph-card">
+        <img src="g2_diagrama_fases_completo.png" alt="Diagrama de fases completo">
+        <p>Gráfico 4 — Diagrama de fases completo mostrando simultáneamente el descenso crioscópico ΔT<sub>c</sub> y el aumento ebulloscópico ΔT<sub>e</sub>.</p>
+      </div>
+    </div>
+
+    <!-- Esquema molecular: origen entrópico -->
+    <div class="card">
+      <h3>Origen Entrópico del Descenso de Presión de Vapor</h3>
+      <div class="scheme-row">
+        <div class="scheme-box" style="background:#dbeafe">
+          <div style="font-size:1.5rem">💧💧💧<br>💧💧💧<br>💧💧💧</div>
+          <p style="font-size:.82rem;margin-top:.5rem;color:#1e40af"><strong>Solvente puro</strong><br>P° mayor<br>ΔS<sub>vap</sub> grande</p>
+        </div>
+        <div class="scheme-arrow">→</div>
+        <div class="scheme-box" style="background:#dcfce7">
+          <div style="font-size:1.5rem">💧🔴💧<br>🔴💧🔴<br>💧🔴💧</div>
+          <p style="font-size:.82rem;margin-top:.5rem;color:#15803d"><strong>Solución</strong><br>P menor<br>ΔS<sub>vap</sub> más pequeño</p>
+        </div>
+        <div style="max-width:220px;font-size:.85rem;color:#374151;padding:.5rem">
+          Al añadir el soluto, el <strong>desorden de la fase condensada aumenta</strong>. La diferencia de entropía entre el líquido (ya desordenado) y el vapor se reduce → menor presión de vapor.
+          <div class="math-block" style="font-size:.9rem;margin-top:.5rem">$$\Delta P = x_B \cdot P_A^\circ$$</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Applets Tema 2 -->
+    <div class="applets-grid">
+      <div class="applet-card">
+        <h4>Applet 2A — Calculadora de Descenso de P<sub>vapor</sub></h4>
+        <canvas id="cv2a" height="230"></canvas>
+        <div class="ctrl">
+          <label>P°<sub>solvente</sub> (kPa): <span id="v2a-p0">23.8</span></label>
+          <input type="range" id="sl2a-p0" min="5" max="100" step="0.5" value="23.8">
+          <label>x<sub>soluto</sub> (fracción molar): <span id="v2a-xb">0.10</span></label>
+          <input type="range" id="sl2a-xb" min="0" max="0.5" step="0.01" value="0.10">
+        </div>
+        <div class="out-box" id="out2a">Resultado aquí.</div>
+      </div>
+
+      <div class="applet-card">
+        <h4>Applet 2B — Diagrama de Fases: Efecto del Soluto</h4>
+        <canvas id="cv2b" height="230"></canvas>
+        <div class="ctrl">
+          <label>Concentración soluto (mol/L): <span id="v2b-c">0.5</span></label>
+          <input type="range" id="sl2b-c" min="0" max="3" step="0.1" value="0.5">
+        </div>
+        <div class="out-box" id="out2b">Azul: solvente puro. Naranja: solución.</div>
+      </div>
+    </div>
+
+    <div class="video-wrap">
+      <video controls preload="metadata">
+        <source src="La_presión_invisible.mp4" type="video/mp4">
+      </video>
+      <div class="video-label">▶ La Presión Invisible — descenso de la presión de vapor</div>
+    </div>
+
+    <!-- Questions -->
+    <div class="questions">
+      <h3>Preguntas de Estudio — Tema 2</h3>
+      <ol>
+        <li>Calcula el descenso de presión de vapor al disolver 34.2 g de sacarosa (M = 342 g/mol) en 180 g de agua a 25°C (P°<sub>agua</sub> = 23.8 mmHg).</li>
+        <li>¿Por qué la identidad química del soluto (siempre que sea no volátil) no afecta \(\Delta P\)?</li>
+        <li>Explica a nivel molecular por qué un soluto no volátil disminuye la presión de vapor del solvente.</li>
+        <li>Si se mezcla glicerol (no volátil) con agua, ¿cómo cambia el diagrama de fases del agua?</li>
+        <li>¿Qué relación existe entre el descenso de presión de vapor y la entropía de mezcla?</li>
+      </ol>
+    </div>
+
+  </div>
+</section>
+
+<!-- ========== TEMA 3: EBULLOSCOPIA / CRIOSCOPIA ========== -->
+<section class="tema" id="tema3">
+  <div class="tema-header">
+    <h2>Tema 3 — Ebulloscopia y Crioscopia</h2>
+    <p>Elevación del punto de ebullición y descenso del punto de fusión</p>
+  </div>
+  <div class="tema-body">
+
+    <div class="card">
+      <h3>Elevación del Punto de Ebullición (Ebulloscopia)</h3>
+      <p>Un soluto no volátil eleva el punto de ebullición del solvente. La relación cuantitativa es:</p>
+      <div class="math-block">$$\Delta T_e = K_e \cdot m$$</div>
+      <p>donde \(m\) es la molalidad (mol soluto / kg solvente) y \(K_e\) es la <strong>constante ebulloscópica</strong> del solvente, con unidades K·kg/mol.</p>
+
+      <h3 style="margin-top:1.2rem">Descenso del Punto de Fusión (Crioscopia)</h3>
+      <div class="math-block">$$\Delta T_f = K_f \cdot m$$</div>
+      <p>El punto de fusión <em>desciende</em> (la solución funde a menor temperatura). \(K_f\) es la <strong>constante crioscópica</strong>.</p>
+
+      <table>
+        <tr><th>Solvente</th><th>T<sub>eb</sub> (°C)</th><th>K<sub>e</sub> (K·kg/mol)</th><th>T<sub>fus</sub> (°C)</th><th>K<sub>f</sub> (K·kg/mol)</th></tr>
+        <tr><td>Agua</td><td>100.0</td><td>0.512</td><td>0.0</td><td>1.86</td></tr>
+        <tr><td>Benceno</td><td>80.1</td><td>2.53</td><td>5.5</td><td>5.12</td></tr>
+        <tr><td>Ciclohexano</td><td>80.7</td><td>2.79</td><td>6.5</td><td>20.0</td></tr>
+        <tr><td>Etanol</td><td>78.4</td><td>1.22</td><td>-117</td><td>1.99</td></tr>
+        <tr><td>Ácido acético</td><td>118.1</td><td>3.07</td><td>16.6</td><td>3.90</td></tr>
+        <tr><td>Alcanfor</td><td>204.0</td><td>5.95</td><td>178.4</td><td>37.7</td></tr>
+      </table>
+
+      <h3 style="margin-top:1.2rem">Fórmulas de las Constantes</h3>
+      <div class="math-block">$$K_e = \frac{R\,T_{eb}^2\,M_{solvente}}{\Delta H_{vap}\cdot 1000} \qquad K_f = \frac{R\,T_{fus}^2\,M_{solvente}}{\Delta H_{fus}\cdot 1000}$$</div>
+      <p>Solventes con mayor \(T^2/\Delta H\) tendrán constantes más grandes → mejores para determinar masas molares por crioscopia.</p>
+    </div>
+
+    <!-- DERIVACIÓN COMPLETA -->
+    <div class="derivacion">
+      <h3>⚗️ Deducción Rigurosa de las Fórmulas Ebulloscópica y Crioscópica</h3>
+      <p style="font-size:.88rem;color:#475569;margin-bottom:1rem">Seguimos la derivación del libro <em>Elementos de Química-Física</em> (S. Glasstone). Partimos de la ecuación de Clausius-Clapeyron y aplicamos dos aproximaciones sucesivas válidas para soluciones diluidas.</p>
+
+      <h4 style="color:#1a4f8a;margin:.8rem 0 .5rem">Parte A — Elevación del Punto de Ebullición (ΔT<sub>e</sub>)</h4>
+
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <p><strong>Punto de partida: ecuación de Clausius-Clapeyron</strong></p>
+          <p>La variación de la presión de vapor \(P\) con la temperatura \(T\) sigue:</p>
+          <div class="math-block">$$\frac{d\ln P}{dT} = \frac{\Delta H_v}{RT^2}$$</div>
+          <p>donde \(\Delta H_v\) es la entalpía de vaporización del solvente (constante en el rango pequeño de temperaturas considerado).</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <p><strong>Integración entre límites</strong></p>
+          <p>Integramos entre el estado de la <em>solución</em> \((P,\,T)\) y el del <em>solvente puro</em> \((P^\circ,\,T^\circ)\):</p>
+          <div class="math-block">$$\ln\frac{P}{P^\circ} = -\frac{\Delta H_v}{R}\left(\frac{1}{T} - \frac{1}{T^\circ}\right) = -\frac{\Delta H_v}{R}\cdot\frac{T^\circ - T}{T\cdot T^\circ}$$</div>
+          <p>Aquí \(T^\circ\) es la temperatura de ebullición del solvente puro a 1 atm, y \(T\) la de la solución.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <p><strong>Primera aproximación: solución diluida</strong></p>
+          <div class="aprox">⚠️ <strong>Aproximación 1</strong>: Para soluciones diluidas \(T \approx T^\circ\), por lo tanto el producto \(T \cdot T^\circ \approx (T^\circ)^2\).</div>
+          <p>Definimos \(\Delta T_e = T - T^\circ > 0\) (el aumento de T de ebullición). Entonces \(T^\circ - T = -\Delta T_e\), y la ecuación se convierte en:</p>
+          <div class="math-block">$$\ln\frac{P}{P^\circ} = \frac{\Delta H_v}{R}\cdot\frac{\Delta T_e}{(T^\circ)^2}$$</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <p><strong>Aplicación de la Ley de Raoult</strong></p>
+          <p>Para un soluto no volátil, la Ley de Raoult da la presión de vapor de la solución:</p>
+          <div class="math-block">$$P = x_A P^\circ = (1-x_B)\,P^\circ \quad \Rightarrow \quad \frac{P}{P^\circ} = 1-x_B$$</div>
+          <p>Tomando logaritmo: \(\ln(P/P^\circ) = \ln(1-x_B)\).</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <p><strong>Segunda aproximación: desarrollo de Taylor del logaritmo</strong></p>
+          <div class="aprox">⚠️ <strong>Aproximación 2</strong>: Para soluciones diluidas (\(x_B \ll 1\)), el logaritmo se expande en serie de Taylor: \(\ln(1-x_B) = -x_B - \dfrac{x_B^2}{2} - \cdots \approx -x_B\) (primer término).</div>
+          <p>La justificación es que si \(x_B = 0.01\), el término cuadrático \(x_B^2/2 = 0.00005\), despreciable frente a \(x_B\).</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">6</div>
+        <div class="step-body">
+          <p><strong>Combinando: resultado en función de x<sub>B</sub></strong></p>
+          <p>Igualando las expresiones de los pasos 3 y 5:</p>
+          <div class="math-block">$$-x_B = \frac{\Delta H_v}{R}\cdot\frac{\Delta T_e}{(T^\circ)^2} \quad \Rightarrow \quad \Delta T_e = \frac{R(T^\circ)^2}{\Delta H_v}\,x_B$$</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">7</div>
+        <div class="step-body">
+          <p><strong>Conversión de fracción molar x<sub>B</sub> a molalidad m</strong></p>
+          <p>La fracción molar del soluto es:</p>
+          <div class="math-block">$$x_B = \frac{n_B}{n_A + n_B} \approx \frac{n_B}{n_A} = \frac{m_B/M_B}{m_A/M_A} \quad \text{(dilución: }n_B \ll n_A\text{)}$$</div>
+          <div class="aprox">⚠️ <strong>Aproximación 3</strong>: En solución diluida, \(n_A + n_B \approx n_A\), lo que permite simplificar la fracción molar.</div>
+          <p>Relacionando con la molalidad \(m = 1000\,n_B\,/\,(M_A\,n_A)\):</p>
+          <div class="math-block">$$x_B = \frac{n_B}{n_A} = \frac{m \cdot M_A}{1000}$$</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">8</div>
+        <div class="step-body">
+          <p><strong>Resultado final para el aumento ebulloscópico</strong></p>
+          <div class="math-block">$$\Delta T_e = \frac{R(T^\circ)^2}{\Delta H_v}\cdot\frac{M_A}{1000}\cdot m = K_e\cdot m$$</div>
+          <div class="result-box">$$\boxed{K_e = \frac{R\,(T^\circ)^2\,M_A}{\Delta H_v \cdot 1000}}$$</div>
+          <p>Esta constante depende <em>solo del solvente</em>. Para el agua: \(T^\circ=373.15\text{ K}\), \(M_A=18.015\text{ g/mol}\), \(\Delta H_v=40700\text{ J/mol}\) → \(K_e = 0.512\text{ K·kg/mol}\) ✓</p>
+        </div>
+      </div>
+
+      <hr style="margin:1.5rem 0;border-color:#c7d7f8">
+
+      <h4 style="color:#1a4f8a;margin:.8rem 0 .5rem">Parte B — Descenso del Punto de Fusión (Crioscopia, ΔT<sub>f</sub>)</h4>
+      <p style="font-size:.88rem;color:#475569;margin-bottom:.8rem">La derivación es completamente análoga, pero ahora estudiamos el equilibrio <strong>sólido–líquido</strong> en lugar del líquido–vapor. La condición de equilibrio establece que el potencial químico del solvente en el sólido puro es igual al del solvente en la solución.</p>
+
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <p><strong>Equilibrio sólido–solución al punto de congelación</strong></p>
+          <p>Al congelar la solución, solo congela el <em>solvente puro</em> (el soluto queda en la fase líquida). La condición de equilibrio es:</p>
+          <div class="math-block">$$\mu_{sólido}^*(T) = \mu_{solvente\,en\,solución}(T) = \mu_{solvente}^*(T) + RT\ln x_A$$</div>
+          <p>Esto lleva a que \(\ln x_A < 0\) (ya que \(x_A < 1\)), lo que significa que el solvente en la solución tiene <em>menor potencial químico</em> que el sólido puro a la misma temperatura: la solución se resiste a congelar.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <p><strong>Ecuación análoga a Clausius-Clapeyron para la fusión</strong></p>
+          <p>El análisis termodinámico conduce a una ecuación de la misma forma, pero ahora con la entalpía de fusión \(\Delta H_f\) y el punto de fusión del solvente puro \(T_f^\circ\):</p>
+          <div class="math-block">$$\ln\frac{P_{soln}}{P_{solv}^*} = -\frac{\Delta H_f}{R}\left(\frac{1}{T_f} - \frac{1}{T_f^\circ}\right) = -\frac{\Delta H_f}{R}\cdot\frac{T_f^\circ - T_f}{T_f\cdot T_f^\circ}$$</div>
+          <p>donde \(\Delta T_c = T_f^\circ - T_f > 0\) es el <em>descenso</em> crioscópico (el punto de fusión de la solución es más bajo).</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <p><strong>Aplicación de las mismas aproximaciones</strong></p>
+          <div class="aprox">⚠️ <strong>Aproximación 1</strong>: \(T_f \approx T_f^\circ\) → \(T_f \cdot T_f^\circ \approx (T_f^\circ)^2\)</div>
+          <div class="aprox">⚠️ <strong>Aproximación 2</strong>: \(\ln(P_{soln}/P_{solv}^*) = \ln(1-x_B) \approx -x_B\) (Taylor, diluto)</div>
+          <div class="math-block">$$-x_B = -\frac{\Delta H_f}{R}\cdot\frac{\Delta T_c}{(T_f^\circ)^2}$$</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <p><strong>Resultado en fracción molar y conversión a molalidad</strong></p>
+          <div class="math-block">$$\Delta T_c = \frac{R(T_f^\circ)^2}{\Delta H_f}\,x_B = \frac{R(T_f^\circ)^2}{\Delta H_f}\cdot\frac{M_A\,m}{1000}= K_f\cdot m$$</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <p><strong>Constante crioscópica K<sub>f</sub></strong></p>
+          <div class="result-box">$$\boxed{K_f = \frac{R\,(T_f^\circ)^2\,M_A}{\Delta H_f \cdot 1000}}$$</div>
+          <p>Para el agua: \(T_f^\circ=273.15\text{ K}\), \(M_A=18.015\text{ g/mol}\), \(\Delta H_f=6010\text{ J/mol}\) → \(K_f = 1.86\text{ K·kg/mol}\) ✓</p>
+          <p style="margin-top:.5rem">Note que \(\Delta H_f \ll \Delta H_v\) (fusión requiere mucho menos energía que vaporización), por eso <strong>K<sub>f</sub> &gt; K<sub>e</sub></strong> para cualquier solvente.</p>
+        </div>
+      </div>
+
+      <h4 style="color:#1a4f8a;margin:1rem 0 .5rem">Resumen de Aproximaciones Realizadas</h4>
+      <table>
+        <tr><th>#</th><th>Aproximación</th><th>Condición de validez</th><th>Error introducido</th></tr>
+        <tr><td>1</td><td>\(T \cdot T^\circ \approx (T^\circ)^2\)</td><td>\(\Delta T \ll T^\circ\) (solución diluida)</td><td>&lt;1% si ΔT &lt; 3K</td></tr>
+        <tr><td>2</td><td>\(\ln(1-x_B) \approx -x_B\)</td><td>\(x_B \ll 1\) (dilución)</td><td>&lt;0.5% si \(x_B &lt; 0.01\)</td></tr>
+        <tr><td>3</td><td>\(n_A + n_B \approx n_A\)</td><td>\(n_B \ll n_A\)</td><td>Idéntico a aproximación 2</td></tr>
+        <tr><td>4</td><td>\(\Delta H_v, \Delta H_f\) = cte</td><td>Rango pequeño de T</td><td>Despreciable en ΔT &lt; 10K</td></tr>
+      </table>
+    </div>
+
+    <!-- Gráficos Tema 3 -->
+    <div class="graphs-grid">
+      <div class="graph-card">
+        <img src="g2_ebulloscopio_geometrico.png" alt="Relación geométrica AB/AC">
+        <p>Gráfico 5 — Relación geométrica: ΔT = AB es proporcional a ΔP/P° = AC. Esto demuestra que ΔT<sub>e</sub> ∝ x<sub>B</sub>.</p>
+      </div>
+      <div class="graph-card">
+        <img src="g2_crioscopico_fases.png" alt="Diagrama de fases crioscópico">
+        <p>Gráfico 6 — Diagrama de fases crioscópico mostrando el desplazamiento del punto de fusión ΔT<sub>c</sub> (región azul).</p>
+      </div>
+    </div>
+    <div class="graphs-grid">
+      <div class="graph-card">
+        <img src="g2_curvas_enfriamiento.png" alt="Curvas de enfriamiento">
+        <p>Gráfico 7 — Curvas de enfriamiento: la sustancia pura tiene una meseta horizontal al congelar; la solución muestra una pendiente durante la congelación porque la concentración aumenta mientras congela.</p>
+      </div>
+      <div class="graph-card">
+        <img src="g2_comparacion_coligativas.png" alt="Comparación de las 4 propiedades coligativas">
+        <p>Gráfico 8 — Las cuatro propiedades coligativas del agua con glucosa en función de la concentración. Todas son lineales para soluciones diluidas.</p>
+      </div>
+    </div>
+
+    <!-- Applets Tema 3 -->
+    <div class="applets-grid">
+      <div class="applet-card">
+        <h4>Applet 3A — Calculadora Ebulloscopia / Crioscopia</h4>
+        <canvas id="cv3a" height="230"></canvas>
+        <div class="ctrl">
+          <label>Solvente:</label>
+          <select id="sl3a-solv">
+            <option value="agua">Agua (Ke=0.512, Kf=1.86)</option>
+            <option value="benceno">Benceno (Ke=2.53, Kf=5.12)</option>
+            <option value="ciclohexano">Ciclohexano (Ke=2.79, Kf=20.0)</option>
+            <option value="etanol">Etanol (Ke=1.22, Kf=1.99)</option>
+            <option value="alcanfor">Alcanfor (Ke=5.95, Kf=37.7)</option>
+          </select>
+          <label>Molalidad m (mol/kg): <span id="v3a-m">1.0</span></label>
+          <input type="range" id="sl3a-m" min="0" max="5" step="0.05" value="1.0">
+        </div>
+        <div class="out-box" id="out3a">Resultado aquí.</div>
+      </div>
+
+      <div class="applet-card">
+        <h4>Applet 3B — Termómetro: Efecto en Puntos de Cambio de Fase</h4>
+        <canvas id="cv3b" height="230"></canvas>
+        <div class="ctrl">
+          <label>Molalidad m (mol/kg): <span id="v3b-m">1.0</span></label>
+          <input type="range" id="sl3b-m" min="0" max="5" step="0.1" value="1.0">
+          <label>Solvente:</label>
+          <select id="sl3b-solv">
+            <option value="agua">Agua</option>
+            <option value="benceno">Benceno</option>
+            <option value="alcanfor">Alcanfor</option>
+          </select>
+        </div>
+        <div class="out-box" id="out3b">Visualización del termómetro.</div>
+      </div>
+    </div>
+
+    <div class="video-wrap">
+      <video controls preload="metadata">
+        <source src="Aumento_Ebulloscópico_y_Descenso_Crioscópico.mp4" type="video/mp4">
+      </video>
+      <div class="video-label">▶ Aumento Ebulloscópico y Descenso Crioscópico</div>
+    </div>
+
+    <!-- Questions -->
+    <div class="questions">
+      <h3>Preguntas de Estudio — Tema 3</h3>
+      <ol>
+        <li>Se disuelven 10.0 g de glucosa (M = 180 g/mol) en 200 g de agua. ¿Cuál es el nuevo punto de ebullición y de fusión de la solución?</li>
+        <li>¿Por qué el alcanfor tiene un K<sub>f</sub> tan grande? ¿Qué ventaja práctica tiene?</li>
+        <li>Deduce las unidades de K<sub>e</sub> a partir de la fórmula \(\Delta T_e = K_e \cdot m\).</li>
+        <li>¿Cómo se puede usar la crioscopia para determinar la masa molar de un soluto desconocido?</li>
+        <li>Una solución acuosa hierve a 100.25°C. ¿Cuál es su molalidad? ¿A qué temperatura congela?</li>
+        <li>¿Por qué se agrega sal al hielo para derretir el hielo en las calles?</li>
+      </ol>
+    </div>
+
+  </div>
+</section>
+
+<!-- ========== TEMA 4: ÓSMOSIS ========== -->
+<section class="tema" id="tema4">
+  <div class="tema-header">
+    <h2>Tema 4 — Ósmosis y Presión Osmótica</h2>
+    <p>Transporte de solvente a través de membranas semipermeables</p>
+  </div>
+  <div class="tema-body">
+
+    <div class="card">
+      <h3>Desarrollo Conceptual</h3>
+      <p>La <strong>ósmosis</strong> es el flujo espontáneo del solvente desde una solución de menor concentración hacia una de mayor concentración, a través de una membrana <em>semipermeable</em> (que permite el paso del solvente pero no del soluto).</p>
+      <p>La <strong>presión osmótica</strong> \(\pi\) es la presión que debe aplicarse a la solución para detener el flujo osmótico. La ecuación de van't Hoff (1887) la relaciona con la concentración molar:</p>
+      <div class="math-block">$$\pi = C R T = \frac{n}{V} R T$$</div>
+      <div class="formula-grid">
+        <div class="formula-box">\(\pi\)<div class="label">Presión osmótica (Pa o atm)</div></div>
+        <div class="formula-box">\(C\)<div class="label">Concentración molar (mol/L)</div></div>
+        <div class="formula-box">\(R\)<div class="label">0.0821 L·atm/mol·K</div></div>
+        <div class="formula-box">\(T\)<div class="label">Temperatura absoluta (K)</div></div>
+      </div>
+
+      <h3 style="margin-top:1.2rem">Tipos de Soluciones según Tonicidad</h3>
+      <table>
+        <tr><th>Tipo</th><th>Concentración</th><th>Efecto en Glóbulos Rojos</th></tr>
+        <tr><td><strong>Isotónica</strong></td><td>= plasma (~0.9% NaCl)</td><td>Sin cambio de forma</td></tr>
+        <tr><td><strong>Hipotónica</strong></td><td>&lt; plasma</td><td>Hinchazón → hemólisis</td></tr>
+        <tr><td><strong>Hipertónica</strong></td><td>&gt; plasma</td><td>Crenación (arrugamiento)</td></tr>
+      </table>
+
+      <h3 style="margin-top:1.2rem">Aplicaciones</h3>
+      <ul style="padding-left:1.4rem;margin-top:.5rem">
+        <li><strong>Diálisis renal</strong>: remoción de desechos por ósmosis</li>
+        <li><strong>Ósmosis inversa</strong>: desalinización del agua de mar (se aplica presión mayor que \(\pi\))</li>
+        <li><strong>Conservación de alimentos</strong>: salazón y azucarado</li>
+        <li><strong>Turgencia vegetal</strong>: rigidez de células vegetales</li>
+        <li><strong>Determinación de masas molares</strong>: alta sensibilidad para macromoléculas</li>
+      </ul>
+    </div>
+
+    <!-- Gráficos Tema 4 -->
+    <div class="graphs-grid">
+      <div class="graph-card">
+        <img src="g2_presion_osmotica.png" alt="Presión osmótica vs concentración">
+        <p>Gráfico 9 — Presión osmótica π = CRT para diferentes temperaturas. Notar la escala: a 0.3 M ya se alcanzan ~7 atm, equivalente a la presión del plasma sanguíneo.</p>
+      </div>
+      <div class="graph-card" style="background:#f0fff4">
+        <h4 style="color:#15803d;font-size:.9rem;margin-bottom:.75rem">Esquema: Ósmosis Directa vs. Ósmosis Inversa</h4>
+        <svg viewBox="0 0 380 220" style="width:100%;max-height:200px">
+          <!-- Direct osmosis -->
+          <text x="90" y="18" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a4f8a">Ósmosis Directa</text>
+          <!-- Left tube (pure solvent) -->
+          <rect x="30" y="30" width="40" height="130" rx="4" fill="#bfdbfe" stroke="#3b82f6" stroke-width="1.5"/>
+          <!-- Right tube (solution, higher level) -->
+          <rect x="110" y="50" width="40" height="110" rx="4" fill="#a5f3fc" stroke="#0891b2" stroke-width="1.5"/>
+          <!-- membrane -->
+          <rect x="74" y="100" width="8" height="60" rx="2" fill="#fde047" stroke="#ca8a04" stroke-width="1"/>
+          <!-- connecting bottom -->
+          <rect x="30" y="155" width="125" height="15" rx="0" fill="#93c5fd" stroke="#3b82f6" stroke-width="1"/>
+          <!-- labels -->
+          <text x="50" y="95" text-anchor="middle" font-size="9" fill="#1e40af">Solvente</text>
+          <text x="50" y="106" text-anchor="middle" font-size="9" fill="#1e40af">puro</text>
+          <text x="130" y="75" text-anchor="middle" font-size="9" fill="#065f46">Solución</text>
+          <text x="78" y="97" text-anchor="middle" font-size="7" fill="#92400e">membrana</text>
+          <!-- π arrow -->
+          <line x1="155" y1="50" x2="155" y2="160" stroke="#8e44ad" stroke-width="1.5" marker-start="url(#arr)" marker-end="url(#arr)"/>
+          <text x="163" y="108" font-size="9" fill="#8e44ad" font-weight="bold">π</text>
+          <!-- Water flow arrow -->
+          <path d="M 73 135 L 82 135" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#harr)"/>
+          <defs>
+            <marker id="harr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+              <path d="M0,0 L6,3 L0,6" fill="#2563eb"/>
+            </marker>
+          </defs>
+
+          <!-- Reverse osmosis -->
+          <text x="290" y="18" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Ósmosis Inversa</text>
+          <!-- Left tube (pure solvent, lower) -->
+          <rect x="230" y="100" width="40" height="60" rx="4" fill="#bfdbfe" stroke="#3b82f6" stroke-width="1.5"/>
+          <!-- Right tube (solution, pressurized - higher) -->
+          <rect x="310" y="40" width="40" height="120" rx="4" fill="#a5f3fc" stroke="#0891b2" stroke-width="1.5"/>
+          <!-- membrane -->
+          <rect x="274" y="100" width="8" height="60" rx="2" fill="#fde047" stroke="#ca8a04" stroke-width="1"/>
+          <!-- connecting bottom -->
+          <rect x="230" y="155" width="125" height="15" rx="0" fill="#93c5fd" stroke="#3b82f6" stroke-width="1"/>
+          <!-- Pressure arrow from above -->
+          <line x1="330" y1="10" x2="330" y2="38" stroke="#c0392b" stroke-width="2.5" marker-end="url(#parr)"/>
+          <text x="345" y="28" font-size="9" fill="#c0392b" font-weight="bold">&gt;π</text>
+          <defs>
+            <marker id="parr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+              <path d="M0,0 L6,3 L0,6" fill="#c0392b"/>
+            </marker>
+            <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+              <path d="M0,0 L6,3 L0,6" fill="#8e44ad"/>
+            </marker>
+          </defs>
+          <!-- Reverse water flow -->
+          <path d="M 283 135 L 273 135" stroke="#c0392b" stroke-width="2" fill="none" marker-end="url(#rarr)"/>
+          <defs>
+            <marker id="rarr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+              <path d="M0,0 L6,3 L0,6" fill="#c0392b"/>
+            </marker>
+          </defs>
+          <text x="250" y="95" text-anchor="middle" font-size="9" fill="#1e40af">Agua pura</text>
+          <text x="250" y="106" text-anchor="middle" font-size="9" fill="#1e40af">extraída</text>
+          <text x="330" y="95" text-anchor="middle" font-size="9" fill="#065f46">Solución</text>
+          <text x="330" y="106" text-anchor="middle" font-size="9" fill="#065f46">conc.</text>
+        </svg>
+        <p>Esquema comparativo: en la ósmosis directa el solvente fluye hacia la solución más concentrada; en la ósmosis inversa se aplica una presión &gt;π para invertir el flujo (desalinización).</p>
+      </div>
+    </div>
+
+    <!-- Applets Tema 4 -->
+    <div class="applets-grid">
+      <div class="applet-card">
+        <h4>Applet 4A — Calculadora de Presión Osmótica</h4>
+        <canvas id="cv4a" height="230"></canvas>
+        <div class="ctrl">
+          <label>Concentración C (mol/L): <span id="v4a-c">0.5</span></label>
+          <input type="range" id="sl4a-c" min="0" max="5" step="0.05" value="0.5">
+          <label>Temperatura T (°C): <span id="v4a-t">25</span></label>
+          <input type="range" id="sl4a-t" min="0" max="60" step="1" value="25">
+        </div>
+        <div class="out-box" id="out4a">Resultado aquí.</div>
+      </div>
+
+      <div class="applet-card">
+        <h4>Applet 4B — Visualizador de Tonicidad Celular</h4>
+        <canvas id="cv4b" height="230"></canvas>
+        <div class="ctrl">
+          <label>NaCl en solución (%): <span id="v4b-conc">0.9</span></label>
+          <input type="range" id="sl4b-conc" min="0" max="5" step="0.1" value="0.9">
+        </div>
+        <div class="out-box" id="out4b">Observa el cambio en la célula.</div>
+      </div>
+    </div>
+
+    <div class="video-wrap">
+      <video controls preload="metadata">
+        <source src="Ósmosis__El_Flujo_Silencioso.mp4" type="video/mp4">
+      </video>
+      <div class="video-label">▶ Ósmosis: El Flujo Silencioso</div>
+    </div>
+
+    <!-- Questions -->
+    <div class="questions">
+      <h3>Preguntas de Estudio — Tema 4</h3>
+      <ol>
+        <li>Calcula la presión osmótica de una solución 0.150 M de NaCl a 37°C (asumiendo i = 2).</li>
+        <li>Una proteína (MM desconocida) disuelve 1.00 g en 100 mL de agua; la presión osmótica medida a 25°C es 2.50 mmHg. Calcula la masa molar.</li>
+        <li>¿Por qué la ósmosis inversa requiere presiones tan altas para desalinizar agua de mar (~35 g/L de NaCl)?</li>
+        <li>Explica a nivel molecular por qué las células vegetales se vuelven turgentes en agua pura.</li>
+        <li>¿Por qué la presión osmótica es especialmente útil para determinar masas molares de macromoléculas frente a otros métodos coligativos?</li>
+      </ol>
+    </div>
+
+  </div>
+</section>
+
+<!-- ========== TEMA 5: FACTOR DE VAN'T HOFF ========== -->
+<section class="tema" id="tema5">
+  <div class="tema-header">
+    <h2>Tema 5 — Factor de van't Hoff y Electrolitos</h2>
+    <p>Corrección de propiedades coligativas para solutos iónicos</p>
+  </div>
+  <div class="tema-body">
+
+    <div class="card">
+      <h3>Desarrollo Conceptual</h3>
+      <p>Las propiedades coligativas dependen del <strong>número de partículas</strong> en solución. Los electrolitos disocian al disolverse, generando más partículas de las esperadas. El <strong>factor de van't Hoff</strong> \(i\) corrige esto:</p>
+      <div class="math-block">$$i = \frac{\text{partículas reales en solución}}{\text{unidades fórmula disueltas}}$$</div>
+      <p>Las ecuaciones coligativas corregidas son:</p>
+      <div class="math-block">
+        $$\Delta P = i\,x_B\,P_A^* \qquad \Delta T_e = i\,K_e\,m$$
+        $$\Delta T_f = i\,K_f\,m \qquad \pi = i\,C\,R\,T$$
+      </div>
+
+      <h3 style="margin-top:1.2rem">Valores Teóricos de i</h3>
+      <table>
+        <tr><th>Electrolito</th><th>Disociación</th><th>i teórico</th></tr>
+        <tr><td>Glucosa (no electrolito)</td><td>Glucosa → Glucosa</td><td>1</td></tr>
+        <tr><td>NaCl</td><td>Na⁺ + Cl⁻</td><td>2</td></tr>
+        <tr><td>MgCl₂</td><td>Mg²⁺ + 2Cl⁻</td><td>3</td></tr>
+        <tr><td>AlCl₃</td><td>Al³⁺ + 3Cl⁻</td><td>4</td></tr>
+        <tr><td>Na₂SO₄</td><td>2Na⁺ + SO₄²⁻</td><td>3</td></tr>
+        <tr><td>Ca₃(PO₄)₂</td><td>3Ca²⁺ + 2PO₄³⁻</td><td>5</td></tr>
+      </table>
+
+      <h3 style="margin-top:1.2rem">Factor i Real: Grado de Disociación</h3>
+      <p>En soluciones reales (no infinitamente diluidas), la disociación es <em>incompleta</em> (electrolitos débiles) o las interacciones entre iones reducen el número efectivo de partículas libres. El <strong>grado de disociación</strong> \(\alpha\) se relaciona con \(i\):</p>
+      <div class="math-block">$$i = 1 + \alpha\,(n - 1)$$</div>
+      <p>donde \(n\) es el número de iones que daría disociación completa. Para NaCl: \(n = 2\), por lo que \(i = 1 + \alpha\).</p>
+
+      <div class="info-box">
+        <strong>Electrolitos fuertes</strong> (NaCl, HCl, NaOH): disociación ~completa a dilución infinita, \(i \approx n\). A concentraciones finitas, \(i\) es algo menor que \(n\) por efectos iónicos.<br><br>
+        <strong>Electrolitos débiles</strong> (CH₃COOH, NH₃): \(\alpha \ll 1\), \(i \approx 1\) a altas concentraciones.
+      </div>
+    </div>
+
+    <!-- Gráficos Tema 5 -->
+    <div class="graphs-grid">
+      <div class="graph-card">
+        <img src="g2_factor_i_real.png" alt="Factor i experimental vs concentración">
+        <p>Gráfico 10 — Factor i experimental vs. concentración. En dilución infinita i→ν, pero a concentraciones finitas los pares iónicos reducen i. MgSO₄ muestra el mayor apantallamiento por ser 2-2.</p>
+      </div>
+      <div class="card" style="margin:0">
+        <h3>Esquema: Deducción de la Relación i–α</h3>
+        <p>Para un electrolito A<sub>x</sub>B<sub>y</sub> con ν = x+y iones y grado de disociación α:</p>
+        <div class="scheme-row" style="flex-wrap:wrap;gap:.5rem">
+          <div class="scheme-box"><strong>Inicial</strong><br>1 mol A<sub>x</sub>B<sub>y</sub><br><small>(sin disociar)</small></div>
+          <div class="scheme-arrow">→</div>
+          <div class="scheme-box" style="background:#dcfce7">
+            <strong>En solución</strong><br>
+            (1-α) sin disociar<br>
+            + αx mol A<sup>z+</sup><br>
+            + αy mol B<sup>z-</sup>
+          </div>
+          <div class="scheme-arrow">=</div>
+          <div class="scheme-box" style="background:#fef9c3">
+            <strong>Total partículas</strong><br>
+            (1-α) + αx + αy<br>
+            = 1 + α(x+y-1)<br>
+            = <strong>1 + α(ν-1)</strong>
+          </div>
+        </div>
+        <div class="math-block" style="margin-top:.75rem">$$i = \frac{m_{total}}{m} = 1 + \alpha(\nu - 1) \qquad \Rightarrow \qquad \alpha = \frac{i-1}{\nu-1}$$</div>
+      </div>
+    </div>
+
+    <!-- Applets Tema 5 -->
+    <div class="applets-grid">
+      <div class="applet-card">
+        <h4>Applet 5A — Explorador del Factor i</h4>
+        <canvas id="cv5a" height="230"></canvas>
+        <div class="ctrl">
+          <label>Electrolito:</label>
+          <select id="sl5a-elec">
+            <option value="1,1">Glucosa (i=1)</option>
+            <option value="2,2">NaCl (i=2)</option>
+            <option value="3,3">MgCl₂ (i=3)</option>
+            <option value="4,4">AlCl₃ (i=4)</option>
+            <option value="3,3b">Na₂SO₄ (i=3)</option>
+          </select>
+          <label>Molalidad m (mol/kg): <span id="v5a-m">1.0</span></label>
+          <input type="range" id="sl5a-m" min="0" max="5" step="0.1" value="1.0">
+        </div>
+        <div class="out-box" id="out5a">Resultado aquí.</div>
+      </div>
+
+      <div class="applet-card">
+        <h4>Applet 5B — Grado de Disociación α e i</h4>
+        <canvas id="cv5b" height="230"></canvas>
+        <div class="ctrl">
+          <label>Grado de disociación α: <span id="v5b-a">0.80</span></label>
+          <input type="range" id="sl5b-a" min="0" max="1" step="0.01" value="0.80">
+          <label>Iones por fórmula n: <span id="v5b-n">2</span></label>
+          <input type="range" id="sl5b-n" min="2" max="5" step="1" value="2">
+        </div>
+        <div class="out-box" id="out5b">i = 1 + α(n−1)</div>
+      </div>
+    </div>
+
+    <div class="video-wrap">
+      <video controls preload="metadata">
+        <source src="El_Multiplicador_de_Partículas.mp4" type="video/mp4">
+      </video>
+      <div class="video-label">▶ El Multiplicador de Partículas — Factor de van't Hoff</div>
+    </div>
+
+    <!-- Questions -->
+    <div class="questions">
+      <h3>Preguntas de Estudio — Tema 5</h3>
+      <ol>
+        <li>Una solución 0.100 m de MgCl₂ congela a -0.519°C. Calcula el factor i experimental y compáralo con el teórico.</li>
+        <li>El ácido acético (CH₃COOH) en solución 0.10 M tiene una presión osmótica de 2.7 atm a 25°C. Calcula α.</li>
+        <li>¿Por qué i experimental de NaCl es menor que 2 a concentraciones moderadas?</li>
+        <li>Ordena de mayor a menor punto de ebullición: soluciones 0.1 m de glucosa, NaCl, CaCl₂, AlCl₃ (todas en agua).</li>
+        <li>Una proteína con MM = 60,000 g/mol y un electrolito con i = 3 se disuelven ambos a 1 g/L en agua a 37°C. Compara sus presiones osmóticas.</li>
+      </ol>
+    </div>
+
+  </div>
+</section>
+
+<!-- ========== GUÍA DE ESTUDIO ========== -->
+<section id="guia">
+  <div class="guia-header">
+    <h2>Guía de Estudio — Soluciones II: Propiedades Coligativas</h2>
+  </div>
+  <div class="guia-body">
+
+    <div class="guia-section">
+      <h3>I. Conceptos Clave para Dominar</h3>
+      <ol>
+        <li>Definición y significado de propiedad coligativa. ¿Por qué depende del número de partículas y no de su identidad?</li>
+        <li>Ley de Raoult: formulación matemática, condiciones de validez, concepto de solución ideal.</li>
+        <li>Desviaciones positivas y negativas de Raoult: interpretación molecular, ejemplos.</li>
+        <li>Diagrama P–x–y para una mezcla binaria ideal: curvas de burbuja y de rocío.</li>
+        <li>Descenso de presión de vapor: derivación desde Raoult, relación con fracción molar.</li>
+        <li>Ebulloscopia: fórmula, significado de K<sub>e</sub>, derivación termodinámica.</li>
+        <li>Crioscopia: fórmula, significado de K<sub>f</sub>, aplicaciones para determinación de MM.</li>
+        <li>Ósmosis: definición, membrana semipermeable, dirección del flujo.</li>
+        <li>Presión osmótica: ecuación de van't Hoff (π = CRT), unidades, aplicaciones.</li>
+        <li>Tonicidad: isotónica, hipotónica, hipertónica; efectos en células biológicas.</li>
+        <li>Factor de van't Hoff i: definición, valores teóricos para electrolitos comunes.</li>
+        <li>Grado de disociación α: relación i = 1 + α(n−1).</li>
+        <li>Comparación de las cuatro propiedades coligativas: sensibilidades relativas.</li>
+      </ol>
+    </div>
+
+    <div class="guia-section">
+      <h3>II. Problemas de Aplicación Directa</h3>
+      <ol>
+        <li>Mezcla ideal benceno (P° = 95.1 kPa) + tolueno (P° = 28.4 kPa) con x<sub>benceno</sub> = 0.60. Calcula P<sub>total</sub> y composición del vapor.</li>
+        <li>Disuelve 25.0 g de urea (MM = 60 g/mol) en 500 g de agua a 25°C (P°<sub>agua</sub> = 3.17 kPa). Calcula el descenso de presión de vapor.</li>
+        <li>Calcula ΔT<sub>e</sub> y ΔT<sub>f</sub> para una solución de 15.0 g de NaCl (i = 1.9) en 250 g de agua.</li>
+        <li>Una solución de polímero con 5.00 g/L en agua a 25°C tiene π = 0.180 atm. Calcula la masa molar del polímero.</li>
+        <li>Compara la presión osmótica a 37°C de: (a) 9 g/L de NaCl (i=2) y (b) 18 g/L de glucosa (i=1).</li>
+        <li>Una solución 0.200 m de ácido débil HX congela a -0.386°C. Calcula α y Ka aproximada.</li>
+      </ol>
+    </div>
+
+    <div class="guia-section">
+      <h3>III. Problemas Integradores y de Mayor Dificultad</h3>
+      <ol>
+        <li>Una mezcla de A (P° = 120 kPa) y B (P° = 40 kPa) tiene composición de vapor y<sub>A</sub> = 0.70. Determina x<sub>A</sub> en el líquido y P<sub>total</sub>.</li>
+        <li>Demuestra algebraicamente que para una solución ideal binaria siempre se cumple y<sub>A</sub> > x<sub>A</sub> cuando P°<sub>A</sub> > P°<sub>B</sub>.</li>
+        <li>Una solución acuosa de glucosa tiene π = 7.65 atm a 25°C. Calcula: (a) concentración, (b) ΔT<sub>e</sub>, (c) ΔT<sub>f</sub>, (d) descenso P<sub>vapor</sub> a 25°C. Compara la precisión de cada método para determinar MM = 180 g/mol.</li>
+        <li>El agua de mar tiene ~3.5% NaCl y otras sales, con concentración iónica total ~0.6 mol/L. Estima la presión mínima para desalinizar por ósmosis inversa a 25°C.</li>
+        <li>CaCl₂ sólido se usa para fundir hielo. Compara la eficiencia (descenso de T<sub>f</sub> por gramo) de CaCl₂, NaCl y urea. ¿Cuál es más eficiente y cuál más barato de usar?</li>
+        <li>Una solución 0.050 m de Na₂SO₄ tiene ΔT<sub>f</sub> = -0.265°C. Calcula i experimental y α, sabiendo que n = 3.</li>
+      </ol>
+    </div>
+
+    <div class="guia-section">
+      <h3>IV. Preguntas Conceptuales Avanzadas</h3>
+      <ol>
+        <li>¿Por qué el diagrama P–x de una mezcla con azeótropo no puede separarse completamente por destilación?</li>
+        <li>¿Por qué la presión osmótica es el método preferido para determinar masas molares de macromoléculas?</li>
+        <li>Un paciente recibe suero glucosado 5% (50 g/L de glucosa, M=180). ¿Es isotónico con el plasma (π ≈ 7.6 atm a 37°C)? Justifica.</li>
+        <li>¿Cómo afectan las interacciones ión-ión al factor i de un electrolito fuerte concentrado?</li>
+        <li>Las plantas de ambientes salinos (halófitas) sobreviven con π<sub>interno</sub> > π<sub>externo</sub>. Explica el mecanismo y su costo energético.</li>
+        <li>¿Por qué el punto de ebullición del agua a 2800 m de altitud (~73 kPa) es ~91°C? ¿Cómo cambia ΔT<sub>e</sub> a esa altitud si la K<sub>e</sub> no cambia pero T° sí?</li>
+      </ol>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>Soluciones II — Propiedades Coligativas &nbsp;|&nbsp; Química General</p>
+  <p style="margin-top:.3rem"><a href="soluciones.html">← Soluciones I</a></p>
+</footer>
+
+<!-- ============================================================
+     JAVASCRIPT — Todos los applets
+     ============================================================ -->
+<script>
+MathJax = { tex: { inlineMath: [['\\(','\\)'], ['$','$']] }, startup: { typeset: true } };
+
+function resizeCanvas(cv) {
+  const rect = cv.parentElement.getBoundingClientRect();
+  const W = Math.max(200, Math.round(rect.width));
+  if (cv.width !== W) { cv.width = W; cv.height = parseInt(cv.getAttribute('height') || '200'); }
+  return { W: cv.width, H: cv.height };
+}
+
+/* ---- helpers ---- */
+const $ = id => document.getElementById(id);
+function num(id){ return parseFloat($(id).value); }
+function setText(id, txt){ const el=$(id); if(el) el.textContent=txt; }
+
+/* ======================================================
+   APPLET 1A — Diagrama P–x Raoult Ideal
+   ====================================================== */
+(function(){
+  const cv = $('cv1a');
+  const slPA = $('sl1a-pa'), slPB = $('sl1a-pb');
+  const vPA = $('v1a-pa'), vPB = $('v1a-pb');
+  const out = $('out1a');
+
+  function draw(){
+    const {W,H} = resizeCanvas(cv);
+    const ctx = cv.getContext('2d');
+    const PA = parseFloat(slPA.value);
+    const PB = parseFloat(slPB.value);
+    vPA.textContent = PA.toFixed(0);
+    vPB.textContent = PB.toFixed(0);
+
+    ctx.clearRect(0,0,W,H);
+    const pad = {l:48,r:18,t:28,b:42};
+    const cw = W-pad.l-pad.r, ch = H-pad.t-pad.b;
+    const maxP = Math.max(PA,PB)*1.12;
+
+    // axes
+    ctx.strokeStyle='#94a3b8'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(pad.l,pad.t); ctx.lineTo(pad.l,pad.t+ch);
+    ctx.lineTo(pad.l+cw,pad.t+ch); ctx.stroke();
+
+    // labels
+    ctx.fillStyle='#475569'; ctx.font='11px Arial'; ctx.textAlign='center';
+    ctx.fillText('xA (fracción molar)', pad.l+cw/2, H-6);
+    ctx.save(); ctx.translate(13, pad.t+ch/2); ctx.rotate(-Math.PI/2);
+    ctx.fillText('Presión (kPa)', 0, 0); ctx.restore();
+
+    // y ticks
+    ctx.textAlign='right'; ctx.font='10px Arial';
+    for(let p=0; p<=maxP; p+=20){
+      const y = pad.t+ch - (p/maxP)*ch;
+      ctx.fillText(p.toFixed(0), pad.l-4, y+3);
+      ctx.beginPath(); ctx.moveTo(pad.l-3,y); ctx.lineTo(pad.l,y);
+      ctx.strokeStyle='#cbd5e1'; ctx.stroke();
+    }
+    // x ticks
+    ctx.textAlign='center'; ctx.strokeStyle='#cbd5e1';
+    for(let x=0; x<=1; x+=0.2){
+      const px = pad.l + x*cw;
+      ctx.fillText(x.toFixed(1), px, pad.t+ch+14);
+      ctx.beginPath(); ctx.moveTo(px,pad.t+ch); ctx.lineTo(px,pad.t+ch+4); ctx.stroke();
+    }
+
+    function px_(xA){ return pad.l + xA*cw; }
+    function py_(p){ return pad.t + ch - (p/maxP)*ch; }
+
+    // PA line (blue)
+    ctx.beginPath(); ctx.strokeStyle='#3b82f6'; ctx.lineWidth=2;
+    ctx.moveTo(px_(0), py_(0)); ctx.lineTo(px_(1), py_(PA));
+    ctx.stroke();
+
+    // PB line (green)
+    ctx.beginPath(); ctx.strokeStyle='#10b981'; ctx.lineWidth=2;
+    ctx.moveTo(px_(0), py_(PB)); ctx.lineTo(px_(1), py_(0));
+    ctx.stroke();
+
+    // Ptotal line (orange)
+    ctx.beginPath(); ctx.strokeStyle='#f97316'; ctx.lineWidth=2.5;
+    ctx.moveTo(px_(0), py_(PB));
+    ctx.lineTo(px_(1), py_(PA));
+    ctx.stroke();
+
+    // legend
+    const items = [['PA','#3b82f6'],['PB','#10b981'],['Ptotal','#f97316']];
+    items.forEach(([lbl,col],i)=>{
+      ctx.fillStyle=col; ctx.fillRect(W-90+i*0, pad.t+2+i*14, 12, 4);
+      ctx.fillStyle='#333'; ctx.font='9px Arial'; ctx.textAlign='left';
+      ctx.fillText(lbl, W-75+i*0, pad.t+7+i*14);
+    });
+
+    // output
+    const xA = 0.5;
+    const pTot = xA*PA + (1-xA)*PB;
+    const yA = (xA*PA)/pTot;
+    out.innerHTML = `<b>En x<sub>A</sub>=0.5:</b> P<sub>A</sub>=${(xA*PA).toFixed(1)} kPa, P<sub>B</sub>=${((1-xA)*PB).toFixed(1)} kPa, P<sub>total</sub>=${pTot.toFixed(1)} kPa<br>Composición vapor y<sub>A</sub>=${yA.toFixed(3)}`;
+  }
+
+  slPA.addEventListener('input', draw);
+  slPB.addEventListener('input', draw);
+  window.addEventListener('resize', draw);
+  draw();
+})();
+
+/* ======================================================
+   APPLET 1B — Ideal vs Real
+   ====================================================== */
+(function(){
+  const cv = $('cv1b');
+  const slDev = $('sl1b-dev'), slInt = $('sl1b-int');
+  const vInt = $('v1b-int');
+  const out = $('out1b');
+
+  function draw(){
+    const {W,H} = resizeCanvas(cv);
+    const ctx = cv.getContext('2d');
+    const dev = parseInt(slDev.value);
+    const intensity = parseFloat(slInt.value);
+    vInt.textContent = intensity.toFixed(2);
+
+    ctx.clearRect(0,0,W,H);
+    const pad={l:50,r:18,t:28,b:42};
+    const cw=W-pad.l-pad.r, ch=H-pad.t-pad.b;
+    const PA=80, PB=30;
+    const maxP = dev===1 ? (PA*1.25) : PA*1.1;
+
+    // axes
+    ctx.strokeStyle='#94a3b8'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(pad.l,pad.t); ctx.lineTo(pad.l,pad.t+ch);
+    ctx.lineTo(pad.l+cw,pad.t+ch); ctx.stroke();
+
+    ctx.fillStyle='#475569'; ctx.font='10px Arial'; ctx.textAlign='center';
+    ctx.fillText('xA', pad.l+cw/2, H-6);
+    ctx.save(); ctx.translate(13, pad.t+ch/2); ctx.rotate(-Math.PI/2);
+    ctx.fillText('Presión total (kPa)', 0, 0); ctx.restore();
+
+    // y ticks
+    ctx.textAlign='right'; ctx.font='10px Arial';
+    for(let p=0; p<=maxP; p+=20){
+      const y=pad.t+ch-(p/maxP)*ch;
+      ctx.fillText(p.toFixed(0), pad.l-4, y+3);
+    }
+    // x ticks
+    ctx.textAlign='center';
+    for(let x=0; x<=1; x+=0.2){
+      ctx.fillText(x.toFixed(1), pad.l+x*cw, pad.t+ch+14);
+    }
+
+    const N=60;
+    // Ideal (blue)
+    ctx.beginPath(); ctx.strokeStyle='#3b82f6'; ctx.lineWidth=2;
+    for(let k=0;k<=N;k++){
+      const xA=k/N;
+      const p = xA*PA+(1-xA)*PB;
+      const px=pad.l+xA*cw, py=pad.t+ch-(p/maxP)*ch;
+      k===0?ctx.moveTo(px,py):ctx.lineTo(px,py);
+    }
+    ctx.stroke();
+
+    // Real (orange)
+    if(dev!==0){
+      ctx.beginPath(); ctx.strokeStyle='#f97316'; ctx.lineWidth=2;
+      for(let k=0;k<=N;k++){
+        const xA=k/N;
+        const xB=1-xA;
+        const ideal=xA*PA+xB*PB;
+        // excess: dev*(4*xA*xB)*intensity*maxP*0.25
+        const excess=dev*4*xA*xB*intensity*(maxP*0.3);
+        const p=ideal+excess;
+        const px=pad.l+xA*cw, py=pad.t+ch-(p/maxP)*ch;
+        k===0?ctx.moveTo(px,py):ctx.lineTo(px,py);
+      }
+      ctx.stroke();
+    }
+
+    const labels=[['Ideal','#3b82f6'],['Real','#f97316']];
+    labels.forEach(([lbl,col],i)=>{
+      ctx.fillStyle=col; ctx.fillRect(pad.l+4, pad.t+4+i*14, 12, 4);
+      ctx.fillStyle='#333'; ctx.font='9px Arial'; ctx.textAlign='left';
+      ctx.fillText(lbl, pad.l+18, pad.t+8+i*14);
+    });
+
+    const devNames={0:'Ideal (sin desviación)', 1:'Desviación positiva (interacciones A-B débiles)', '-1':'Desviación negativa (interacciones A-B fuertes)'};
+    out.textContent = devNames[dev] + (dev!==0 ? ` | Intensidad: ${intensity.toFixed(2)}` : '');
+  }
+
+  slDev.addEventListener('change', draw);
+  slInt.addEventListener('input', draw);
+  window.addEventListener('resize', draw);
+  draw();
+})();
+
+/* ======================================================
+   APPLET 2A — Descenso de Presión de Vapor
+   ====================================================== */
+(function(){
+  const cv=$('cv2a');
+  const slP0=$('sl2a-p0'), slXb=$('sl2a-xb');
+  const vP0=$('v2a-p0'), vXb=$('v2a-xb');
+  const out=$('out2a');
+
+  function draw(){
+    const {W,H}=resizeCanvas(cv);
+    const ctx=cv.getContext('2d');
+    const P0=parseFloat(slP0.value);
+    const xB=parseFloat(slXb.value);
+    vP0.textContent=P0.toFixed(1);
+    vXb.textContent=xB.toFixed(2);
+
+    const PA=P0*(1-xB);
+    const dP=P0-PA;
+
+    ctx.clearRect(0,0,W,H);
+    const pad={l:20,r:20,t:20,b:20};
+    const bw=W-pad.l-pad.r;
+    const bh=H-pad.t-pad.b;
+
+    // Draw two tall bars side by side
+    const barW=bw*0.3;
+    const gap=bw*0.1;
+    const midX=W/2;
+    const x1=midX-barW-gap/2;
+    const x2=midX+gap/2;
+    const maxH=bh*0.8;
+    const baseY=pad.t+bh*0.85;
+
+    // P0 bar
+    const h0=maxH;
+    ctx.fillStyle='#3b82f6';
+    ctx.fillRect(x1, baseY-h0, barW, h0);
+    ctx.fillStyle='#fff'; ctx.font='11px Arial'; ctx.textAlign='center';
+    ctx.fillText(`P°=${P0.toFixed(1)}`, x1+barW/2, baseY-h0-6);
+    ctx.fillStyle='#1e293b'; ctx.font='10px Arial';
+    ctx.fillText('Solvente puro', x1+barW/2, baseY+14);
+
+    // PA bar
+    const hA=(PA/P0)*maxH;
+    ctx.fillStyle='#10b981';
+    ctx.fillRect(x2, baseY-hA, barW, hA);
+    ctx.fillStyle='#fff'; ctx.font='11px Arial';
+    ctx.fillText(`P=${PA.toFixed(2)}`, x2+barW/2, baseY-hA-6);
+    ctx.fillStyle='#1e293b'; ctx.font='10px Arial';
+    ctx.fillText('Solución', x2+barW/2, baseY+14);
+
+    // ΔP arrow annotation
+    const arrowX=x2+barW+8;
+    ctx.strokeStyle='#e07b39'; ctx.lineWidth=1.5;
+    ctx.beginPath();
+    ctx.moveTo(arrowX, baseY-h0);
+    ctx.lineTo(arrowX, baseY-hA);
+    ctx.stroke();
+    ctx.fillStyle='#e07b39'; ctx.font='bold 11px Arial'; ctx.textAlign='left';
+    ctx.fillText(`ΔP=${dP.toFixed(2)}`, arrowX+4, baseY-(h0+hA)/2);
+
+    out.innerHTML=`P° = ${P0.toFixed(1)} kPa &nbsp;|&nbsp; x<sub>B</sub> = ${xB.toFixed(2)} &nbsp;|&nbsp; <b>P<sub>A</sub> = ${PA.toFixed(2)} kPa</b> &nbsp;|&nbsp; <b>ΔP = ${dP.toFixed(2)} kPa</b> (${(dP/P0*100).toFixed(1)}% descenso)`;
+  }
+
+  slP0.addEventListener('input',draw);
+  slXb.addEventListener('input',draw);
+  window.addEventListener('resize',draw);
+  draw();
+})();
+
+/* ======================================================
+   APPLET 2B — Diagrama de Fases con Soluto
+   ====================================================== */
+(function(){
+  const cv=$('cv2b');
+  const slC=$('sl2b-c');
+  const vC=$('v2b-c');
+  const out=$('out2b');
+
+  function draw(){
+    const {W,H}=resizeCanvas(cv);
+    const ctx=cv.getContext('2d');
+    const c=parseFloat(slC.value);
+    vC.textContent=c.toFixed(1);
+
+    ctx.clearRect(0,0,W,H);
+    const pad={l:52,r:20,t:24,b:38};
+    const cw=W-pad.l-pad.r, ch=H-pad.t-pad.b;
+
+    // Temperature axis: -5 to 115°C
+    const Tmin=-6, Tmax=112;
+    const tRange=Tmax-Tmin;
+    // Pressure axis: 0 to 120 kPa
+    const Pmax=115;
+
+    function tx(T){ return pad.l+(T-Tmin)/tRange*cw; }
+    function py_(P){ return pad.t+ch-(P/Pmax)*ch; }
+
+    // Draw axes
+    ctx.strokeStyle='#94a3b8'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(pad.l,pad.t); ctx.lineTo(pad.l,pad.t+ch);
+    ctx.lineTo(pad.l+cw,pad.t+ch); ctx.stroke();
+
+    ctx.fillStyle='#475569'; ctx.font='10px Arial'; ctx.textAlign='center';
+    ctx.fillText('Temperatura (°C)', pad.l+cw/2, H-4);
+    ctx.save(); ctx.translate(12,pad.t+ch/2); ctx.rotate(-Math.PI/2);
+    ctx.fillText('Presión (kPa)', 0, 0); ctx.restore();
+
+    // y ticks
+    ctx.textAlign='right'; ctx.font='9px Arial';
+    [0,20,40,60,80,100].forEach(p=>{
+      const y=py_(p);
+      ctx.fillText(p, pad.l-3, y+3);
+      ctx.beginPath(); ctx.strokeStyle='#e2e8f0'; ctx.moveTo(pad.l,y); ctx.lineTo(pad.l+cw,y); ctx.stroke();
+    });
+    // x ticks
+    ctx.textAlign='center'; ctx.font='9px Arial'; ctx.strokeStyle='#e2e8f0';
+    [-5,0,20,40,60,80,100,110].forEach(t=>{
+      const x=tx(t);
+      ctx.fillText(t, x, pad.t+ch+14);
+      ctx.beginPath(); ctx.moveTo(x,pad.t); ctx.lineTo(x,pad.t+ch); ctx.stroke();
+    });
+
+    // Ice/solid curve (vertical at ~0°C for pure water, shifts left with solute)
+    // Clausius-Clapeyron for water vapor: P_sat(T) ≈ 101.3 * exp(40700/8.314*(1/373-1/(T+273)))
+    function Psat(T){
+      return 101.3*Math.exp(40700/8.314*(1/373.15-1/(T+273.15)));
+    }
+
+    const Kf=1.86, Ke=0.512;
+    const dTf=Kf*c, dTe=Ke*c;
+    const Tf_sol=0-dTf, Te_sol=100+dTe;
+
+    // Pure water vapor curve
+    ctx.beginPath(); ctx.strokeStyle='#3b82f6'; ctx.lineWidth=2;
+    let first=true;
+    for(let T=-5;T<=108;T+=0.5){
+      const P=Psat(T);
+      if(P<0||P>Pmax) continue;
+      const x=tx(T), y=py_(P);
+      first?(ctx.moveTo(x,y),first=false):ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+
+    // Solution vapor curve (shifted right by dTe)
+    ctx.beginPath(); ctx.strokeStyle='#f97316'; ctx.lineWidth=2;
+    first=true;
+    for(let T=-5+dTf;T<=108+dTe;T+=0.5){
+      const P=Psat(T-dTe); // vapor pressure lowered → shifted right
+      if(P<0||P>Pmax) continue;
+      const x=tx(T), y=py_(P);
+      first?(ctx.moveTo(x,y),first=false):ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+
+    // Atmospheric pressure line
+    ctx.beginPath(); ctx.strokeStyle='#94a3b8'; ctx.lineWidth=1; ctx.setLineDash([4,3]);
+    ctx.moveTo(pad.l, py_(101.3)); ctx.lineTo(pad.l+cw, py_(101.3));
+    ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillStyle='#64748b'; ctx.font='9px Arial'; ctx.textAlign='left';
+    ctx.fillText('P atm', pad.l+2, py_(101.3)-3);
+
+    // Markers at boiling points
+    [0,Te_sol].forEach((T,i)=>{
+      const col=i===0?'#3b82f6':'#f97316';
+      ctx.beginPath(); ctx.arc(tx(T), py_(101.3), 4, 0, 2*Math.PI);
+      ctx.fillStyle=col; ctx.fill();
+    });
+    // Markers at freezing
+    ctx.beginPath(); ctx.arc(tx(0), py_(Psat(0)), 4, 0, 2*Math.PI);
+    ctx.fillStyle='#3b82f6'; ctx.fill();
+    ctx.beginPath(); ctx.arc(tx(Tf_sol), py_(Psat(Tf_sol)), 4, 0, 2*Math.PI);
+    ctx.fillStyle='#f97316'; ctx.fill();
+
+    // Legend
+    [['Agua pura','#3b82f6'],['Solución','#f97316']].forEach(([l,col],i)=>{
+      ctx.fillStyle=col; ctx.fillRect(pad.l+4, pad.t+4+i*14, 12, 4);
+      ctx.fillStyle='#333'; ctx.font='9px Arial'; ctx.textAlign='left';
+      ctx.fillText(l, pad.l+18, pad.t+8+i*14);
+    });
+
+    out.innerHTML=`m≈${c.toFixed(1)} mol/kg &nbsp;|&nbsp; ΔT<sub>e</sub>=+${dTe.toFixed(2)}°C &nbsp;|&nbsp; ΔT<sub>f</sub>=-${dTf.toFixed(2)}°C`;
+  }
+
+  slC.addEventListener('input',draw);
+  window.addEventListener('resize',draw);
+  draw();
+})();
+
+/* ======================================================
+   APPLET 3A — Ebulloscopia / Crioscopia Calculator
+   ====================================================== */
+(function(){
+  const cv=$('cv3a');
+  const slSolv=$('sl3a-solv'), slM=$('sl3a-m');
+  const vM=$('v3a-m');
+  const out=$('out3a');
+
+  const solvents={
+    agua:{Ke:0.512,Kf:1.86,Teb:100,Tf:0},
+    benceno:{Ke:2.53,Kf:5.12,Teb:80.1,Tf:5.5},
+    ciclohexano:{Ke:2.79,Kf:20.0,Teb:80.7,Tf:6.5},
+    etanol:{Ke:1.22,Kf:1.99,Teb:78.4,Tf:-117},
+    alcanfor:{Ke:5.95,Kf:37.7,Teb:204,Tf:178.4}
+  };
+
+  function draw(){
+    const {W,H}=resizeCanvas(cv);
+    const ctx=cv.getContext('2d');
+    const m=parseFloat(slM.value);
+    vM.textContent=m.toFixed(2);
+    const sv=solvents[slSolv.value];
+
+    const dTe=sv.Ke*m;
+    const dTf=sv.Kf*m;
+
+    ctx.clearRect(0,0,W,H);
+
+    const barW=(W-80)/4;
+    const pad=40, baseY=H-40;
+
+    // Reference range for thermometer heights
+    const maxDelta=Math.max(dTe,dTf,1);
+    const scale=(H-pad-60)/maxDelta;
+
+    // Pure boiling
+    ctx.fillStyle='#ef4444';
+    ctx.fillRect(20, baseY, barW, -4);
+    ctx.fillStyle='#1e293b'; ctx.font='10px Arial'; ctx.textAlign='center';
+    ctx.fillText(`Teb=${sv.Teb.toFixed(1)}°C`, 20+barW/2, baseY+16);
+
+    // Solution boiling (higher)
+    const hTe=Math.min(dTe*scale, H-pad-60);
+    ctx.fillStyle='#ef4444';
+    ctx.fillRect(20+barW+10, baseY-hTe, barW, hTe+4);
+    ctx.fillStyle='#fff'; ctx.font='bold 10px Arial';
+    ctx.fillText(`+${dTe.toFixed(3)}`, 20+barW+10+barW/2, baseY-hTe-5);
+    ctx.fillStyle='#1e293b'; ctx.font='10px Arial';
+    ctx.fillText(`${(sv.Teb+dTe).toFixed(2)}°C`, 20+barW+10+barW/2, baseY+16);
+
+    // Pure freezing
+    ctx.fillStyle='#3b82f6';
+    ctx.fillRect(W/2+10, baseY, barW, -4);
+    ctx.fillStyle='#1e293b'; ctx.font='10px Arial';
+    ctx.fillText(`Tf=${sv.Tf.toFixed(1)}°C`, W/2+10+barW/2, baseY+16);
+
+    // Solution freezing (lower → taller downward bar)
+    const hTf=Math.min(dTf*scale, H-pad-60);
+    ctx.fillStyle='#60a5fa';
+    ctx.fillRect(W/2+barW+20, baseY, barW, hTf);
+    ctx.fillStyle='#fff'; ctx.font='bold 10px Arial';
+    ctx.fillText(`-${dTf.toFixed(3)}`, W/2+barW+20+barW/2, baseY+hTf+14);
+    ctx.fillStyle='#1e293b'; ctx.font='10px Arial';
+    ctx.fillText(`${(sv.Tf-dTf).toFixed(2)}°C`, W/2+barW+20+barW/2, baseY+hTf+26);
+
+    // header labels
+    ctx.fillStyle='#475569'; ctx.font='bold 10px Arial'; ctx.textAlign='center';
+    ctx.fillText('Ebullición', 20+barW+10+barW/2-barW/2-5, 18);
+    ctx.fillText('Fusión', W/2+barW+10+barW/2-barW/2, 18);
+
+    out.innerHTML=`K<sub>e</sub>=${sv.Ke}, K<sub>f</sub>=${sv.Kf} &nbsp;|&nbsp; m=${m.toFixed(2)} mol/kg<br><b>ΔT<sub>e</sub>=+${dTe.toFixed(3)}°C → T<sub>eb</sub>=${(sv.Teb+dTe).toFixed(3)}°C</b><br><b>ΔT<sub>f</sub>=-${dTf.toFixed(3)}°C → T<sub>fus</sub>=${(sv.Tf-dTf).toFixed(3)}°C</b>`;
+  }
+
+  slSolv.addEventListener('change',draw);
+  slM.addEventListener('input',draw);
+  window.addEventListener('resize',draw);
+  draw();
+})();
+
+/* ======================================================
+   APPLET 3B — Termómetro Visual Ebulloscopia/Crioscopia
+   ====================================================== */
+(function(){
+  const cv=$('cv3b');
+  const slM=$('sl3b-m'), slSolv=$('sl3b-solv');
+  const vM=$('v3b-m');
+  const out=$('out3b');
+
+  const solvents={
+    agua:{Ke:0.512,Kf:1.86,Teb:100,Tf:0,name:'Agua'},
+    benceno:{Ke:2.53,Kf:5.12,Teb:80.1,Tf:5.5,name:'Benceno'},
+    alcanfor:{Ke:5.95,Kf:37.7,Teb:204,Tf:178.4,name:'Alcanfor'}
+  };
+
+  function draw(){
+    const {W,H}=resizeCanvas(cv);
+    const ctx=cv.getContext('2d');
+    const m=parseFloat(slM.value);
+    vM.textContent=m.toFixed(1);
+    const sv=solvents[slSolv.value];
+    const dTe=sv.Ke*m, dTf=sv.Kf*m;
+
+    ctx.clearRect(0,0,W,H);
+
+    // Draw two thermometers
+    const thW=24, thH=H*0.65;
+    const x1=W*0.25, x2=W*0.65;
+    const baseY=H*0.88;
+    const Tspan=sv.Teb-sv.Tf+dTe+dTf+20;
+    const scale=thH/Tspan;
+
+    function drawThermo(cx, label, Tpure, Tsol, color1, color2){
+      // tube
+      ctx.strokeStyle='#94a3b8'; ctx.lineWidth=2;
+      ctx.beginPath();
+      ctx.roundRect(cx-thW/2, baseY-thH, thW, thH, 4);
+      ctx.stroke();
+
+      // pure level (blue)
+      const hPure=(Tpure-sv.Tf)*scale;
+      ctx.fillStyle=color1+'88';
+      ctx.fillRect(cx-thW/2+2, baseY-hPure, thW-4, hPure);
+
+      // solution additional (orange)
+      const hSol=(Tsol-Tpure)*scale;
+      if(hSol>0){
+        ctx.fillStyle=color2+'cc';
+        ctx.fillRect(cx-thW/2+2, baseY-hPure-hSol, thW-4, hSol);
+      } else {
+        ctx.fillStyle=color2+'cc';
+        ctx.fillRect(cx-thW/2+2, baseY-hPure, thW-4, hSol); // negative height = below
+      }
+
+      // labels
+      ctx.fillStyle='#1e293b'; ctx.font='bold 10px Arial'; ctx.textAlign='center';
+      ctx.fillText(label, cx, baseY+16);
+
+      // tick marks
+      ctx.strokeStyle='#64748b'; ctx.lineWidth=1; ctx.font='8px Arial';
+      const Tmin2=sv.Tf-dTf-2;
+      ctx.textAlign='right';
+      for(let T=Math.ceil(Tmin2/10)*10; T<=sv.Teb+dTe+5; T+=10){
+        const y=baseY-(T-Tmin2)*scale;
+        if(y<baseY-thH-2||y>baseY) continue;
+        ctx.beginPath(); ctx.moveTo(cx+thW/2, y); ctx.lineTo(cx+thW/2+6, y); ctx.stroke();
+        ctx.fillStyle='#475569'; ctx.fillText(T, cx+thW/2+20, y+3);
+      }
+    }
+
+    drawThermo(x1, 'Ebullición', sv.Teb, sv.Teb+dTe, '#ef4444', '#f97316');
+    drawThermo(x2, 'Fusión', sv.Tf, sv.Tf-dTf, '#3b82f6', '#60a5fa');
+
+    // legend
+    ctx.font='9px Arial'; ctx.textAlign='left';
+    [['Puro','#64748b'],['Cambio ΔT','#f97316']].forEach(([l,c],i)=>{
+      ctx.fillStyle=c; ctx.fillRect(4, 4+i*14, 10, 8);
+      ctx.fillStyle='#333'; ctx.fillText(l, 16, 11+i*14);
+    });
+
+    out.innerHTML=`${sv.name} &nbsp;|&nbsp; m=${m.toFixed(1)} mol/kg<br>Teb: ${sv.Teb}→<b>${(sv.Teb+dTe).toFixed(2)}°C</b> (Δ=${dTe.toFixed(2)}°C)<br>Tfus: ${sv.Tf}→<b>${(sv.Tf-dTf).toFixed(2)}°C</b> (Δ=-${dTf.toFixed(2)}°C)`;
+  }
+
+  slM.addEventListener('input',draw);
+  slSolv.addEventListener('change',draw);
+  window.addEventListener('resize',draw);
+  draw();
+})();
+
+/* ======================================================
+   APPLET 4A — Presión Osmótica
+   ====================================================== */
+(function(){
+  const cv=$('cv4a');
+  const slC=$('sl4a-c'), slT=$('sl4a-t');
+  const vC=$('v4a-c'), vT=$('v4a-t');
+  const out=$('out4a');
+
+  function draw(){
+    const {W,H}=resizeCanvas(cv);
+    const ctx=cv.getContext('2d');
+    const C=parseFloat(slC.value);
+    const T_C=parseFloat(slT.value);
+    const T=T_C+273.15;
+    vC.textContent=C.toFixed(2);
+    vT.textContent=T_C.toFixed(0);
+
+    const R=0.082057; // L·atm/mol·K
+    const pi=C*R*T; // atm
+    const pi_kPa=pi*101.325;
+    const pi_mmHg=pi*760;
+
+    ctx.clearRect(0,0,W,H);
+
+    // Draw a U-tube osmometer
+    const midX=W/2;
+    const tubeW=W*0.18;
+    const tubeH=H*0.65;
+    const baseY=H*0.88;
+    const memY=baseY-tubeH*0.15;
+
+    // Left arm (pure solvent)
+    ctx.fillStyle='#bfdbfe';
+    ctx.fillRect(midX-tubeW*1.6, baseY-tubeH*0.5, tubeW, tubeH*0.5);
+    ctx.strokeStyle='#94a3b8'; ctx.lineWidth=2;
+    ctx.strokeRect(midX-tubeW*1.6, baseY-tubeH, tubeW, tubeH);
+
+    // Right arm (solution - higher level due to osmotic pressure)
+    const extraH=Math.min(pi*3, tubeH*0.6);
+    ctx.fillStyle='#a5f3fc88';
+    ctx.fillRect(midX+tubeW*0.6, baseY-tubeH*0.5-extraH, tubeW, tubeH*0.5+extraH);
+    ctx.strokeRect(midX+tubeW*0.6, baseY-tubeH, tubeW, tubeH);
+
+    // Membrane
+    ctx.fillStyle='#fde047';
+    ctx.fillRect(midX-tubeW*0.5, memY, tubeW, 6);
+    ctx.fillStyle='#92400e'; ctx.font='8px Arial'; ctx.textAlign='center';
+    ctx.fillText('membrana', midX, memY+16);
+
+    // labels
+    ctx.fillStyle='#1e293b'; ctx.font='bold 10px Arial';
+    ctx.fillText('Solvente', midX-tubeW*1.1, baseY+16);
+    ctx.fillText('Solución', midX+tubeW*1.1, baseY+16);
+
+    // Arrow for osmotic pressure height
+    if(extraH>4){
+      const ax=midX+tubeW*0.6-16;
+      ctx.strokeStyle='#e07b39'; ctx.lineWidth=1.5;
+      ctx.beginPath();
+      ctx.moveTo(ax, baseY-tubeH*0.5);
+      ctx.lineTo(ax, baseY-tubeH*0.5-extraH);
+      ctx.stroke();
+      ctx.fillStyle='#e07b39'; ctx.font='bold 10px Arial'; ctx.textAlign='right';
+      ctx.fillText(`π`, ax-2, baseY-tubeH*0.5-extraH/2+4);
+    }
+
+    out.innerHTML=`C=${C.toFixed(2)} M, T=${T_C}°C (${T.toFixed(1)}K)<br><b>π = ${pi.toFixed(3)} atm = ${pi_kPa.toFixed(1)} kPa = ${pi_mmHg.toFixed(0)} mmHg</b><br>Equivale a columna de agua de ${(pi*1033.6).toFixed(0)} cm`;
+  }
+
+  slC.addEventListener('input',draw);
+  slT.addEventListener('input',draw);
+  window.addEventListener('resize',draw);
+  draw();
+})();
+
+/* ======================================================
+   APPLET 4B — Tonicidad Celular
+   ====================================================== */
+(function(){
+  const cv=$('cv4b');
+  const slConc=$('sl4b-conc');
+  const vConc=$('v4b-conc');
+  const out=$('out4b');
+
+  function draw(){
+    const {W,H}=resizeCanvas(cv);
+    const ctx=cv.getContext('2d');
+    const conc=parseFloat(slConc.value);
+    vConc.textContent=conc.toFixed(1);
+
+    ctx.clearRect(0,0,W,H);
+
+    // 0.9% = isotonic
+    const type = conc < 0.7 ? 'hypo' : conc > 1.2 ? 'hyper' : 'iso';
+
+    // Cell radii
+    const rBase=Math.min(W,H)*0.28;
+    let rCell, rNucleus;
+    if(type==='hypo'){ // swollen
+      const factor=1+0.4*(0.9-conc)/0.9;
+      rCell=rBase*Math.min(factor,1.5);
+      rNucleus=rBase*0.22;
+    } else if(type==='hyper'){ // shrunken, crenated
+      const factor=1-0.3*(conc-0.9)/4.1;
+      rCell=rBase*Math.max(factor,0.5);
+      rNucleus=rBase*0.22;
+    } else {
+      rCell=rBase; rNucleus=rBase*0.22;
+    }
+
+    const cx=W/2, cy=H*0.48;
+
+    if(type==='hyper'){
+      // Draw crenated (spiky) cell
+      ctx.beginPath();
+      const spikes=12;
+      for(let i=0;i<=spikes*2;i++){
+        const angle=(i/spikes/2)*Math.PI*2;
+        const r = i%2===0 ? rCell : rCell*0.82;
+        const x=cx+Math.cos(angle)*r;
+        const y=cy+Math.sin(angle)*r;
+        i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+      }
+      ctx.closePath();
+      ctx.fillStyle='#fca5a5cc'; ctx.fill();
+      ctx.strokeStyle='#ef4444'; ctx.lineWidth=2; ctx.stroke();
+    } else {
+      ctx.beginPath(); ctx.arc(cx, cy, rCell, 0, 2*Math.PI);
+      const color = type==='hypo'?'#93c5fdcc':'#86efaccc';
+      ctx.fillStyle=color; ctx.fill();
+      ctx.strokeStyle = type==='hypo'?'#3b82f6':'#16a34a';
+      ctx.lineWidth=2; ctx.stroke();
+    }
+
+    // Nucleus
+    ctx.beginPath(); ctx.arc(cx, cy, rNucleus, 0, 2*Math.PI);
+    ctx.fillStyle='#818cf8cc'; ctx.fill();
+    ctx.strokeStyle='#4338ca'; ctx.lineWidth=1.5; ctx.stroke();
+
+    // Water arrows
+    if(type==='hypo'){
+      for(let a=0;a<6;a++){
+        const angle=a/6*Math.PI*2;
+        const x1=cx+Math.cos(angle)*(rCell+14);
+        const y1=cy+Math.sin(angle)*(rCell+14);
+        const x2=cx+Math.cos(angle)*(rCell+2);
+        const y2=cy+Math.sin(angle)*(rCell+2);
+        ctx.beginPath(); ctx.strokeStyle='#2563eb'; ctx.lineWidth=1.5;
+        ctx.moveTo(x1,y1); ctx.lineTo(x2,y2);
+        ctx.stroke();
+        // arrowhead
+        const dx=x2-x1, dy=y2-y1;
+        const len=Math.sqrt(dx*dx+dy*dy);
+        const ux=dx/len, uy=dy/len;
+        ctx.beginPath();
+        ctx.moveTo(x2, y2);
+        ctx.lineTo(x2-ux*5+uy*3, y2-uy*5-ux*3);
+        ctx.lineTo(x2-ux*5-uy*3, y2-uy*5+ux*3);
+        ctx.fillStyle='#2563eb'; ctx.fill();
+      }
+    } else if(type==='hyper'){
+      for(let a=0;a<6;a++){
+        const angle=a/6*Math.PI*2;
+        const x1=cx+Math.cos(angle)*(rCell+2);
+        const y1=cy+Math.sin(angle)*(rCell+2);
+        const x2=cx+Math.cos(angle)*(rCell+14);
+        const y2=cy+Math.sin(angle)*(rCell+14);
+        ctx.beginPath(); ctx.strokeStyle='#dc2626'; ctx.lineWidth=1.5;
+        ctx.moveTo(x1,y1); ctx.lineTo(x2,y2);
+        ctx.stroke();
+        const dx=x2-x1, dy=y2-y1;
+        const len=Math.sqrt(dx*dx+dy*dy);
+        const ux=dx/len, uy=dy/len;
+        ctx.beginPath();
+        ctx.moveTo(x2, y2);
+        ctx.lineTo(x2-ux*5+uy*3, y2-uy*5-ux*3);
+        ctx.lineTo(x2-ux*5-uy*3, y2-uy*5+ux*3);
+        ctx.fillStyle='#dc2626'; ctx.fill();
+      }
+    }
+
+    // Label
+    const names={hypo:'Hipotónica — ¡Cuidado! Puede causar hemólisis',iso:'Isotónica — Normal',hyper:'Hipertónica — Crenación (arrugamiento)'};
+    const colors={hypo:'#1d4ed8',iso:'#15803d',hyper:'#b91c1c'};
+    ctx.fillStyle=colors[type]; ctx.font='bold 11px Arial'; ctx.textAlign='center';
+    ctx.fillText(names[type], cx, H-10);
+    ctx.fillStyle='#475569'; ctx.font='10px Arial';
+    ctx.fillText(`[NaCl] = ${conc.toFixed(1)}% (isotónica = 0.9%)`, cx, H-26);
+
+    out.textContent=`${conc.toFixed(1)}% NaCl → ${names[type]}`;
+  }
+
+  slConc.addEventListener('input',draw);
+  window.addEventListener('resize',draw);
+  draw();
+})();
+
+/* ======================================================
+   APPLET 5A — Factor van't Hoff Explorer
+   ====================================================== */
+(function(){
+  const cv=$('cv5a');
+  const slElec=$('sl5a-elec'), slM=$('sl5a-m');
+  const vM=$('v5a-m');
+  const out=$('out5a');
+
+  const electrolytes={
+    '1,1':{i:1,name:'Glucosa',ions:''},
+    '2,2':{i:2,name:'NaCl',ions:'Na⁺ + Cl⁻'},
+    '3,3':{i:3,name:'MgCl₂',ions:'Mg²⁺ + 2Cl⁻'},
+    '4,4':{i:4,name:'AlCl₃',ions:'Al³⁺ + 3Cl⁻'},
+    '3,3b':{i:3,name:'Na₂SO₄',ions:'2Na⁺ + SO₄²⁻'}
+  };
+
+  const Ke=0.512, Kf=1.86;
+
+  function draw(){
+    const {W,H}=resizeCanvas(cv);
+    const ctx=cv.getContext('2d');
+    const m=parseFloat(slM.value);
+    vM.textContent=m.toFixed(1);
+    const el=electrolytes[slElec.value];
+    const i=el.i;
+
+    const dTe_1=Ke*m;      // without i
+    const dTe_i=i*Ke*m;    // with i
+    const dTf_1=Kf*m;
+    const dTf_i=i*Kf*m;
+
+    ctx.clearRect(0,0,W,H);
+    const pad={l:16,r:16,t:32,b:16};
+    const cw=W-pad.l-pad.r, ch=H-pad.t-pad.b;
+    const barW=cw/5.5;
+    const maxVal=Math.max(dTe_i,dTf_i,0.5)*1.15;
+
+    function barX(n){ return pad.l+n*(barW+10); }
+    function barH(v){ return Math.min((v/maxVal)*ch*0.7, ch*0.75); }
+    const baseY=pad.t+ch*0.82;
+
+    const bars=[
+      {v:dTe_1,label:'ΔTe\n(i=1)',col:'#93c5fd',x:barX(0)},
+      {v:dTe_i,label:`ΔTe\n(i=${i})`,col:'#3b82f6',x:barX(1)},
+      {v:dTf_1,label:'ΔTf\n(i=1)',col:'#6ee7b7',x:barX(2)},
+      {v:dTf_i,label:`ΔTf\n(i=${i})`,col:'#059669',x:barX(3)},
+    ];
+
+    bars.forEach(b=>{
+      const bh=barH(b.v);
+      ctx.fillStyle=b.col;
+      ctx.fillRect(b.x, baseY-bh, barW, bh);
+      ctx.fillStyle='#fff'; ctx.font='bold 10px Arial'; ctx.textAlign='center';
+      ctx.fillText(b.v.toFixed(3), b.x+barW/2, baseY-bh-4);
+      ctx.fillStyle='#475569'; ctx.font='9px Arial';
+      const lines=b.label.split('\n');
+      lines.forEach((l,li)=>ctx.fillText(l, b.x+barW/2, baseY+12+li*11));
+    });
+
+    ctx.fillStyle='#1e293b'; ctx.font='bold 11px Arial'; ctx.textAlign='center';
+    ctx.fillText(`${el.name} (i = ${i})`, W/2, 18);
+    if(el.ions){
+      ctx.fillStyle='#64748b'; ctx.font='9px Arial';
+      ctx.fillText(el.ions, W/2, 30);
+    }
+
+    out.innerHTML=`<b>${el.name}</b>, i=${i}, m=${m.toFixed(1)} mol/kg<br>ΔT<sub>e</sub>=${dTe_i.toFixed(3)}°C &nbsp;|&nbsp; ΔT<sub>f</sub>=-${dTf_i.toFixed(3)}°C<br>Factor i amplifica ${i}× respecto a no-electrolito`;
+  }
+
+  slElec.addEventListener('change',draw);
+  slM.addEventListener('input',draw);
+  window.addEventListener('resize',draw);
+  draw();
+})();
+
+/* ======================================================
+   APPLET 5B — Grado de Disociación α
+   ====================================================== */
+(function(){
+  const cv=$('cv5b');
+  const slA=$('sl5b-a'), slN=$('sl5b-n');
+  const vA=$('v5b-a'), vN=$('v5b-n');
+  const out=$('out5b');
+
+  function draw(){
+    const {W,H}=resizeCanvas(cv);
+    const ctx=cv.getContext('2d');
+    const alpha=parseFloat(slA.value);
+    const n=parseInt(slN.value);
+    vA.textContent=alpha.toFixed(2);
+    vN.textContent=n;
+
+    const i=1+alpha*(n-1);
+
+    ctx.clearRect(0,0,W,H);
+
+    // Draw particle visualization
+    // Left: original formula units (1 mol represented as 20 circles)
+    const totalDots=20;
+    const undissociated=Math.round((1-alpha)*totalDots);
+    const dissociated=totalDots-undissociated;
+    const dotsPerIon=n;
+    const totalParticles=undissociated+dissociated*dotsPerIon;
+
+    const cx=W/2, rowH=24;
+    const startY=40;
+
+    // Draw title
+    ctx.fillStyle='#1e293b'; ctx.font='bold 11px Arial'; ctx.textAlign='center';
+    ctx.fillText(`i = 1 + α(n−1) = 1 + ${alpha.toFixed(2)}×${n-1} = ${i.toFixed(3)}`, cx, 18);
+
+    // Gauge visualization — arc showing i value
+    const gaugeR=Math.min(W,H)*0.28;
+    const gaugeCx=cx, gaugeCy=startY+gaugeR+10;
+    const minI=1, maxI=n;
+
+    ctx.beginPath();
+    ctx.arc(gaugeCx, gaugeCy, gaugeR, Math.PI, 2*Math.PI);
+    ctx.strokeStyle='#e2e8f0'; ctx.lineWidth=16; ctx.lineCap='round';
+    ctx.stroke();
+
+    // Colored arc up to i
+    const angle=Math.PI+(i-minI)/(maxI-minI)*Math.PI;
+    const grad=ctx.createLinearGradient(gaugeCx-gaugeR,gaugeCy,gaugeCx+gaugeR,gaugeCy);
+    grad.addColorStop(0,'#3b82f6');
+    grad.addColorStop(1,'#f97316');
+    ctx.beginPath();
+    ctx.arc(gaugeCx, gaugeCy, gaugeR, Math.PI, angle);
+    ctx.strokeStyle=grad; ctx.lineWidth=16;
+    ctx.stroke();
+
+    // i value text
+    ctx.fillStyle='#1e293b'; ctx.font=`bold ${Math.round(gaugeR*0.4)}px Arial`;
+    ctx.textAlign='center';
+    ctx.fillText(i.toFixed(2), gaugeCx, gaugeCy+8);
+    ctx.font='10px Arial'; ctx.fillStyle='#64748b';
+    ctx.fillText('factor i', gaugeCx, gaugeCy+22);
+
+    // Tick marks
+    ctx.font='9px Arial'; ctx.fillStyle='#475569';
+    [1, (1+n)/2, n].forEach((val,ki)=>{
+      const a=Math.PI+((val-1)/(n-1))*Math.PI;
+      const tx=gaugeCx+Math.cos(a)*(gaugeR+14);
+      const ty=gaugeCy+Math.sin(a)*(gaugeR+14);
+      ctx.fillText(val.toFixed(0), tx, ty);
+    });
+
+    // Bottom labels
+    ctx.fillStyle='#1e293b'; ctx.font='10px Arial'; ctx.textAlign='center';
+    ctx.fillText(`α=${alpha.toFixed(2)} (${(alpha*100).toFixed(0)}% disociado), n=${n} iones/fórmula`, cx, H-10);
+
+    out.innerHTML=`α=${alpha.toFixed(2)}, n=${n} → <b>i = ${i.toFixed(3)}</b><br>Para NaCl (n=2): i = 1+α = ${(1+alpha*(2-1)).toFixed(3)}<br>Disociado ${(alpha*100).toFixed(1)}% → efectivamente ${(totalParticles/totalDots*1).toFixed(2)}× más partículas`;
+  }
+
+  slA.addEventListener('input',draw);
+  slN.addEventListener('input',draw);
+  window.addEventListener('resize',draw);
+  draw();
+})();
+</script>
+</body>
+</html>
